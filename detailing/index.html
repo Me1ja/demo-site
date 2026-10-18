@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Детейлінг, хімчистка й мийка авто</title>
+<meta name="theme-color" content="#0B1624">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F7FA;--card:#FFFFFF;--ink:#0B1624;--ink2:#1E2B3C;--mut:#5F6B7A;--mut2:#94A0AE;--line:#E1E6EC;
+  --ac:#0EA5E9;--ac-d:#0284C7;--ac-l:#E0F4FD;--ok:#16A34A;--dk:#0B1624;--dk2:#132235;
+  --r:18px;--fh:'Sora',system-ui,sans-serif;--fb:'DM Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.55 var(--fb);-webkit-font-smoothing:antialiased;padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+@media(min-width:900px){body{padding-bottom:0}}
+[hidden]{display:none!important}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+h1,h2,h3,h4,p{margin:0}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:6px}
+.w{max-width:1200px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.ic{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.15em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .15s,transform .1s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn-ac{background:var(--ac);color:#fff}.btn-ac:hover{background:var(--ac-d)}
+.btn-dk{background:var(--ink);color:#fff}.btn-dk:hover{background:var(--ink2)}
+.btn-ln{border:1.5px solid var(--line);background:var(--card)}.btn-ln:hover{border-color:var(--ink)}
+.btn-gl{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-gl:hover{background:rgba(255,255,255,.16)}
+.btn-sm{height:40px;padding:0 15px;font-size:14px;border-radius:11px}
+.tag-ph{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#B4570E;border:1px dashed #E39A5C;border-radius:6px;padding:1px 6px;vertical-align:middle}
+
+.ph{position:relative;background:linear-gradient(135deg,#DCE3EA,#EEF2F6);display:grid;place-items:center;overflow:hidden;color:#8D9AA8}
+.ph svg.car{width:58%;max-width:260px;height:auto;opacity:.6}
+.ph .pl{position:absolute;left:12px;bottom:12px;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.88);color:var(--mut);padding:4px 9px;border-radius:999px}
+.ph.dk{background:linear-gradient(135deg,#1A2A3E,#22364E);color:#4C6280}
+.ph.dk .pl{background:rgba(11,22,36,.6);color:#A8B6C6}
+
+.demo-strip{background:var(--ac);color:#fff;font-size:12.5px;font-weight:700;text-align:center;padding:6px 12px}
+
+/* header */
+.hd{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd .w{display:flex;align-items:center;gap:12px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--fh);font-weight:700;font-size:16px;white-space:nowrap}
+.logo i{width:40px;height:40px;border-radius:12px;border:1.5px dashed #AEB9C5;display:grid;place-items:center;font:700 9px var(--fb);color:var(--mut2);font-style:normal}
+.nav{display:none;gap:2px;margin-left:8px}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:600;font-size:15px;color:var(--ink2);padding:8px 11px;border-radius:10px}
+.nav a:hover{background:#E8EDF2}
+.hd-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+.tel{display:none;font-weight:700;text-decoration:none;white-space:nowrap;font-size:15px}
+.adm-link{font-size:12.5px;font-weight:700;padding:9px 11px;border-radius:11px;border:1.5px solid var(--line);text-decoration:none;white-space:nowrap;background:var(--card)}
+@media(min-width:1140px){.nav{display:flex}}
+@media(min-width:1360px){.tel{display:block}}
+@media(max-width:600px){.hd .hbtn{display:none}.logo span{display:none}}
+
+/* hero */
+.hero{background:var(--dk);color:#fff;overflow:hidden;position:relative}
+.hero::before{content:"";position:absolute;width:640px;height:640px;right:-200px;top:-260px;background:radial-gradient(circle,rgba(14,165,233,.35),transparent 65%);pointer-events:none}
+.hero .hw{position:relative;display:grid;gap:28px;padding-top:42px;padding-bottom:40px}
+@media(min-width:920px){.hero .hw{grid-template-columns:1.05fr 1fr;align-items:center;padding-top:68px;padding-bottom:64px}}
+.pill{display:inline-flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:#C9D6E4;border:1px solid #2A3D55;border-radius:999px;padding:5px 12px}
+.pill i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.hero h1{font-family:var(--fh);font-weight:800;font-size:clamp(34px,6.2vw,62px);line-height:1.04;letter-spacing:-.025em;margin:18px 0 16px}
+.hero h1 em{font-style:normal;color:var(--ac)}
+.hero .sub{color:#AFC0D2;font-size:17px;max-width:540px}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.qp{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:26px;max-width:540px}
+@media(min-width:560px){.qp{grid-template-columns:repeat(4,1fr)}}
+.qp button{text-align:left;background:var(--dk2);border:1px solid #23364C;border-radius:14px;padding:11px 12px}
+.qp button:hover{border-color:var(--ac)}
+.qp small{display:block;color:#8FA3B8;font-size:12.5px;font-weight:600}
+.qp b{font-family:var(--fh);font-size:17px}
+.hero .ph{aspect-ratio:5/4;border-radius:22px}
+
+section.s{padding:52px 0}
+@media(min-width:900px){section.s{padding:76px 0}}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.s h2{font-family:var(--fh);font-weight:700;font-size:clamp(26px,4.2vw,42px);line-height:1.1;letter-spacing:-.02em;margin:8px 0 10px}
+.s .lead{color:var(--mut);max-width:640px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+
+/* services */
+.cls{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;gap:2px;flex-wrap:wrap}
+.cls button{padding:8px 13px;border-radius:10px;font-weight:700;font-size:14px;color:var(--mut);display:inline-flex;align-items:center;gap:6px}
+.cls button.on{background:var(--ink);color:#fff}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-top:22px;padding-bottom:2px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{white-space:nowrap;font-weight:700;font-size:14.5px;padding:10px 16px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.tabs button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.svc{display:grid;gap:12px;margin-top:16px}
+@media(min-width:720px){.svc{grid-template-columns:repeat(2,1fr)}}
+.sv{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px}
+.sv .t{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.sv h3{font-size:17px;font-weight:700;line-height:1.3}
+.sv .pr{font-family:var(--fh);font-weight:700;font-size:20px;white-space:nowrap}
+.sv p{color:var(--mut);font-size:14.5px}
+.sv .f{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto}
+.sv .tm{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--mut)}
+.add{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 13px;border-radius:11px;border:1.5px solid var(--line);font-weight:700;font-size:14px}
+.add:hover{border-color:var(--ac);color:var(--ac-d)}
+.add.on{background:var(--ac-l);border-color:var(--ac);color:var(--ac-d)}
+
+/* packages */
+.pk{display:grid;gap:14px;margin-top:26px}
+@media(min-width:860px){.pk{grid-template-columns:repeat(3,1fr)}}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;position:relative}
+.pc.hot{background:var(--dk);color:#fff;border-color:var(--dk)}
+.pc.hot p,.pc.hot li{color:#C2D0DE}
+.pc .lbl{position:absolute;top:-11px;left:22px;background:var(--ac);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}
+.pc h3{font-family:var(--fh);font-size:22px;font-weight:700}
+.pc p{color:var(--mut);font-size:14.5px;margin-top:4px}
+.pc ul{list-style:none;margin:16px 0 18px;padding:0;display:grid;gap:8px;font-size:14.5px}
+.pc li{display:flex;gap:9px}.pc li .ic{color:var(--ac);margin-top:3px}
+.pc .pr{font-family:var(--fh);font-weight:800;font-size:32px;margin-top:auto}
+.pc .old{font-size:14px;color:var(--mut2);text-decoration:line-through;margin-left:8px;font-family:var(--fb);font-weight:600}
+.pc .tm{font-size:13.5px;color:var(--mut2);margin:2px 0 14px}
+
+/* before/after */
+.ba{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;margin-top:26px;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.ba .ph{position:absolute;inset:0}
+.ba .bef{background:linear-gradient(135deg,#6B5A48,#8A7660);color:#4D3F31}
+.ba .bef .pl{left:auto;right:12px}
+.ba .aft{background:linear-gradient(135deg,#DCEBF5,#F2F8FC);clip-path:inset(0 calc(100% - var(--p,50%)) 0 0)}
+.ba .lab{position:absolute;top:14px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;background:rgba(11,22,36,.75);color:#fff;padding:5px 10px;border-radius:999px;z-index:2}
+.ba .lab.l{left:14px}.ba .lab.r{right:14px}
+.ba .bar{position:absolute;top:0;bottom:0;left:var(--p,50%);width:3px;background:#fff;transform:translateX(-50%);z-index:2;pointer-events:none}
+.ba .knob{position:absolute;top:50%;left:var(--p,50%);width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center;color:var(--ink);pointer-events:none}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:4;margin:0}
+.ba-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.ba-tabs button{font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+.ba-tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* booking */
+.bk{display:grid;gap:16px;margin-top:26px}.bk>*{min-width:0}
+@media(min-width:960px){.bk{grid-template-columns:1.35fr 1fr;align-items:start}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px}
+@media(min-width:700px){.box{padding:26px}}
+.step{display:flex;align-items:center;gap:10px;font-family:var(--fh);font-weight:700;font-size:17px;margin:4px 0 12px}
+.step b{width:28px;height:28px;border-radius:9px;background:var(--ink);color:#fff;font-size:13px;display:grid;place-items:center}
+.sep{height:1px;background:var(--line);margin:20px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{position:relative}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:11px;border:1.5px solid var(--line);font-weight:600;font-size:14px;cursor:pointer;background:var(--bg)}
+.chips span em{font-style:normal;color:var(--mut2);font-weight:600;font-size:13px}
+.chips input:checked+span{background:var(--ac-l);border-color:var(--ac);color:var(--ac-d)}
+.chips input:checked+span em{color:var(--ac-d)}
+.chips input:focus-visible+span{outline:2px solid var(--ac);outline-offset:2px}
+.chips.solid input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.days label{position:relative;flex:none}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days span{display:grid;place-items:center;width:68px;height:62px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);cursor:pointer;line-height:1.1}
+.days span small{font-size:10.5px;letter-spacing:.02em;font-weight:700;color:var(--mut);text-transform:uppercase}
+.days span b{font-size:19px}
+.days input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.days input:checked+span small{color:#A9B7C6}
+.days input:focus-visible+span{outline:2px solid var(--ac);outline-offset:2px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px;margin-top:12px}
+.slots label{position:relative}
+.slots input{position:absolute;opacity:0;pointer-events:none}
+.slots span{display:block;text-align:center;padding:9px 0;border-radius:10px;border:1.5px solid var(--line);font-weight:700;font-size:14px;cursor:pointer;background:var(--bg)}
+.slots input:checked+span{background:var(--ac);border-color:var(--ac);color:#fff}
+.slots input:disabled+span{color:#C3CBD4;background:#F1F4F7;text-decoration:line-through;cursor:not-allowed;border-color:#EDF0F3}
+.slots input:focus-visible+span{outline:2px solid var(--ac);outline-offset:2px}
+.slot-note{font-size:13.5px;color:var(--mut);margin-top:10px}
+.fgrid{display:grid;gap:10px}
+@media(min-width:520px){.fgrid{grid-template-columns:1fr 1fr}.fgrid .full{grid-column:1/-1}}
+.fld{display:grid;gap:5px;font-size:13px;font-weight:700;color:var(--mut)}
+.fld input,.fld textarea{width:100%;height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);font:600 15px var(--fb);color:var(--ink);padding:0 13px}
+.fld textarea{height:auto;min-height:72px;padding:11px 13px;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--ac)}
+.sum{position:sticky;top:86px}
+.sum h3{font-family:var(--fh);font-size:19px;margin-bottom:6px}
+.sum .cl{color:var(--mut);font-size:14px;margin-bottom:10px}
+.sum .ln{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.sum .ln span{color:var(--ink2)}
+.sum .ln b{white-space:nowrap}
+.sum .ln button{color:var(--mut2);margin-left:6px;font-size:16px;line-height:1}
+.sum .ln button:hover{color:#DC2626}
+.sum .em{color:var(--mut);font-size:14.5px;padding:14px 0;border-bottom:1px solid var(--line)}
+.sum .tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px}
+.sum .tot b{font-family:var(--fh);font-size:30px}
+.sum .meta{display:grid;gap:6px;margin-top:10px;font-size:14px;color:var(--mut)}
+.sum .meta div{display:flex;gap:8px}.sum .meta .ic{color:var(--ac);margin-top:3px}
+.sum .disc{background:var(--ac-l);color:var(--ac-d);font-weight:700;font-size:13.5px;border-radius:10px;padding:8px 11px;margin-top:12px}
+.hint{font-size:12.5px;color:var(--mut2);margin-top:10px}
+.done{text-align:center;padding:24px 8px}
+.done .q{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;margin:0 auto 14px}
+.done .q .ic{width:30px;height:30px;stroke-width:2.6}
+.done h3{font-family:var(--fh);font-size:24px;margin-bottom:8px}
+.done p{color:var(--mut);max-width:440px;margin:0 auto 18px}
+
+/* why, works, reviews */
+.why{display:grid;gap:12px;margin-top:26px}
+@media(min-width:760px){.why{grid-template-columns:repeat(4,1fr)}}
+.why div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.why .q{width:46px;height:46px;border-radius:13px;background:var(--ac-l);color:var(--ac-d);display:grid;place-items:center;margin-bottom:12px}
+.why b{display:block;font-size:16.5px;margin-bottom:4px}
+.why span{color:var(--mut);font-size:14.5px}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:26px}
+@media(min-width:800px){.gal{grid-template-columns:repeat(4,1fr)}}
+.gal .ph{aspect-ratio:1;border-radius:16px}
+.gal .ph:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.rv{display:grid;gap:12px;margin-top:26px}
+@media(min-width:760px){.rv{grid-template-columns:repeat(3,1fr)}}
+.rv>div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.rv .st{color:#F5A524;letter-spacing:2px;margin-bottom:10px}
+.rv .ln{height:9px;border-radius:5px;background:#EDF1F5;margin:8px 0}
+.rv .who{display:flex;align-items:center;gap:10px;margin-top:16px}
+.rv .av{width:38px;height:38px;border-radius:50%;border:1.5px dashed #B8C3CF}
+.rv .who small{display:block;color:var(--mut2);font-size:12.5px;font-weight:600}
+
+.faq{display:grid;gap:10px;margin-top:26px;max-width:860px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 18px}
+.faq summary{list-style:none;cursor:pointer;padding:17px 30px 17px 0;font-weight:700;font-size:15.5px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:4px;top:50%;width:9px;height:9px;border-right:2px solid var(--ac);border-bottom:2px solid var(--ac);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{color:var(--mut);padding:0 0 17px;font-size:14.5px}
+
+.cont{display:grid;gap:14px;margin-top:26px}
+@media(min-width:900px){.cont{grid-template-columns:1fr 1.4fr}}
+.cont .ph{min-height:320px;border-radius:22px}
+.rowc{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.rowc:last-of-type{border-bottom:0}
+.rowc .ic{color:var(--ac);margin-top:3px}
+.rowc small{display:block;color:var(--mut2);font-size:12.5px;font-weight:700}
+
+.ftr{background:var(--dk);color:#94A6B9;padding:42px 0 28px;font-size:14px;margin-top:20px}
+.ftr .cols{display:grid;gap:24px}
+@media(min-width:800px){.ftr .cols{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.ftr h4{color:#fff;margin:0 0 10px;font-size:15px}
+.ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ftr a{text-decoration:none}.ftr a:hover{color:#fff}
+.ftr .logo{color:#fff}.ftr .logo i{border-color:#3A4F68;color:#6A7F96}
+.ftr .copy{margin-top:26px;padding-top:18px;border-top:1px solid #1E3047;font-size:12.5px;color:#6A7F96;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(245,247,250,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.mbar .btn{height:46px;padding:0 8px;font-size:14px}
+@media(min-width:900px){.mbar{display:none}}
+.mbar .bdg{min-width:20px;height:20px;border-radius:10px;background:#fff;color:var(--ac-d);font-size:12px;display:grid;place-items:center;padding:0 5px}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2000;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:calc(100vw - 32px);text-align:center}
+@media(min-width:900px){.toast{bottom:28px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.2M21 4l-3 16-9-6.8M21 4L9 13.2V19l3-3.3"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M11 3v3"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V12l2-5h10l2 5v4M3 16h18v3H3zM7 12h10"/><circle cx="7.5" cy="16.5" r="1.2"/><circle cx="16.5" cy="16.5" r="1.2"/></symbol>
+  <symbol id="car" viewBox="0 0 260 120"><path d="M20 86 Q18 64 40 60 L78 54 Q100 28 136 26 L170 26 Q198 28 220 56 L238 62 Q248 66 246 86 Z" fill="currentColor"/><path d="M96 54 Q112 36 136 34 H150 V54 Z M160 34 H170 Q190 36 204 54 H160 Z" fill="#fff" opacity=".55"/><circle cx="72" cy="88" r="20" fill="#fff"/><circle cx="72" cy="88" r="12" fill="currentColor"/><circle cx="196" cy="88" r="20" fill="#fff"/><circle cx="196" cy="88" r="12" fill="currentColor"/></symbol>
+</svg>
+
+<div class="demo-strip">Демо-макет · фото, логотип, адреса, контакти й відгуки замінено заглушками, ціни для прикладу</div>
+
+<header class="hd">
+  <div class="w">
+    <a class="logo" href="#top" aria-label="На початок"><i>ЛОГО</i><span>Назва детейлінгу</span></a>
+    <nav class="nav" aria-label="Розділи">
+      <a href="#services">Послуги</a><a href="#packages">Пакети</a><a href="#works">Роботи</a><a href="#book">Запис</a><a href="#faq">Питання</a><a href="#contacts">Контакти</a>
+    </nav>
+    <div class="hd-r">
+      <a class="tel" href="#contacts">+38 (0XX) 000-00-00</a>
+      <a href="#admin" class="adm-link" data-adm>Адмінка (демо)</a>
+      <a class="btn btn-ac btn-sm hbtn" href="#book">Записатися</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="w hw">
+    <div>
+      <span class="pill"><i></i><span id="openTxt">Сьогодні працюємо до 21:00</span></span>
+      <h1>Мийка, хімчистка й&nbsp;детейлінг. <em>Авто як із салону.</em></h1>
+      <p class="sub">Окремі бокси, професійна хімія й майстри з досвідом. Порахуйте вартість під свій клас авто й запишіться на вільний час онлайн.</p>
+      <div class="cta"><a class="btn btn-ac" href="#book">Записатися онлайн</a><a class="btn btn-gl" href="#services">Ціни на послуги</a></div>
+      <div class="qp" id="qp"></div>
+    </div>
+    <div class="ph dk"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Фото авто в боксі</span></div>
+  </div>
+</section>
+
+<section class="s" id="services">
+  <div class="w">
+    <div class="head">
+      <div><div class="kick">Послуги й ціни</div><h2>Прайс без сюрпризів</h2><p class="lead">Оберіть клас авто, і ціни перерахуються. Додайте послуги в запис кнопкою «+».</p></div>
+      <div class="cls" id="clsTop" role="group" aria-label="Клас авто"></div>
+    </div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="svc" id="svc"></div>
+  </div>
+</section>
+
+<section class="s" id="packages" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Пакети</div><h2>Комплекси вигідніше</h2><p class="lead">Найпопулярніші поєднання послуг зі знижкою. Ціна для обраного класу авто.</p>
+    <div class="pk" id="pk"></div>
+  </div>
+</section>
+
+<section class="s" id="works" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="w">
+    <div class="kick">Роботи</div><h2>До й після</h2><p class="lead">Потягніть повзунок, щоб порівняти. Тут будуть ваші реальні фото робіт.</p>
+    <div class="ba-tabs" id="baTabs"></div>
+    <div class="ba" id="ba" style="--p:50%">
+      <div class="ph bef"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl" id="baB">Фото «до»</span></div>
+      <div class="ph aft"><svg class="car" aria-hidden="true" style="color:#7FA6C2"><use href="#car"/></svg><span class="pl" id="baA">Фото «після»</span></div>
+      <span class="lab l">Після</span><span class="lab r">До</span>
+      <div class="bar"></div><div class="knob"><svg class="ic" aria-hidden="true"><use href="#i-arrows"/></svg></div>
+      <input type="range" min="0" max="100" value="50" id="baR" aria-label="Порівняння до й після">
+    </div>
+    <div class="gal">
+      <div class="ph"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Фото роботи</span></div>
+      <div class="ph"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Салон</span></div>
+      <div class="ph"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Полірування</span></div>
+      <div class="ph"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Кераміка</span></div>
+      <div class="ph"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Хімчистка</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="book">
+  <div class="w">
+    <div class="kick">Онлайн-запис</div><h2>Запишіться за хвилину</h2><p class="lead">Оберіть послуги, день і вільний час. Вартість і тривалість порахуються одразу.</p>
+    <div class="bk">
+      <form class="box" id="bform" novalidate>
+        <div class="step"><b>1</b>Клас авто</div>
+        <div class="chips solid" id="clsForm" role="radiogroup" aria-label="Клас авто"></div>
+        <div class="sep"></div>
+        <div class="step"><b>2</b>Послуги</div>
+        <div id="pickList"></div>
+        <div class="sep"></div>
+        <div class="step"><b>3</b>День і час</div>
+        <div class="days" id="days"></div>
+        <div class="slots" id="slots"></div>
+        <p class="slot-note" id="slotNote"></p>
+        <div class="sep"></div>
+        <div class="step"><b>4</b>Контакти</div>
+        <div class="fgrid">
+          <label class="fld" for="f-name">Ім’я<input id="f-name" autocomplete="name" placeholder="Ваше ім’я"></label>
+          <label class="fld" for="f-phone">Телефон<input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+38 (0XX) 000-00-00"></label>
+          <label class="fld full" for="f-car">Марка й модель авто<input id="f-car" placeholder="Напр.: Toyota RAV4, біла"></label>
+          <label class="fld full" for="f-note">Коментар<textarea id="f-note" placeholder="Що турбує: плями, запах, подряпини"></textarea></label>
+          <button class="btn btn-ac full" type="submit" id="submitBtn">Записатися</button>
+        </div>
+        <p class="hint">Демо: запис нікуди не надсилається, його видно в адмін-панелі. На робочому сайті клієнт отримає підтвердження й нагадування за 2 години, а власник сповіщення в Telegram.</p>
+      </form>
+      <aside class="box sum" id="sum" aria-live="polite"></aside>
+    </div>
+  </div>
+</section>
+
+<section class="s" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Чому ми</div><h2>Робимо так, щоб ви повернулися</h2>
+    <div class="why">
+      <div><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></span><b>Безпечна хімія</b><span>pH-нейтральні шампуні, не шкодять лаку й пластику.</span></div>
+      <div><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><b>Гарантія на покриття</b><span>Кераміка й плівка з гарантійним талоном.</span></div>
+      <div><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></span><b>Фото до й після</b><span>Надсилаємо звіт у Telegram, поки ви чекаєте.</span></div>
+      <div><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-coffee"/></svg></span><b>Зона очікування</b><span>Кава, Wi-Fi і вікно в бокс.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="reviews" style="padding-top:0">
+  <div class="w">
+    <div class="head"><div><div class="kick">Відгуки</div><h2>Що кажуть клієнти</h2><p class="lead">Тут автоматично показуватимуться ваші справжні відгуки з Google Карт.</p></div><button class="btn btn-ln btn-sm" data-stub="Відкриються всі відгуки на Google Картах">Усі відгуки в Google</button></div>
+    <div class="rv">
+      <div><div class="st">★★★★★</div><div class="ln" style="width:92%"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:56%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+      <div><div class="st">★★★★★</div><div class="ln" style="width:86%"></div><div class="ln" style="width:94%"></div><div class="ln" style="width:62%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+      <div><div class="st">★★★★★</div><div class="ln" style="width:90%"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:84%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="faq" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="w"><div class="kick">Питання</div><h2>Часті питання</h2><div class="faq" id="faqList"></div></div>
+</section>
+
+<section class="s" id="contacts">
+  <div class="w">
+    <div class="kick">Контакти</div><h2>Як нас знайти</h2>
+    <div class="cont">
+      <div class="box">
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><small>Адреса</small><b>Місто, вулиця, будинок</b> <span class="tag-ph">заглушка</span></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><div><small>Графік</small><b>Щодня 08:00–21:00</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><div><small>Телефон</small><b>+38 (0XX) 000-00-00</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg><div><small>Telegram / Instagram</small><b>@your_telegram · @your_instagram</b></div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><a class="btn btn-ac" href="#book">Записатися</a><button class="btn btn-ln" data-stub="Відкриється маршрут у Google Картах">Прокласти маршрут</button></div>
+      </div>
+      <div class="ph"><svg class="ic" style="width:48px;height:48px;opacity:.5" aria-hidden="true"><use href="#i-pin"/></svg><span class="pl">Google Карта</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="w">
+    <div class="cols">
+      <div><a class="logo" href="#top"><i>ЛОГО</i>Назва детейлінгу</a><p style="margin-top:12px">Мийка, хімчистка салону, полірування, кераміка й захисна плівка.</p></div>
+      <div><h4>Послуги</h4><ul><li><a href="#services" data-tab-go="wash">Мийка</a></li><li><a href="#services" data-tab-go="dry">Хімчистка</a></li><li><a href="#services" data-tab-go="det">Детейлінг</a></li><li><a href="#packages">Пакети</a></li></ul></div>
+      <div><h4>Клієнтам</h4><ul><li><a href="#book">Онлайн-запис</a></li><li><a href="#" data-stub="Подарункові сертифікати будуть у повному сайті">Подарункові сертифікати</a></li><li><a href="#" data-stub="Сторінка для автопарків буде в повному сайті">Для автопарків і таксі</a></li><li><a href="#faq">Питання</a></li></ul></div>
+      <div><h4>Контакти</h4><ul><li>+38 (0XX) 000-00-00</li><li>@your_telegram</li><li>Щодня 08:00–21:00</li></ul></div>
+    </div>
+    <div class="copy"><span>© 2026 Назва детейлінгу. Демо-макет, дані нікуди не передаються.</span><span>Ціни для прикладу, остаточну вартість підтверджує майстер після огляду.</span></div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-ln" href="#contacts"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</a>
+  <a class="btn btn-ln" href="#services">Ціни</a>
+  <a class="btn btn-ac" href="#book">Запис <span class="bdg" id="mCnt" hidden>0</span></a>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toastText"></span></div>
+
+<script>
+(function(){
+  var CLS=[['s','Седан / хетчбек'],['c','Кросовер'],['j','Позашляховик / мінівен']];
+  var CATS=[['wash','Мийка'],['dry','Хімчистка'],['det','Детейлінг'],['add','Додатково']];
+  // id, cat, name, desc, minutes, [s,c,j]
+  var SV=[
+    ['w1','wash','Експрес-мийка кузова','Безконтактна піна, ручне ополіскування, сушка.',30,[350,400,450]],
+    ['w2','wash','Комплексна мийка','Кузов, пилосос салону, пластик, скло всередині й зовні.',60,[650,750,850]],
+    ['w3','wash','Двофазна мийка з воском','Ручна мийка двома відрами, гідрофобний віск.',45,[550,650,750]],
+    ['w4','wash','Мийка двигуна','Делікатна мийка з консервацією підкапотного пластику.',30,[500,500,600]],
+    ['d1','dry','Хімчистка салону повна','Сидіння, стеля, підлога, двері, багажник, пластик.',300,[3500,4200,5000]],
+    ['d2','dry','Хімчистка сидінь','Тканина або екошкіра, сушка й нейтралізація запаху.',120,[1500,1700,2000]],
+    ['d3','dry','Хімчистка стелі','Делікатне очищення без розводів.',60,[800,900,1100]],
+    ['d4','dry','Чистка й догляд за шкірою','Очищення, живлення й захисне просочення.',120,[1800,2100,2500]],
+    ['p1','det','Відновлювальне полірування','Видалення павутинки й дрібних подряпин, глибокий блиск.',480,[6500,7500,8500]],
+    ['p2','det','Керамічне покриття, 2 шари','Захист лаку до 2 років, легше митися.',600,[9000,10500,12000]],
+    ['p3','det','Полірування фар','Повертаємо прозорість, пара фар.',60,[900,900,900]],
+    ['p4','det','Захисна плівка на фари','Від сколів і помутніння, пара фар.',90,[1600,1600,1800]],
+    ['p5','det','Антидощ на скло','Вода скочується вже на 60 км/год.',30,[600,700,800]],
+    ['a1','add','Озонування салону','Прибирає запах тютюну, тварин і вологи.',40,[500,500,500]],
+    ['a2','add','Чорніння шин','Глибокий чорний колір і захист гуми.',10,[150,180,220]],
+    ['a3','add','Очищення бітумних плям','Безпечно для лаку, з нижньої частини кузова.',30,[400,450,500]],
+    ['a4','add','Глибоке очищення дисків','Видалення гальмівного пилу, 4 диски.',30,[400,450,500]]
+  ];
+  var PK=[
+    ['k1','Свіжість','Чистота всередині й зовні за годину-дві.',['w2','a2','a1'],10,false],
+    ['k2','Передпродаж','Щоб авто виглядало дорожче на огляді в покупця.',['w3','d1','p3','w4'],15,true],
+    ['k3','Захист','Блиск і захист лаку на роки.',['w3','p1','p2','p5'],12,false]
+  ];
+  var FAQ=[
+    ['Скільки триває хімчистка?','Повна хімчистка займає 5–6 годин разом із сушкою. Можна залишити авто зранку й забрати ввечері.'],
+    ['Чи можна залишити авто на ніч?','Так, для полірування й кераміки авто залишається в нас 1–2 дні в закритому боксі.'],
+    ['Чи зміниться ціна на місці?','Ціна з прайсу орієнтовна. Якщо авто дуже забруднене або потрібні додаткові роботи, майстер узгодить це з вами до початку.'],
+    ['Яка гарантія на кераміку?','Гарантія до 2 років за умови мийки в нас або за нашими рекомендаціями. Видаємо гарантійний талон.'],
+    ['Як оплатити?','Готівкою, карткою або на рахунок для компаній. Передоплата потрібна тільки для полірування й кераміки.'],
+    ['Чи працюєте з автопарками?','Так, для таксі, оренди й компаній є договір, рахунки й знижка від обсягу.']
+  ];
+  window.__P=SV.map(function(s){return {id:s[0],cat:s[1],name:s[2],desc:s[3],min:s[4],h:s[4],d:s[5][0],pr:s[5]};});
+  window.__L=[
+    [7342,'new','Олексій','+380 67 000 00 21','Сьогодні 16:30 · кросовер','Комплексна мийка, Чорніння шин','930','Сьогодні 10:12'],
+    [7341,'work','Наталія','+380 50 000 00 22','Завтра 09:00 · седан','Хімчистка салону повна','3500','Сьогодні 09:40'],
+    [7340,'ship','ТОВ «Автопарк»','+380 93 000 00 23','Сьогодні 11:00 · 3 авто','Комплексна мийка ×3','2250','Вчора 18:20'],
+    [7339,'done','Роман','+380 63 000 00 24','Вчора 10:00 · позашляховик','Пакет «Захист»','24860','Вчора 08:55'],
+    [7338,'done','Ірина','+380 66 000 00 25','Вчора 14:00 · седан','Полірування фар, Антидощ','1500','16 жовт.'],
+    [7337,'cancel','Віктор','+380 97 000 00 26','16 жовт. 12:00 · кросовер','Озонування салону','500','15 жовт.']
+  ];
+  var S={cls:0,cat:'wash',sel:{},day:0,slot:null,ba:0};
+  function $(s){return document.querySelector(s);}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function uah(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₴';}
+  function dur(m){var h=Math.floor(m/60),r=m%60;return (h?h+' год':'')+(h&&r?' ':'')+(r?r+' хв':'');}
+  function I(n){return '<svg class="ic" aria-hidden="true"><use href="#i-'+n+'"/></svg>';}
+  function sv(id){return SV.filter(function(s){return s[0]===id;})[0];}
+  var tt=null;function toast(m){$('#toastText').textContent=m;$('#toast').hidden=false;clearTimeout(tt);tt=setTimeout(function(){$('#toast').hidden=true;},2600);}
+
+  // quick prices
+  var Q=[['wash','Мийка','w1'],['dry','Хімчистка','d1'],['det','Полірування','p1'],['det','Кераміка','p2']];
+  function renderQ(){$('#qp').innerHTML=Q.map(function(q){return '<button data-tab-go="'+q[0]+'"><small>'+q[1]+'</small><b>від '+uah(sv(q[2])[5][0])+'</b></button>';}).join('');}
+  renderQ();
+
+  function clsBtns(){return CLS.map(function(c,i){return '<button data-cls="'+i+'" class="'+(S.cls===i?'on':'')+'" aria-pressed="'+(S.cls===i)+'">'+I('car')+c[1]+'</button>';}).join('');}
+  function renderSvc(){
+    $('#clsTop').innerHTML=clsBtns();
+    $('#tabs').innerHTML=CATS.map(function(c){return '<button role="tab" aria-selected="'+(S.cat===c[0])+'" class="'+(S.cat===c[0]?'on':'')+'" data-cat="'+c[0]+'">'+c[1]+'</button>';}).join('');
+    $('#svc').innerHTML=SV.filter(function(s){return s[1]===S.cat;}).map(function(s){
+      var on=!!S.sel[s[0]];
+      return '<div class="sv"><div class="t"><h3>'+esc(s[2])+'</h3><span class="pr">'+uah(s[5][S.cls])+'</span></div><p>'+esc(s[3])+'</p><div class="f"><span class="tm">'+I('clock')+dur(s[4])+'</span><button class="add'+(on?' on':'')+'" data-tog="'+s[0]+'" aria-pressed="'+on+'">'+I(on?'check':'plus')+(on?'У записі':'Додати')+'</button></div></div>';
+    }).join('');
+  }
+  function pkPrice(p){var full=p[3].reduce(function(a,id){return a+sv(id)[5][S.cls];},0);return [Math.round(full*(100-p[4])/1000)*10,full,p[3].reduce(function(a,id){return a+sv(id)[4];},0)];}
+  function renderPk(){
+    $('#pk').innerHTML=PK.map(function(p){var pp=pkPrice(p);
+      return '<div class="pc'+(p[5]?' hot':'')+'">'+(p[5]?'<span class="lbl">Хіт сезону</span>':'')+'<h3>'+p[1]+'</h3><p>'+p[2]+'</p><ul>'+p[3].map(function(id){return '<li>'+I('check')+esc(sv(id)[2])+'</li>';}).join('')+'</ul>'
+        +'<div class="pr">'+uah(pp[0])+'<span class="old">'+uah(pp[1])+'</span></div><div class="tm">≈ '+dur(pp[2])+' · знижка '+p[4]+'%</div>'
+        +'<button class="btn '+(p[5]?'btn-ac':'btn-dk')+'" data-pk="'+p[0]+'">Записатися на пакет</button></div>';}).join('');
+  }
+
+  // booking
+  var OPEN=8*60,CLOSE=21*60;
+  var days=[];(function(){var d=new Date();d.setHours(0,0,0,0);var n=['нд','пн','вт','ср','чт','пт','сб'];for(var i=0;i<10;i++){var x=new Date(d);x.setDate(d.getDate()+i);days.push({d:x,lab:i===0?'сьогодні':i===1?'завтра':n[x.getDay()],num:x.getDate(),i:i});}})();
+  function busy(di,t){var k=(di*37+t/30*13)%11;return k<3;} // псевдо-зайнятість боксів
+  function selList(){return Object.keys(S.sel).map(sv).filter(Boolean);}
+  function totals(){
+    var l=selList(),sum=0,min=0;l.forEach(function(s){sum+=s[5][S.cls];min+=s[4];});
+    var disc=0,pkName='';
+    PK.forEach(function(p){if(p[3].length===l.length&&p[3].every(function(id){return S.sel[id];})){disc=p[4];pkName=p[1];}});
+    var fin=disc?Math.round(sum*(100-disc)/1000)*10:sum;
+    return {l:l,sum:sum,fin:fin,min:min,disc:disc,pk:pkName};
+  }
+  function renderPick(){
+    $('#clsForm').innerHTML=CLS.map(function(c,i){return '<label><input type="radio" name="cls" value="'+i+'"'+(S.cls===i?' checked':'')+'><span>'+c[1]+'</span></label>';}).join('');
+    $('#pickList').innerHTML=CATS.map(function(c){return '<div style="margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:var(--mut);margin-bottom:6px">'+c[1]+'</div><div class="chips">'+SV.filter(function(s){return s[1]===c[0];}).map(function(s){return '<label><input type="checkbox" data-pick="'+s[0]+'"'+(S.sel[s[0]]?' checked':'')+'><span>'+esc(s[2])+' <em>'+uah(s[5][S.cls])+'</em></span></label>';}).join('')+'</div></div>';}).join('');
+  }
+  function renderDays(){
+    $('#days').innerHTML=days.map(function(d,i){return '<label><input type="radio" name="day" value="'+i+'"'+(S.day===i?' checked':'')+'><span><small>'+d.lab+'</small><b>'+d.num+'</b></span></label>';}).join('');
+  }
+  function renderSlots(){
+    var t=totals(),min=t.min||30,multi=min>CLOSE-OPEN-60,now=new Date(),nowM=now.getHours()*60+now.getMinutes();
+    var out='',any=false;
+    for(var m=OPEN;m<CLOSE;m+=30){
+      var past=S.day===0&&m<=nowM+30;
+      var fits=multi?m<=OPEN+120:m+min<=CLOSE;
+      if(!fits||past)continue;
+      var dis=past||busy(S.day,m);
+      var lab=String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+      if(!dis)any=true;
+      if(S.slot===lab&&dis)S.slot=null;
+      out+='<label><input type="radio" name="slot" value="'+lab+'"'+(dis?' disabled':'')+(S.slot===lab?' checked':'')+'><span>'+lab+'</span></label>';
+    }
+    $('#slots').innerHTML=out||'';
+    var note='';
+    if(!any)note='На цей день вільного часу немає, оберіть інший день.';
+    else if(multi)note='Робота займе '+dur(min)+', тож авто залишається в нас на '+Math.ceil(min/(CLOSE-OPEN))+(Math.ceil(min/(CLOSE-OPEN))===1?' день':' дні')+'. Приймаємо зранку.';
+    else if(min>=240)note='Робота займе '+dur(min)+'. Можна залишити авто й забрати ввечері.';
+    else note='Закреслений час уже зайнятий.';
+    $('#slotNote').textContent=note;
+  }
+  function renderSum(){
+    var t=totals();
+    var lines=t.l.length?t.l.map(function(s){return '<div class="ln"><span>'+esc(s[2])+'</span><b>'+uah(s[5][S.cls])+'<button type="button" data-rm="'+s[0]+'" aria-label="Прибрати '+esc(s[2])+'">×</button></b></div>';}).join(''):'<div class="em">Оберіть хоча б одну послугу зліва або в прайсі.</div>';
+    var d=days[S.day];
+    $('#sum').innerHTML='<h3>Ваш запис</h3><div class="cl">'+CLS[S.cls][1]+'</div>'+lines
+      +(t.disc?'<div class="disc">Пакет «'+t.pk+'»: знижка '+t.disc+'%, економія '+uah(t.sum-t.fin)+'</div>':'')
+      +'<div class="tot"><span style="font-weight:700">Разом</span><b>'+uah(t.fin)+'</b></div>'
+      +'<div class="meta"><div>'+I('clock')+'Тривалість: '+(t.min?dur(t.min):'—')+'</div><div>'+I('cal')+(S.slot?d.lab+', '+d.d.getDate()+'.'+String(d.d.getMonth()+1).padStart(2,'0')+' о '+S.slot:'Час ще не обрано')+'</div></div>'
+      +'<a class="btn btn-dk" style="width:100%;margin-top:16px" href="#f-name" id="toForm">Перейти до контактів</a>';
+    var n=t.l.length;$('#mCnt').hidden=!n;$('#mCnt').textContent=n;
+  }
+  function all(){renderSvc();renderPk();renderQ();if($('#pickList')){renderPick();renderDays();renderSlots();renderSum();}}
+  if(S.day===0){var nm0=new Date();if(nm0.getHours()*60+nm0.getMinutes()>CLOSE-120)S.day=1;}
+  all();
+
+  // before/after
+  var BA=[['Хімчистка сидіння','Сидіння до хімчистки','Сидіння після'],['Полірування капота','Капот до полірування','Капот після'],['Фари','Фари до','Фари після']];
+  function renderBa(){$('#baTabs').innerHTML=BA.map(function(b,i){return '<button class="'+(S.ba===i?'on':'')+'" data-ba="'+i+'">'+b[0]+'</button>';}).join('');$('#baB').textContent='Фото: '+BA[S.ba][1];$('#baA').textContent='Фото: '+BA[S.ba][2];}
+  renderBa();
+  $('#baR').addEventListener('input',function(e){$('#ba').style.setProperty('--p',e.target.value+'%');});
+
+  $('#faqList').innerHTML=FAQ.map(function(q,i){return '<details'+(i===0?' open':'')+'><summary>'+esc(q[0])+'</summary><p>'+esc(q[1])+'</p></details>';}).join('');
+  var h=new Date().getHours();if(h<8||h>=21)$('#openTxt').textContent='Зараз зачинено, відкриємося о 08:00';
+
+  function tog(id,on){if(on===undefined)on=!S.sel[id];if(on)S.sel[id]=1;else delete S.sel[id];}
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#adm'))return;
+    var t;
+    if((t=e.target.closest('[data-cls]'))){S.cls=+t.dataset.cls;all();return;}
+    if((t=e.target.closest('[data-cat]'))){S.cat=t.dataset.cat;renderSvc();return;}
+    if((t=e.target.closest('[data-tab-go]'))){S.cat=t.dataset.tabGo;renderSvc();if(t.tagName==='BUTTON')document.getElementById('services').scrollIntoView();return;}
+    if((t=e.target.closest('[data-tog]'))){var id=t.dataset.tog,was=!!S.sel[id];tog(id);all();toast(was?'Прибрано із запису':'Додано в запис: '+sv(id)[2]);return;}
+    if((t=e.target.closest('[data-pk]'))){var p=PK.filter(function(x){return x[0]===t.dataset.pk;})[0];S.sel={};p[3].forEach(function(id){S.sel[id]=1;});S.slot=null;all();document.getElementById('book').scrollIntoView();toast('Пакет «'+p[1]+'» додано, оберіть час');return;}
+    if((t=e.target.closest('[data-rm]'))){tog(t.dataset.rm,false);all();return;}
+    if((t=e.target.closest('[data-ba]'))){S.ba=+t.dataset.ba;renderBa();$('#baR').value=50;$('#ba').style.setProperty('--p','50%');return;}
+    if((t=e.target.closest('[data-stub]'))){e.preventDefault();toast('Демо: '+t.dataset.stub.charAt(0).toLowerCase()+t.dataset.stub.slice(1));return;}
+  });
+  document.addEventListener('change',function(e){
+    var t=e.target;
+    if(t.name==='cls'){S.cls=+t.value;all();}
+    else if(t.dataset&&t.dataset.pick){tog(t.dataset.pick,t.checked);renderSvc();renderSlots();renderSum();}
+    else if(t.name==='day'){S.day=+t.value;S.slot=null;renderSlots();renderSum();}
+    else if(t.name==='slot'){S.slot=t.value;renderSum();}
+  });
+  document.addEventListener('submit',function(e){
+    if(e.target.id!=='bform')return;e.preventDefault();
+    var t=totals(),nm=$('#f-name'),ph=$('#f-phone');
+    if(!t.l.length){toast('Оберіть хоча б одну послугу');document.getElementById('pickList').scrollIntoView({block:'center'});return;}
+    if(!S.slot){toast('Оберіть вільний час');document.getElementById('days').scrollIntoView({block:'center'});return;}
+    if(!nm.value.trim()){nm.focus();toast('Вкажіть ім’я');return;}
+    if(ph.value.replace(/\D/g,'').length<10){ph.focus();toast('Вкажіть телефон повністю');return;}
+    var d=days[S.day],num=7343+window.__L.length-6;
+    var when=(d.i===0?'Сьогодні':d.i===1?'Завтра':d.lab+' '+d.num)+' '+S.slot+' · '+CLS[S.cls][1].split(' ')[0].toLowerCase();
+    window.__L.unshift([num,'new',nm.value.trim(),ph.value.trim(),when,t.pk?'Пакет «'+t.pk+'»':t.l.map(function(s){return s[2];}).join(', '),String(t.fin),'Щойно']);
+    e.target.innerHTML='<div class="done"><div class="q">'+I('check')+'</div><h3>Запис №'+num+' підтверджено</h3><p>'+esc(nm.value.trim())+', чекаємо вас '+esc(d.lab)+' о '+S.slot+'. Орієнтовно '+uah(t.fin)+', триватиме '+dur(t.min)+'. На робочому сайті прийде підтвердження й нагадування.</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a class="btn btn-ac" href="#admin" data-adm>Подивитися в адмінці</a><button class="btn btn-ln" type="button" onclick="location.reload()">Новий запис</button></div></div>';
+    $('#sum').hidden=true;e.target.scrollIntoView({block:'start'});
+  });
+})();
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+#adm{display:none;position:fixed;inset:0;z-index:1000;background:#EDEDED;font:13px/1.45 'Open Sans',Arial,sans-serif;color:#333;overflow:hidden}
+#adm.on{display:flex}
+#adm *{box-sizing:border-box}
+#adm a{color:inherit;text-decoration:none;cursor:pointer}
+.a-side{width:230px;background:#242D37;color:#c9d1da;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.a-logo{padding:18px 20px;color:#fff;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center}
+.a-logo i{width:26px;height:26px;border-radius:8px;background:#2563EB;display:inline-block}
+.a-user{padding:0 20px 14px;font-size:12px;color:#8a97a6}
+.a-menu a{display:flex;gap:10px;align-items:center;padding:10px 20px;color:#c9d1da;border-left:3px solid transparent}
+.a-menu a:hover{background:#2c3743;color:#fff}
+.a-menu a.on{background:#2c3743;color:#fff;border-left-color:#1E91CF}
+.a-menu b{width:8px;height:8px;border-radius:3px;background:#4A90E2;flex-shrink:0}
+.a-sub{padding:2px 0 6px}.a-sub a{padding:6px 20px 6px 51px;font-size:12.5px;color:#8a97a6}
+.a-stat{margin:14px 16px;padding:12px;border-radius:14px;background:#2c3743;font-size:12px}
+.a-stat div{display:flex;justify-content:space-between;padding:3px 0}
+.a-stat span{display:block;height:5px;border-radius:3px;background:#1b222a;margin-top:2px}
+.a-stat span i{display:block;height:100%;border-radius:3px;background:#1E91CF}
+.a-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.a-top{height:54px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:12px;flex-shrink:0}
+.a-top .burger{display:none;cursor:pointer;font-size:20px}
+.a-top a{color:#2563EB!important;font-weight:600}
+.a-body{flex:1;overflow-y:auto;padding:22px}
+.a-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.a-h h1{margin:0;font-size:22px;font-weight:600}
+.a-bc{font-size:12px;color:#8a97a6}
+.a-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.a-tile{background:#fff;border-radius:20px;padding:18px 20px}
+.a-tile small{color:#8a97a6;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
+.a-tile strong{display:block;font-size:28px;font-weight:700;margin-top:4px}
+.a-tile em{font-style:normal;font-size:12px;color:#16a34a}
+.a-panel{background:#fff;border-radius:20px;padding:20px;margin-bottom:18px}
+.a-panel h2{margin:0 0 12px;font-size:15px;font-weight:600}
+.a-cols{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.a-chart{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px}
+.a-chart div{flex:1;background:#4A90E2;border-radius:8px 8px 0 0;position:relative;min-height:6px}
+.a-chart div span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:#8a97a6}
+.a-tbl{width:100%;border-collapse:collapse}
+.a-tbl th{text-align:left;font-weight:600;color:#6b7785;padding:9px 10px;border-bottom:1px solid #E9ECEF;font-size:12px;white-space:nowrap}
+.a-tbl td{padding:10px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.a-tbl tr:hover td{background:#fafcfe}
+.a-wrap{overflow-x:auto}
+.a-btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:9px 16px;background:#2563EB;color:#fff!important;font:600 13px 'Open Sans',sans-serif;cursor:pointer}
+.a-btn.g{background:#F1F5F9;color:#333!important}
+.a-btn.s{padding:6px 11px;border-radius:10px;font-size:12px}
+.a-in{width:100%;background:#F1F5F9;border:1px solid transparent;border-radius:12px;padding:10px 13px;font:13px 'Open Sans',sans-serif;color:#333}
+.a-in:focus{outline:0;border-color:#1E91CF;background:#fff}
+textarea.a-in{min-height:110px;resize:vertical}
+.a-fl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.a-fl .a-in{width:auto;min-width:150px;flex:1}
+.a-tabs{display:flex;gap:4px;border-bottom:1px solid #E9ECEF;margin-bottom:18px;flex-wrap:wrap}
+.a-tabs a{padding:9px 16px;border-radius:12px 12px 0 0;color:#6b7785}
+.a-tabs a.on{background:#F1F5F9;color:#2563EB;font-weight:600}
+.a-row{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+.a-row label{padding-top:10px;font-weight:600;color:#555}
+.a-st{display:inline-block;border-radius:8px;padding:3px 10px;font-size:12px;font-weight:600}
+.a-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:600}
+.o-card{display:flex;background:#fff;border-radius:16px;margin-bottom:10px;overflow:hidden;align-items:stretch}
+.o-card>i{width:6px;flex-shrink:0}
+.o-card>div{flex:1;padding:12px 16px;display:grid;grid-template-columns:90px 1.4fr 1.6fr 100px 170px;gap:12px;align-items:center}
+.o-card small{color:#8a97a6;display:block}
+@media(max-width:800px){
+.a-side{position:absolute;left:-240px;top:0;bottom:0;z-index:5;transition:left .2s}
+#adm.menu .a-side{left:0}
+.a-top .burger{display:block}
+.a-cols{grid-template-columns:1fr}
+.a-row{grid-template-columns:1fr;gap:4px}.a-row label{padding-top:0}
+.o-card>div{grid-template-columns:1fr 1fr}
+.a-body{padding:14px}
+}
+.fa-link{cursor:pointer}
+</style>
+
+<div id="adm" aria-label="Адмін-панель (демо)">
+<aside class="a-side">
+<div class="a-logo"><i></i>Назва детейлінгу</div>
+<div class="a-user">Адміністратор · демо</div>
+<nav class="a-menu" id="aMenu"></nav>
+<div class="a-stat">
+<div><span>Завантаження боксів</span><b>74%</b></div><span><i style="width:74%"></i></span>
+<div><span>Заявки</span><b>52%</b></div><span><i style="width:52%"></i></span>
+<div><span>Клієнти</span><b>31%</b></div><span><i style="width:31%"></i></span>
+</div>
+</aside>
+<div class="a-main">
+<div class="a-top"><span class="burger" data-a="burger">☰</span><span class="a-bc" id="aBc">Панель керування</span><a data-a="exit">← Перейти на сайт</a></div>
+<div class="a-body" id="aBody"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var P = window.__P || [];
+  var adm = document.getElementById('adm');
+  var A = {v:'dash', pid:null, tab:'g', q:'', st:''};
+  var STAT = {
+    new:['Нове','#DBEAFE','#1D4ED8','#2563EB'],
+    work:['Підтверджено','#FEF3C7','#B45309','#F59E0B'],
+    ship:['В роботі','#E0F2FE','#0369A1','#1E91CF'],
+    done:['Виконано','#DCFCE7','#15803D','#16A34A'],
+    cancel:['Скасовано','#F1F5F9','#64748B','#94A3B8']
+  };
+  var ORD = window.__L;
+  var MENU = [
+    ['dash','Панель керування'],
+    ['cat','Каталог',[['prod','Послуги'],['cats','Категорії'],['attr','Пакети']]],
+    ['ord','Записи'],
+    ['cust','Клієнти',[['cust','Список клієнтів'],['om','Менеджер заявок']]],
+    ['blog','Блог'],
+    ['mk','Маркетинг',[['mk','Купони'],['om','Менеджер заявок']]],
+    ['ext','Розширення',[['ext','Модулі'],['om','Менеджер заявок'],['sms','SMS-Fly Order']]],
+    ['set','Налаштування']
+  ];
+  function $(s){return document.querySelector(s)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function money(n){return Number(n).toLocaleString('uk-UA')+' ₴'}
+  function st(k){var s=STAT[k];return '<span class="a-st" style="background:'+s[1]+';color:'+s[2]+'">'+s[0]+'</span>'}
+  function toast(t){var el=document.getElementById('toast'),tx=document.getElementById('toastText');if(!el||!tx)return;tx.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){el.hidden=true},2200)}
+
+  function menu(){
+    var h='';
+    MENU.forEach(function(m){
+      var on = A.v===m[0] || (m[0]==='cat'&&(A.v==='prod'||A.v==='pedit'||A.v==='cats'||A.v==='attr')) || (m[2]&&A.sec===m[0]);
+      h+='<a data-a="nav" data-v="'+m[0]+'" class="'+(on?'on':'')+'"><b></b>'+m[1]+'</a>';
+      if(m[2]&&on){h+='<div class="a-sub">';m[2].forEach(function(s){h+='<a data-a="nav" data-v="'+s[0]+'" data-sec="'+m[0]+'">'+s[1]+'</a>'});h+='</div>'}
+    });
+    $('#aMenu').innerHTML=h;
+  }
+
+  function dash(){
+    var bars=[40,55,35,70,60,85,95], days=['пн','вт','ср','чт','пт','сб','нд'];
+    var ch=bars.map(function(b,i){return '<div style="height:'+b+'%"><span>'+days[i]+'</span></div>'}).join('');
+    var rows=ORD.slice(0,5).map(function(o){return '<tr class="fa-link" data-a="ord-open"><td>#'+o[0]+'</td><td>'+esc(o[2])+'</td><td>'+st(o[1])+'</td><td>'+o[7]+'</td><td>'+money(o[6])+'</td></tr>'}).join('');
+    return '<div class="a-h"><h1>Панель керування</h1></div>'+
+    '<div class="a-tiles">'+
+    '<div class="a-tile"><small>Записи сьогодні</small><strong>18</strong><em>ще 4 вільні вікна</em></div>'+
+    '<div class="a-tile"><small>Виручка за тиждень</small><strong>96 300 ₴</strong><em>▲ 14%</em></div>'+
+    '<div class="a-tile"><small>Повторні клієнти</small><strong>41%</strong><em>▲ 6% за місяць</em></div>'+
+    '<div class="a-tile"><small>Бокси зараз</small><strong>3 з 4</strong><em>зайняті</em></div></div>'+
+    '<div class="a-cols"><div class="a-panel"><h2>Записи за тиждень</h2><div class="a-chart">'+ch+'</div><div style="height:20px"></div></div>'+
+    '<div class="a-panel"><h2>Остання активність</h2><div style="line-height:2">Нова заявка #'+ORD[0][0]+'<br>Бокс 2: хімчистка, готовність 17:30<br>Нагадування надіслано 6 клієнтам<br>Новий відгук у Google: 5★</div></div></div>'+
+    '<div class="a-panel"><h2>Останні записи</h2><div class="a-wrap"><table class="a-tbl"><tr><th>№</th><th>Клієнт</th><th>Статус</th><th>Дата</th><th>Сума</th></tr>'+rows+'</table></div></div>';
+  }
+
+  function dur(p){var h=Math.floor(p.min/60),r=p.min%60;return (h?h+' год ':'')+(r?r+' хв':'')}
+  function prodList(){
+    var q=A.q.toLowerCase();
+    var rows=P.filter(function(p){return !q||p.name.toLowerCase().indexOf(q)>-1}).map(function(p,i){
+      var busy=p.cat==='det';
+      var stt=p.cat==='acc'?'<span class="a-badge" style="background:#F1F5F9;color:#64748B">послуга</span>':(busy?'<span class="a-badge" style="background:#FEF3C7;color:#B45309">з передоплатою</span>':'<span class="a-badge" style="background:#DCFCE7;color:#15803D">онлайн-запис</span>');
+      return '<tr><td><input type="checkbox"></td><td><div style="width:40px;height:40px;border-radius:10px;background:#F1F5F9;display:grid;place-items:center;color:#4A90E2;font-weight:700">'+(p.cat==='acc'?'◇':'▮')+'</div></td><td><b>'+esc(p.name)+'</b></td><td>'+esc(p.id.toUpperCase())+'</td><td>'+dur(p)+'</td><td>'+money(p.d)+'</td><td>'+stt+'</td><td><a class="a-btn s" data-a="pedit" data-id="'+p.id+'">Змінити</a></td></tr>';
+    }).join('');
+    return '<div class="a-h"><h1>Послуги</h1><a class="a-btn" data-a="pnew">+ Додати послугу</a></div>'+
+    '<div class="a-panel"><div class="a-fl"><input class="a-in" id="aq" placeholder="Назва" value="'+esc(A.q)+'"><select class="a-in"><option>Усі категорії</option><option>Мийка</option><option>Хімчистка</option><option>Детейлінг</option></select><a class="a-btn" data-a="pfilter">Фільтр</a></div>'+
+    '<div class="a-wrap"><table class="a-tbl"><tr><th></th><th>Фото</th><th>Назва</th><th>Код</th><th>Тривалість</th><th>Седан, від</th><th>Статус</th><th></th></tr>'+rows+'</table></div></div>';
+  }
+
+  function prodEdit(){
+    var p=P.filter(function(x){return x.id===A.pid})[0]||{name:'',desc:'',id:'',h:'',d:'',cat:'city'};
+    var T=[['g','Загальне'],['d','Ціни за класом'],['l','Тривалість'],['i','Фото до/після'],['s','SEO']];
+    var tabs='<div class="a-tabs">'+T.map(function(t){return '<a data-a="ptab" data-t="'+t[0]+'" class="'+(A.tab===t[0]?'on':'')+'">'+t[1]+'</a>'}).join('')+'</div>';
+    var body='';
+    if(A.tab==='g') body='<div class="a-row"><label>Назва</label><input class="a-in" value="'+esc(p.name)+'"></div><div class="a-row"><label>Опис</label><textarea class="a-in">'+esc(p.desc||'')+'</textarea></div><div class="a-row"><label>Meta title</label><input class="a-in" value="'+esc(p.name)+' — ціна й онлайн-запис"></div>';
+    else if(A.tab==='d') body='<div class="a-row"><label>Код</label><input class="a-in" value="'+esc((p.id||'').toUpperCase())+'"></div><div class="a-row"><label>Кросовер, ₴</label><input class="a-in" value="'+esc(p.pr?p.pr[1]:'')+'"></div><div class="a-row"><label>Седан, ₴</label><input class="a-in" value="'+esc(p.d)+'"></div><div class="a-row"><label>Позашляховик, ₴</label><input class="a-in" value="'+esc(p.pr?p.pr[2]:'')+'"></div><div class="a-row"><label>Статус</label><select class="a-in"><option>Увімкнено</option><option>Вимкнено</option></select></div>';
+    else if(A.tab==='l') body='<div class="a-row"><label>Категорія</label><input class="a-in" value="'+esc(({wash:'Мийка',dry:'Хімчистка',det:'Детейлінг',add:'Додатково'})[p.cat]||'')+'"></div><div class="a-row"><label>Тривалість, хв</label><input class="a-in" value="'+esc(p.min||'')+'"></div><div class="a-row"><label>Бокс</label><select class="a-in"><option>Будь-який</option><option>Бокс полірування</option><option>Бокс хімчистки</option></select></div>';
+    else if(A.tab==='i') body='<div class="a-row"><label>Головне фото</label><div style="width:120px;height:120px;border-radius:16px;background:#F1F5F9;display:grid;place-items:center;color:#8a97a6">Фото</div></div>';
+    else body='<div class="a-row"><label>SEO URL</label><input class="a-in" value="'+esc((p.id||'')+'-cina')+'"></div>';
+    return '<div class="a-h"><h1>'+(p.name?'Змінити послугу':'Нова послуга')+'</h1><div><a class="a-btn" data-a="psave">Зберегти</a> <a class="a-btn g" data-a="nav" data-v="prod">Скасувати</a></div></div><div class="a-panel">'+tabs+body+'</div>';
+  }
+
+  function ordList(t){
+    var f=A.st;
+    var btns='<a class="a-btn s '+(f?'g':'')+'" data-a="ofilt" data-s="">Усі ('+ORD.length+')</a> '+Object.keys(STAT).map(function(k){return '<a class="a-btn s '+(f===k?'':'g')+'" data-a="ofilt" data-s="'+k+'">'+STAT[k][0]+'</a>'}).join(' ');
+    var cards=ORD.filter(function(o){return !f||o[1]===f}).map(function(o){
+      var opts=Object.keys(STAT).map(function(k){return '<option value="'+k+'"'+(k===o[1]?' selected':'')+'>'+STAT[k][0]+'</option>'}).join('');
+      return '<div class="o-card"><i style="background:'+STAT[o[1]][3]+'"></i><div><span><b>#'+o[0]+'</b><small>'+o[7]+'</small></span><span><b>'+esc(o[2])+'</b><small>'+esc(o[3])+'</small></span><span>'+esc(o[5])+'<small>'+esc(o[4])+'</small></span><b>'+money(o[6])+'</b><select class="a-in" data-a="ostat" data-n="'+o[0]+'">'+opts+'</select></div></div>';
+    }).join('');
+    return '<div class="a-h"><h1>'+(t||'Заявки')+'</h1></div><div class="a-fl">'+btns+'</div>'+cards;
+  }
+
+  function stub(t){return '<div class="a-h"><h1>'+t+'</h1></div><div class="a-panel" style="color:#8a97a6">Розділ у демо не заповнено. У робочому магазині тут буде повний функціонал.</div>'}
+
+  function render(){
+    var v=A.v, h;
+    var names={dash:'Панель керування',prod:'Послуги',pedit:'Послуги',ord:'Записи',om:'Менеджер заявок',sms:'SMS-Fly Order'};
+    if(v==='dash')h=dash();else if(v==='prod')h=prodList();else if(v==='pedit')h=prodEdit();else if(v==='ord')h=ordList();
+    else if(v==='om')h=ordList('Менеджер заявок');
+    else if(v==='sms')h=stub('SMS-Fly Order');
+    else h=stub(({cats:'Категорії',attr:'Пакети',cust:'Клієнти',blog:'Блог',mk:'Маркетинг',ext:'Розширення',set:'Налаштування',cat:'Каталог'})[v]||'Розділ');
+    $('#aBody').innerHTML=h;
+    $('#aBc').textContent=(names[v]||'Розділ');
+    menu();
+  }
+  function open(){adm.classList.add('on');document.documentElement.style.overflow='hidden';render()}
+  function close(){adm.classList.remove('on','menu');document.documentElement.style.overflow=''}
+
+  document.addEventListener('click',function(e){
+    var o=e.target.closest('[data-adm]');
+    if(o){e.preventDefault();open();return}
+    var el=e.target.closest('#adm [data-a]');
+    if(!el)return;
+    var a=el.getAttribute('data-a');
+    if(a==='exit')close();
+    else if(a==='burger')adm.classList.toggle('menu');
+    else if(a==='nav'){A.v=el.getAttribute('data-v');if(A.v==='cat')A.v='prod';A.sec=el.getAttribute('data-sec')||(['cust','mk','ext'].indexOf(A.v)>-1?A.v:(A.v==='om'?A.sec:null));adm.classList.remove('menu');render()}
+    else if(a==='pedit'){A.pid=el.getAttribute('data-id');A.tab='g';A.v='pedit';render()}
+    else if(a==='pnew'){A.pid=null;A.tab='g';A.v='pedit';render()}
+    else if(a==='ptab'){A.tab=el.getAttribute('data-t');render()}
+    else if(a==='psave'){toast('Збережено (демо)');A.v='prod';render()}
+    else if(a==='pfilter'){A.q=$('#aq').value;render()}
+    else if(a==='ofilt'){A.st=el.getAttribute('data-s');render()}
+    else if(a==='ord-open'){A.v='ord';render()}
+  });
+  document.addEventListener('change',function(e){
+    var el=e.target.closest('#adm [data-a="ostat"]');
+    if(!el)return;
+    var n=+el.getAttribute('data-n');
+    ORD.forEach(function(o){if(o[0]===n)o[1]=el.value});
+    toast('Статус змінено (демо)');render();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='aq'){A.q=e.target.value;render()}});
+  if(location.hash==='#admin')open();
+})();
+</script>
+
+</body></html>
