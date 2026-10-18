@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RideGo Прокат самокатів</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+/* Layout: classic OpenCart storefront matched to the owner's existing shop (promo bar, service line, header with search and phone, sticky navy bar, 4-column product grid, navy footer). Light only, by design. */
+:root{
+  --green:#00BC52;
+  --green-d:#00A649;
+  --navy:#122538;
+  --link:#0F4B82;
+  --text:#333333;
+  --head:#222222;
+  --bg:#FFFFFF;
+  --gray:#F8F9FA;
+  --line:#E9ECEF;
+  --line2:#EBEBEB;
+  --muted:#6C757D;
+  --muted2:#ADB5BD;
+  --gold:#E6CB6C;
+  --font:'Exo 2',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.45;padding-bottom:64px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+a{color:var(--link)}
+h1,h2,h3,h4,h5,p,ul,dl,dd{margin:0}
+ul{padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.in{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ic{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:middle}
+
+/* promo bar and service line */
+.promo-bar{background:linear-gradient(90deg,#00B84F,#4DEB8A 50%,#00B84F);color:#0A1F14;text-align:center;font-weight:800;font-style:italic;text-transform:uppercase;font-size:clamp(11px,2.8vw,19px);line-height:1.2;padding:6px 0}
+.svc{background:var(--gray);font-size:13px}
+.svc .in{display:flex;align-items:center;flex-wrap:wrap;gap:6px 24px;min-height:38px;padding-block:4px}
+.svc .links{display:flex;gap:20px;flex-wrap:wrap}
+.svc .demo{color:var(--muted);font-style:italic;margin-right:auto}
+.lang{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;padding:2px}
+.lang button{padding:2px 9px;border-radius:6px;font-size:12px}
+.lang .on{background:var(--gray);font-weight:600}
+.acct{background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 14px}
+.svc button:hover{color:var(--green)}
+
+/* header */
+.hd .in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px 32px;align-items:center;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;font-style:italic;letter-spacing:.02em;line-height:1}
+.logo b{color:var(--navy);font-weight:800}
+.logo span{color:var(--green)}
+.search{display:flex;align-items:stretch;background:var(--gray);border-radius:8px;overflow:hidden;height:40px;max-width:560px;width:100%;margin-inline:auto}
+.search input{flex:1;min-width:0;border:0;background:transparent;padding:0 15px;font:inherit;font-size:13px;color:var(--head)}
+.search input:focus-visible{outline:none}
+.search .flt{width:34px;color:var(--muted);display:flex;align-items:center;justify-content:center}
+.search .go{width:40px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.contacts{text-align:right;font-size:12px;color:var(--muted)}
+.contacts .tel{display:block;font-size:15px;font-weight:600;color:var(--text);margin-block:2px}
+@media (max-width:900px){.hd .in{grid-template-columns:auto minmax(0,1fr)}.contacts{display:none}}
+@media (max-width:560px){.hd .in{grid-template-columns:minmax(0,1fr)}.search{max-width:none}}
+
+/* navy bar */
+.nav{background:var(--navy);box-shadow:0 3px 3px rgba(0,0,0,.2);position:sticky;top:env(safe-area-inset-top,0px);z-index:30}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:12px;height:56px;position:relative}
+.catbtn{display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;border-radius:8px;height:40px;padding:0 14px;font-weight:600;min-width:182px}
+.catbtn .ic:last-child{margin-left:auto}
+.catbtn:hover{background:var(--green-d)}
+.catmenu{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:50px;background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.2);min-width:250px;padding:6px;z-index:31}
+.catmenu button{display:flex;width:100%;padding:10px 12px;border-radius:6px;color:var(--head);font-weight:500}
+.catmenu button:hover{background:var(--gray);color:var(--green)}
+.hcart{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);border-radius:8px;color:#fff;padding:0 14px;height:40px}
+.hcart:hover{background:rgba(255,255,255,.14)}
+.hcart .bub{position:relative;display:flex}
+.hcart .bub .ic{width:22px;height:22px}
+.hcart .n{position:absolute;top:-9px;right:-10px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;border-radius:999px;min-width:16px;height:16px;line-height:16px;text-align:center;padding:0 3px}
+.hcart .t{font-size:13px;font-weight:500;line-height:1.15;max-width:130px}
+.hcart .t b{display:block;font-weight:600}
+
+/* shared */
+.btn-green{display:inline-block;background:var(--green);color:#fff;border-radius:8px;padding:10px 22px;font-weight:600;font-size:15px;text-align:center}
+.btn-green:hover{background:var(--green-d)}
+.btn-line{display:inline-block;border:1px solid var(--line);border-radius:8px;padding:10px 18px;font-weight:500;background:#fff}
+.btn-line:hover{border-color:var(--green);color:var(--green)}
+.link:hover{color:var(--green)}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:16px 0 4px;font-size:13px;color:var(--muted)}
+.crumbs button{color:var(--link)}
+.crumbs button:hover{text-decoration:underline}
+.pt{font-size:24px;font-weight:700;color:var(--head);margin:8px 0 16px;line-height:1.2}
+.stitle{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:8px;margin:30px 0 18px}
+.stitle h2{font-size:16px;font-weight:700;color:var(--head);text-transform:uppercase}
+.more{color:var(--link);font-weight:500}
+.more:hover{color:var(--green)}
+.box{background:#fff;border:.8px solid var(--line2);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.03);overflow:hidden}
+.box-title{background:#FDFDFD;padding:12px 16px;font-size:15px;font-weight:700;color:var(--head);text-transform:uppercase;border-bottom:1.6px solid var(--green);display:flex;align-items:center;gap:10px}
+.box-title .ic{color:var(--green)}
+.box-body{padding:16px;display:flex;flex-direction:column;gap:12px}
+.box-body p{color:var(--text);line-height:1.6}
+.box-row{display:flex;align-items:center;gap:12px;padding:12px 16px;width:100%}
+.box-row:hover{background:var(--gray)}
+.box-row .th{width:38px;height:38px;border:1px solid var(--line);border-radius:6px;padding:3px;background:#fff}
+.box-row .arr{margin-left:auto;color:var(--muted2)}
+
+/* product art */
+.pic{display:block;width:100%;height:auto;max-width:100%}
+.pic .case{fill:#F1F3F5;stroke:#CED4DA;stroke-width:2}
+.pic .cell{fill:var(--navy)}
+.pic .band{fill:var(--green)}
+.pic .nub{fill:var(--muted)}
+.pic .cell-empty{fill:none;stroke:#ADB5BD;stroke-width:1.5;stroke-dasharray:4 4}
+.pic .port{fill:#222}
+.pic .cable{fill:none;stroke:var(--navy);stroke-width:7;stroke-linecap:round}
+.pic .plug{fill:#222}
+
+/* hero and trust */
+.hero{margin-top:16px;border-radius:10px;overflow:hidden;background:linear-gradient(100deg,#122538 0%,#16405a 62%,#0a9a50 130%);color:#fff;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;align-items:center;padding:30px 36px}
+.hero h2{font-size:clamp(22px,4vw,34px);font-weight:700;line-height:1.15}
+.hero p{margin:10px 0 20px;max-width:46ch;color:#D3DDE6;font-size:15px}
+.hero .shot{background:#fff;border-radius:10px;padding:14px;max-width:340px;width:100%;justify-self:end}
+@media (max-width:760px){.hero{grid-template-columns:minmax(0,1fr);padding:22px 20px}.hero .shot{justify-self:start;max-width:260px}}
+.h1c{text-align:center;padding:28px 0 4px}
+.h1c h1{font-size:24px;font-weight:700;color:var(--head);line-height:1.2}
+.h1c p{margin-top:6px;color:var(--muted)}
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding-block:16px 4px}
+.tc{display:flex;gap:14px;align-items:center;background:#fff;border-radius:10px;box-shadow:0 0 0 1px var(--line);padding:22px 20px;min-width:0}
+.tc .ic{width:44px;height:44px;color:var(--head);stroke-width:1.4}
+.tc b{display:block;font-size:15px;font-weight:600;color:var(--head)}
+.tc span{color:var(--muted);font-size:13px}
+@media (max-width:1000px){.trust{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.trust{grid-template-columns:minmax(0,1fr)}.tc{padding:16px}}
+
+/* product grid and cards */
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1000px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.promo{grid-row:span 2;position:relative;border-radius:8px;overflow:hidden;background:linear-gradient(160deg,#122538,#0C5A3A 70%,#00BC52);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:18px;min-height:240px;text-align:left;width:100%}
+.promo .shot{background:rgba(255,255,255,.96);border-radius:8px;padding:10px;margin-bottom:auto}
+.promo b{font-size:19px;font-weight:700;line-height:1.2}
+.promo .from{font-size:26px;font-weight:600}
+@media (max-width:1000px){.promo{grid-row:auto;grid-column:1/-1;flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px;min-height:0}.promo .shot{width:140px;margin:0}.promo .tx{display:flex;flex-direction:column;gap:4px}}
+.pcard{display:flex;flex-direction:column;min-width:0;background:#fff;border-radius:8px;box-shadow:0 0 0 1px var(--line);overflow:hidden;position:relative}
+.pc-img{position:relative}
+.pc-img>button{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;padding:16px;background:#fff}
+.bdg{position:absolute;left:10px;top:10px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#fff;background:var(--gold);border-radius:4px;padding:5px 8px;line-height:1.2}
+.bdg.top{background:var(--navy)}
+.bdg.new{background:var(--green)}
+.pc-body{display:flex;flex-direction:column;gap:8px;padding:0 15px 15px;flex:1}
+.pcard h3{font-size:15px;font-weight:500;line-height:1.3;color:var(--head);min-height:2.6em}
+.pc-spec{font-size:12px;color:var(--muted)}
+.pc-mid{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.stock{display:inline-flex;align-items:center;gap:5px;background:var(--gray);color:var(--green);font-size:11px;border-radius:4px;padding:2px 10px;line-height:20px}
+.stock.order{color:#A8741A}
+.rate{display:flex;align-items:center;gap:6px}
+.stars{display:flex;gap:1px;color:#CED4DA}
+.stars svg{width:12px;height:12px;fill:currentColor}
+.cnt{border:1px solid var(--line);border-radius:4px;font-size:10px;padding:1px 6px;color:var(--muted)}
+.qtyv{display:flex;flex-direction:column;align-items:center;font-size:11px;line-height:1}
+.qtyv button{width:22px;height:16px;text-align:center;font-size:13px}
+.qtyv button:hover{color:var(--green)}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:6px}
+.price{font-size:18px;font-weight:600;color:#000;white-space:nowrap}
+.buy-sq{width:34px;height:34px;background:var(--green);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.buy-sq:hover{background:var(--green-d)}
+@media (max-width:640px){.rate,.qtyv{display:none}.pc-body{padding:0 10px 12px}.pcard h3{font-size:13px}.price{font-size:15px}.pc-img>button{padding:10px}}
+
+/* category */
+.tool{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:space-between;align-items:center;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:8px;padding:7px 14px;background:#fff;font-weight:500}
+.chip:hover{border-color:var(--green);color:var(--green)}
+.chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.sortsel{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;font:inherit;color:var(--text)}
+.nores{padding:32px 0;color:var(--muted)}
+
+/* blog */
+.posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,420px));gap:16px}
+.post{background:#fff;border-radius:8px;box-shadow:0 0 0 1px var(--line);padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.post .pimg{display:block;width:100%;background:var(--gray);border-radius:6px;padding:12px}
+.post .pm{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px}
+.post .pm span{display:flex;align-items:center;gap:5px}
+.post h3{font-size:15px;font-weight:600;color:var(--head);line-height:1.3}
+.post p{color:var(--muted);font-size:13px}
+.artp{max-width:760px;padding-bottom:12px}
+.artp .pm{display:flex;gap:16px;color:var(--muted);font-size:13px;margin-bottom:12px}
+.artp .pm span{display:flex;align-items:center;gap:5px}
+.artp h2{font-size:19px;font-weight:700;margin:24px 0 8px;color:var(--head)}
+.artp p{font-size:15.5px;line-height:1.65}
+.artp .lead{color:var(--muted);font-size:16px}
+.artp .cta{margin-top:28px}
+
+/* product page */
+.pp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;padding-top:8px}
+@media (max-width:760px){.pp{grid-template-columns:minmax(0,1fr)}}
+.pp-img{position:relative;border-radius:8px;box-shadow:0 0 0 1px var(--line);padding:28px;background:#fff}
+.pp-info{display:flex;flex-direction:column;gap:14px;min-width:0}
+.pp-info .pt{margin:0}
+.pp-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pp-price{font-size:28px;font-weight:700;color:#000}
+.pp-buy{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.qtyh{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;height:44px}
+.qtyh button{width:40px;height:100%;text-align:center;font-size:18px}
+.qtyh .q{min-width:30px;text-align:center;font-weight:600}
+.pp-buy .btn-green{height:44px;padding-block:0;display:flex;align-items:center;gap:8px}
+.pp-act{display:flex;gap:20px;flex-wrap:wrap}
+.pp-act button{display:flex;align-items:center;gap:6px;color:var(--muted)}
+.pp-act button:hover,.pp-act .on{color:var(--green)}
+.short{color:var(--muted);line-height:1.6}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:32px;flex-wrap:wrap}
+.tabs button{padding:10px 18px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--muted)}
+.tabs .on{border-bottom-color:var(--green);color:var(--head)}
+.tpanel{padding-block:18px;max-width:860px;line-height:1.65}
+.spec-t{width:100%;border-collapse:collapse}
+.spec-t td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.spec-t td:first-child{color:var(--muted);width:38%}
+
+/* cart */
+.cart-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:start;padding-bottom:12px}
+@media (max-width:860px){.cart-grid{grid-template-columns:minmax(0,1fr)}}
+.crow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.crow .im{width:72px;flex:none;border:1px solid var(--line);border-radius:6px;padding:4px;background:#fff}
+.crow .nm{flex:1 1 170px;min-width:0}
+.crow .nm b{display:block;font-weight:600;color:var(--head)}
+.crow .nm span{font-size:12px;color:var(--muted)}
+.cqty{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px}
+.cqty button{width:32px;height:32px;text-align:center;font-size:17px}
+.cqty span{min-width:26px;text-align:center;font-weight:600}
+.rm{color:var(--muted);font-size:12px;text-decoration:underline}
+.rm:hover{color:#D6336C}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:16px}
+.total .price{font-size:22px}
+.fld{display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:13px}
+.fld input,.fld select,.fld textarea{font:inherit;font-weight:400;border:1px solid #DEE2E6;border-radius:8px;padding:10px 12px;background:#fff;color:var(--text);width:100%}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 3px rgba(0,188,82,.18)}
+.note{font-size:12px;color:var(--muted)}
+.empty{padding:28px 16px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+
+/* advantages, footer */
+.adv{background:var(--gray);margin-top:40px;padding-block:30px}
+.adv .row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:900px){.adv .row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.adv .row{grid-template-columns:minmax(0,1fr)}}
+.ad{display:flex;gap:12px;align-items:flex-start}
+.ad .ic{width:34px;height:34px;color:var(--green);stroke-width:1.5}
+.ad b{display:block;color:var(--head);font-weight:600}
+.ad span{color:var(--muted);font-size:13px}
+.sub{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.sub b{font-size:15px;color:var(--head)}
+.sub form{display:flex;gap:8px;flex:1 1 300px;max-width:520px}
+.sub input{flex:1;min-width:0;border:1px solid #DEE2E6;border-radius:8px;padding:10px 12px;font:inherit;background:#fff}
+.sub input:focus{border-color:var(--green);outline:none}
+.ft{background:var(--navy);color:var(--muted2);padding-block:36px 24px}
+.ft .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:28px}
+@media (max-width:860px){.ft .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ft .cols{grid-template-columns:minmax(0,1fr)}}
+.ft h4{color:#fff;font-size:15px;font-weight:600;margin-bottom:12px}
+.ft .lg{font-size:20px;color:#fff}
+.ft .lg b{color:#fff}
+.ft li button{color:var(--muted2);padding:4px 0;display:block}
+.ft li button:hover{color:#fff}
+.ft code{font-family:inherit;color:#fff;user-select:all}
+.ft p{line-height:1.6;font-size:13px}
+.about{border-top:1px solid rgba(255,255,255,.12);margin-top:26px;padding-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.about h5{color:#fff;font-size:16px;font-weight:600;margin-bottom:6px}
+.copy{border-top:1px solid rgba(255,255,255,.12);margin-top:22px;padding-top:16px;font-size:12px;display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between}
+
+/* fixed widgets */
+.fixbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:35;background:#2F3F50;color:#fff;border-radius:10px 10px 0 0;display:flex;padding:4px 8px calc(4px + env(safe-area-inset-bottom,0px));max-width:100%}
+.fixbar button{display:flex;align-items:center;gap:8px;padding:8px 14px;color:#fff;font-size:13px;border-right:1px solid rgba(255,255,255,.14)}
+.fixbar button:last-child{border-right:0}
+.fixbar button:hover{color:var(--gold)}
+.fixbar .c{background:var(--navy);border-radius:4px;min-width:24px;text-align:center;padding:1px 6px;font-size:12px}
+@media (max-width:520px){.fixbar{left:0;right:0;transform:none;border-radius:0;justify-content:space-around;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}.fixbar button{padding:8px 4px;gap:5px;font-size:12px;border:0}}
+.chat{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:36}
+.chat .ic{width:28px;height:28px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 66px);z-index:60;background:var(--navy);color:#fff;border-radius:8px;padding:10px 16px;max-width:calc(100% - 32px);box-shadow:0 6px 20px rgba(0,0,0,.25);display:flex;gap:14px;align-items:center}
+.toast[hidden]{display:none}
+.toast button{color:var(--green);font-weight:600;white-space:nowrap}
+</style>
+<style>.pic .sc{fill:none;stroke:var(--navy);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.pic .sc2{fill:var(--navy)}.pic .whl{fill:#fff;stroke:var(--navy);stroke-width:7}</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h10.2l2-8H6.2"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.2l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 8h14"/><path d="M5 8l-2.5 6h5L5 8zM19 8l-2.5 6h5L19 8z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V7.5z"/></symbol>
+  <symbol id="i-head" viewBox="0 0 24 24"><path d="M4.5 14v-2a7.5 7.5 0 0 1 15 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="16.5" y="13.5" width="4" height="6" rx="1.5"/><path d="M18.5 19.5c0 1.5-2 2-4.5 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5l7 2.5v5.5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-2.5z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12.5" rx="2"/><path d="M3 10.5h18M6.5 15h4"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 2.4 7.4"/><path d="M4 4.5V10h5.5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6.5h11v9H3zM14 9.5h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v11H11l-4.5 3.5v-3.5H4z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5.5 13.5H11L10 21l8-11h-5.5z"/></symbol>
+</svg>
+<div class="promo-bar">Електросамокати напрокат у Києві — залиште заявку, передзвонимо за 10 хвилин</div>
+
+<div class="svc">
+  <div class="in">
+    <div class="links">
+      <button data-go="info">Умови прокату</button>
+      <button data-go="info">Застава та документи</button>
+    </div>
+    <span class="demo">Демо-макет: самокати, ціни й тексти для прикладу</span>
+    <div class="lang" role="group" aria-label="Мова"><button data-stub="Російська версія буде в повному сайті">Ру</button><button class="on" aria-pressed="true">Ук</button></div>
+    <button class="acct" data-stub="Особистий кабінет буде в повному сайті">Особистий кабінет</button>
+  </div>
+</div>
+
+<header class="hd">
+  <div class="in">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><button class="logo" data-go="home" aria-label="RideGo, на головну">
+      <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="7" cy="14" r="4.5" fill="none" stroke="#122538" stroke-width="2"/><circle cx="27" cy="14" r="4.5" fill="none" stroke="#122538" stroke-width="2"/><path d="M7 14h8l6-10h4" fill="none" stroke="#00BC52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><b>RIDE</b>GO</span>
+    </button><a href="#admin" data-adm style="padding:7px 14px;border-radius:12px;background:#122538;color:#fff;font-size:13px;font-weight:700;white-space:nowrap;text-decoration:none">Адмін-панель (демо)</a></div>
+    <form class="search" id="sform" role="search">
+      <input id="q" type="search" placeholder="Пошук самоката" aria-label="Пошук по сайту" autocomplete="off">
+      <span class="flt"><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg></span>
+      <button class="go" type="submit" aria-label="Шукати"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></button>
+    </form>
+    <div class="contacts">
+      Щодня з 08:00 до 21:00
+      <span class="tel">+38 (0XX) 000-00-00</span>
+      Дзвінки безкоштовні
+    </div>
+  </div>
+</header>
+
+<div class="nav">
+  <div class="in">
+    <button class="catbtn" data-menu aria-expanded="false" aria-controls="catmenu"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg><span>Каталог</span><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></button>
+    <div id="catmenu" class="catmenu" hidden></div>
+    <button class="hcart" data-go="request" aria-label="Залишити заявку">
+      <span class="bub"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg></span>
+      <span class="t"><b>Залишити заявку</b><span>на прокат</span></span>
+    </button>
+  </div>
+</div>
+
+<main id="app" class="in"></main>
+
+<section class="adv">
+  <div class="in">
+    <div class="row">
+      <div class="ad"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg><div><b>Доставка по місту</b><span>Привеземо й заберемо самокат</span></div></div>
+      <div class="ad"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><div><b>Шолом у комплекті</b><span>Додатково за 50 грн на добу</span></div></div>
+      <div class="ad"><svg class="ic" aria-hidden="true"><use href="#i-card"/></svg><div><b>Без прихованих платежів</b><span>Ціна за тарифом, застава повертається</span></div></div>
+      <div class="ad"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg><div><b>Менеджер у Telegram</b><span>Відповідаємо щодня до 21:00</span></div></div>
+    </div>
+    <div class="sub">
+      <b>Знижки та акції на пошту</b>
+      <form id="subform"><input id="subemail" type="email" required placeholder="Ваш e-mail" aria-label="E-mail для розсилки"><button class="btn-green" type="submit">Підписатися</button></form>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="in">
+    <div class="cols">
+      <div>
+        <div class="logo lg"><b>RIDE</b><span style="color:var(--green)">GO</span></div>
+        <p style="margin-top:10px">Робоча назва. Прокат електросамокатів у Києві: погодинно, на добу й на тиждень.</p>
+      </div>
+      <div>
+        <h4>Клієнтам</h4>
+        <ul>
+          <li><button data-go="request">Залишити заявку</button></li>
+          <li><button data-stub="Особистий кабінет буде в повному сайті">Особистий кабінет</button></li>
+          <li><button data-stub="Історія прокатів буде в повному сайті">Історія прокатів</button></li>
+          <li><button data-stub="Розсилка буде в повному сайті">Розсилка</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Інформація</h4>
+        <ul>
+          <li><button data-go="info">Умови прокату</button></li>
+          <li><button data-go="info">Застава та документи</button></li>
+          <li><button data-go="blog">Блог</button></li>
+          <li><button data-stub="Політика конфіденційності буде в повному сайті">Політика конфіденційності</button></li>
+          <li><button data-stub="Договір оренди буде в повному сайті">Договір оренди</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакти</h4>
+        <p>Щодня з 08:00 до 21:00</p>
+        <p style="margin-top:8px">Телефон: <code>+38 (0XX) 000-00-00</code><br>Пошта: <code>hello@example.com</code></p>
+        <p style="margin-top:8px">Пункт видачі: Київ, адреса буде в повному сайті</p>
+      </div>
+    </div>
+    <div class="copy"><span>© 2026 RideGo. Демо-макет, дані нікуди не передаються.</span><span>Ціни й умови наведені для прикладу.</span></div>
+  </div>
+</footer>
+
+<button class="chat" data-stub="Тут буде чат із менеджером" aria-label="Чат із менеджером"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></button>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+#adm{display:none;position:fixed;inset:0;z-index:1000;background:#EDEDED;font:13px/1.45 'Open Sans',Arial,sans-serif;color:#333;overflow:hidden}
+#adm.on{display:flex}
+#adm *{box-sizing:border-box}
+#adm a{color:inherit;text-decoration:none;cursor:pointer}
+.a-side{width:230px;background:#242D37;color:#c9d1da;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.a-logo{padding:18px 20px;color:#fff;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center}
+.a-logo i{width:26px;height:26px;border-radius:8px;background:#2563EB;display:inline-block}
+.a-user{padding:0 20px 14px;font-size:12px;color:#8a97a6}
+.a-menu a{display:flex;gap:10px;align-items:center;padding:10px 20px;color:#c9d1da;border-left:3px solid transparent}
+.a-menu a:hover{background:#2c3743;color:#fff}
+.a-menu a.on{background:#2c3743;color:#fff;border-left-color:#1E91CF}
+.a-menu b{width:8px;height:8px;border-radius:3px;background:#4A90E2;flex-shrink:0}
+.a-sub{padding:2px 0 6px}.a-sub a{padding:6px 20px 6px 51px;font-size:12.5px;color:#8a97a6}
+.a-stat{margin:14px 16px;padding:12px;border-radius:14px;background:#2c3743;font-size:12px}
+.a-stat div{display:flex;justify-content:space-between;padding:3px 0}
+.a-stat span{display:block;height:5px;border-radius:3px;background:#1b222a;margin-top:2px}
+.a-stat span i{display:block;height:100%;border-radius:3px;background:#1E91CF}
+.a-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.a-top{height:54px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:12px;flex-shrink:0}
+.a-top .burger{display:none;cursor:pointer;font-size:20px}
+.a-top a{color:#2563EB!important;font-weight:600}
+.a-body{flex:1;overflow-y:auto;padding:22px}
+.a-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.a-h h1{margin:0;font-size:22px;font-weight:600}
+.a-bc{font-size:12px;color:#8a97a6}
+.a-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.a-tile{background:#fff;border-radius:20px;padding:18px 20px}
+.a-tile small{color:#8a97a6;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
+.a-tile strong{display:block;font-size:28px;font-weight:700;margin-top:4px}
+.a-tile em{font-style:normal;font-size:12px;color:#16a34a}
+.a-panel{background:#fff;border-radius:20px;padding:20px;margin-bottom:18px}
+.a-panel h2{margin:0 0 12px;font-size:15px;font-weight:600}
+.a-cols{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.a-chart{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px}
+.a-chart div{flex:1;background:#4A90E2;border-radius:8px 8px 0 0;position:relative;min-height:6px}
+.a-chart div span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:#8a97a6}
+.a-tbl{width:100%;border-collapse:collapse}
+.a-tbl th{text-align:left;font-weight:600;color:#6b7785;padding:9px 10px;border-bottom:1px solid #E9ECEF;font-size:12px;white-space:nowrap}
+.a-tbl td{padding:10px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.a-tbl tr:hover td{background:#fafcfe}
+.a-wrap{overflow-x:auto}
+.a-btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:9px 16px;background:#2563EB;color:#fff!important;font:600 13px 'Open Sans',sans-serif;cursor:pointer}
+.a-btn.g{background:#F1F5F9;color:#333!important}
+.a-btn.s{padding:6px 11px;border-radius:10px;font-size:12px}
+.a-in{width:100%;background:#F1F5F9;border:1px solid transparent;border-radius:12px;padding:10px 13px;font:13px 'Open Sans',sans-serif;color:#333}
+.a-in:focus{outline:0;border-color:#1E91CF;background:#fff}
+textarea.a-in{min-height:110px;resize:vertical}
+.a-fl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.a-fl .a-in{width:auto;min-width:150px;flex:1}
+.a-tabs{display:flex;gap:4px;border-bottom:1px solid #E9ECEF;margin-bottom:18px;flex-wrap:wrap}
+.a-tabs a{padding:9px 16px;border-radius:12px 12px 0 0;color:#6b7785}
+.a-tabs a.on{background:#F1F5F9;color:#2563EB;font-weight:600}
+.a-row{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+.a-row label{padding-top:10px;font-weight:600;color:#555}
+.a-st{display:inline-block;border-radius:8px;padding:3px 10px;font-size:12px;font-weight:600}
+.a-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:600}
+.o-card{display:flex;background:#fff;border-radius:16px;margin-bottom:10px;overflow:hidden;align-items:stretch}
+.o-card>i{width:6px;flex-shrink:0}
+.o-card>div{flex:1;padding:12px 16px;display:grid;grid-template-columns:90px 1.4fr 1.6fr 100px 170px;gap:12px;align-items:center}
+.o-card small{color:#8a97a6;display:block}
+@media(max-width:800px){
+.a-side{position:absolute;left:-240px;top:0;bottom:0;z-index:5;transition:left .2s}
+#adm.menu .a-side{left:0}
+.a-top .burger{display:block}
+.a-cols{grid-template-columns:1fr}
+.a-row{grid-template-columns:1fr;gap:4px}.a-row label{padding-top:0}
+.o-card>div{grid-template-columns:1fr 1fr}
+.a-body{padding:14px}
+}
+.fa-link{cursor:pointer}
+</style>
+
+<div id="adm" aria-label="Адмін-панель (демо)">
+<aside class="a-side">
+<div class="a-logo"><i></i>RideGo</div>
+<div class="a-user">Адміністратор · демо</div>
+<nav class="a-menu" id="aMenu"></nav>
+<div class="a-stat">
+<div><span>Завантаження</span><b>74%</b></div><span><i style="width:74%"></i></span>
+<div><span>Заявки</span><b>52%</b></div><span><i style="width:52%"></i></span>
+<div><span>Клієнти</span><b>31%</b></div><span><i style="width:31%"></i></span>
+</div>
+</aside>
+<div class="a-main">
+<div class="a-top"><span class="burger" data-a="burger">☰</span><span class="a-bc" id="aBc">Панель керування</span><a data-a="exit">← Перейти на сайт</a></div>
+<div class="a-body" id="aBody"></div>
+</div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toastText"></span></div>
+<script>
+(function(){
+  var PRODUCTS = window.__P = [
+    {id:'r1',cat:'city',name:'Електросамокат Urban 250',h:90,d:450,kw:250,range:25,speed:20,weight:12,load:100,badge:'',desc:'Легкий самокат для коротких поїздок містом. Складається за секунду й поміщається в багажник авто.'},
+    {id:'r2',cat:'city',name:'Електросамокат City 350',h:120,d:600,kw:350,range:35,speed:25,weight:14,load:110,badge:'',desc:'Універсальний варіант на кожен день. Повітряні колеса гасять нерівності асфальту.'},
+    {id:'r3',cat:'city',name:'Електросамокат Comfort 500',h:160,d:800,kw:500,range:45,speed:25,weight:17,load:120,badge:'hit',desc:'Широка дека й підсвітка. Для довгих прогулянок набережною та поїздок по місту на цілий день.'},
+    {id:'r4',cat:'power',name:'Електросамокат Max 800',h:220,d:1100,kw:800,range:60,speed:35,weight:22,load:130,badge:'top',desc:'Потужний самокат з подвійною підвіскою. Легко бере підйоми й тримає хід на довгих маршрутах.'},
+    {id:'r5',cat:'kids',name:'Електросамокат Kids 120',h:70,d:350,kw:120,range:12,speed:10,weight:8,load:50,badge:'new',desc:'Дитячий самокат з обмеженням швидкості. Катання тільки під наглядом дорослих.'},
+    {id:'r6',cat:'power',name:'Електросамокат Offroad 1000',h:300,d:1500,kw:1000,range:70,speed:40,weight:28,load:140,badge:'new',desc:'Для парків, лісових доріг і поганого покриття. Широкі колеса й потужний мотор.'},
+    {id:'r7',cat:'acc',kind:'helmet',name:'Шолом',h:0,d:50,badge:'',desc:'Шолом з регулюванням розміру. Радимо брати до кожного самоката.'},
+    {id:'r8',cat:'acc',kind:'lock',name:'Велозамок з тросом',h:0,d:30,badge:'',desc:'Щоб безпечно залишити самокат біля кафе або магазину.'},
+    {id:'r9',cat:'acc',kind:'delivery',name:'Доставка самоката по Києву',h:0,d:200,badge:'',desc:'Привеземо самокат у зручне місце й заберемо після завершення прокату. Вартість за одну поїздку.'}
+  ];
+  var POSTS = [
+    {id:'b1',date:'10.10.2026',views:58,read:'3 хв читання',product:'r3',title:'Як вибрати електросамокат для прокату на день',
+     lead:'Коротка пам’ятка: на що дивитися, коли беретеся за самокат уперше, і чим відрізняються моделі в нашому каталозі.',
+     body:[
+      ['Запас ходу','Заявлений запас ходу вимірюють у легких умовах: рівна дорога, невелика вага, помірна швидкість. Узимку, на підйомах і з важчим водієм реальна цифра менша приблизно на третину. Беріть модель із запасом.'],
+      ['Колеса й підвіска','Повітряні колеса м’якше їдуть бруківкою й дрібними ямами. Литі колеса не потребують підкачування, але трясуть сильніше. Для довгої поїздки краще повітряні.'],
+      ['Вага самоката','Якщо його треба підняти сходами або покласти в багажник, дивіться на вагу. До 15 кг це комфортно, а понад 25 кг уже складно.'],
+      ['Коротко','Для прогулянки по місту вистачить Urban або City. Для цілого дня маршрутів краще Comfort. Для підйомів і поганого покриття дивіться на Max або Offroad.']
+     ]},
+    {id:'b2',date:'14.10.2026',views:36,read:'2 хв читання',product:'r7',title:'Безпека на самокаті: шолом, швидкість і дорога',
+     lead:'Кілька простих правил, які зменшують ризик у поїздці. Вони однакові для нового й досвідченого райдера.',
+     body:[
+      ['Шолом','Він захищає голову під час падіння. Беріть його навіть на коротку поїздку, бо більшість падінь стається на нерівностях і в поворотах.'],
+      ['Швидкість','Не розганяйтеся на людних набережних і в парках. На мокрому асфальті гальмівний шлях зростає, тож зменшуйте швидкість заздалегідь.'],
+      ['Правила руху','Дотримуйтеся місцевих правил для електротранспорту. Вони можуть змінюватися, тому перед поїздкою уточніть актуальні вимоги.'],
+      ['Заряд і стан','Перед виїздом перевірте заряд, гальма й тиск у колесах. Ми робимо це самі перед кожною видачею, але звичка перевіряти не завадить.']
+     ]}
+  ];
+  var CATS = [['all','Усі самокати'],['city','Міські'],['power','Потужні'],['kids','Дитячі'],['acc','Додатково']];
+  var DUR = [['h1','1 година'],['h3','3 години'],['d1','1 доба'],['w1','Тиждень'],['m1','Місяць']];
+  var BADGE = {hit:'Хіт',top:'Топ',new:'Новинка'};
+  var S = {view:'home',arg:null,q:'',sort:'def',tab:'desc'};
+  var toastTimer = null;
+  var STARS = '<span class="stars" aria-hidden="true">'+new Array(6).join('<svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg>')+'</span>';
+  window.__L = [
+    [2048,'new','Тарас Мельник','+380 50 111 22 33','Самовивіз','Comfort 500 · 1 доба','800','Сьогодні 14:20'],
+    [2047,'work','Ірина Коваль','+380 67 222 33 44','Доставка, Київ, Позняки','City 350 ×2 · 3 години','600','Сьогодні 11:05'],
+    [2046,'ship','Андрій Шевчук','+380 63 333 44 55','Доставка, Київ, Оболонь','Max 800 · Тиждень','5500','Вчора 18:40'],
+    [2045,'done','Олена Бондар','+380 93 444 55 66','Самовивіз','Urban 250 · 1 доба','450','15 жовт.'],
+    [2044,'done','Максим Ткач','+380 50 555 66 77','Самовивіз','Offroad 1000 · 1 доба','1500','14 жовт.'],
+    [2043,'cancel','Софія Гринь','+380 66 666 77 88','Доставка, Київ, Троєщина','Kids 120 · 1 година','70','13 жовт.'],
+    [2042,'done','Денис Литвин','+380 97 777 88 99','Самовивіз','City 350 · Місяць','9000','12 жовт.']
+  ];
+
+  function $(s){return document.querySelector(s);}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function money(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₴';}
+  function byId(id){return PRODUCTS.filter(function(p){return p.id===id;})[0];}
+  function isScooter(p){return p.cat!=='acc';}
+  function catName(k){return CATS.filter(function(c){return c[0]===k;})[0][1];}
+  function I(n,c){return '<svg class="ic '+(c||'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>';}
+  function count(o){return Object.keys(o).length;}
+  function r10(n){return Math.round(n/10)*10;}
+  function tariffs(p){
+    if(!isScooter(p)) return [['За добу',p.d]];
+    return [['1 година',p.h],['3 години',r10(p.h*2.5)],['1 доба',p.d],['Тиждень',p.d*5],['Місяць',p.d*15]];
+  }
+  function tariffPrice(p,k){
+    var t=tariffs(p);var i={h1:0,h3:1,d1:2,w1:3,m1:4}[k];
+    return t[i]?t[i][1]:t[0][1];
+  }
+  function specLine(p){return isScooter(p)?(p.range+' км · до '+p.speed+' км/год · '+p.kw+' Вт'):'Додаткова послуга';}
+  function priceLine(p){return isScooter(p)?'від '+money(p.h)+'/год':money(p.d)+(p.kind==='delivery'?'':'/доба');}
+
+  function art(p){
+    var head='<svg class="pic" viewBox="0 0 240 180" role="img" aria-label="'+esc(p.name)+'"><rect class="case" x="6" y="6" width="228" height="168" rx="16"/>';
+    if(p.kind==='helmet') return head+'<path class="sc" d="M62 112 C62 62 96 42 124 42 C160 42 184 68 184 112 Z"/><rect class="sc2" x="56" y="112" width="134" height="14" rx="7"/><path class="sc" d="M96 60 L140 60 M88 80 L156 80"/></svg>';
+    if(p.kind==='lock') return head+'<path class="sc" d="M96 84 V70 a24 24 0 0 1 48 0 V84"/><rect class="sc2" x="82" y="84" width="76" height="60" rx="10"/><circle class="port" cx="120" cy="108" r="6"/></svg>';
+    if(p.kind==='delivery') return head+'<rect class="sc2" x="44" y="70" width="86" height="56" rx="6"/><path class="sc" d="M130 90 h34 l24 24 v12 h-58"/><circle class="port" cx="74" cy="136" r="10"/><circle class="port" cx="164" cy="136" r="10"/></svg>';
+    var k=p.kw>=800?1.15:p.kw<=150?0.8:1;
+    return head+'<g transform="translate(120 98) scale('+k+') translate(-120 -98)"><circle class="whl" cx="64" cy="132" r="19"/><circle class="whl" cx="176" cy="132" r="19"/>'
+      +'<rect class="sc2" x="60" y="118" width="120" height="9" rx="4.5"/>'
+      +'<path class="sc" d="M172 124 L156 48 H134"/><path class="sc" d="M156 48 h-6"/><rect class="band" x="62" y="108" width="40" height="10" rx="4"/></g></svg>';
+  }
+  function badgeHtml(p){return p.badge?'<span class="bdg '+p.badge+'">'+BADGE[p.badge]+'</span>':'';}
+
+  function card(p){
+    return '<article class="pcard">'
+      +'<div class="pc-img"><button data-open="'+p.id+'" aria-label="Відкрити: '+esc(p.name)+'">'+art(p)+'</button>'+badgeHtml(p)+'</div>'
+      +'<div class="pc-body">'
+      +'<h3><button class="link" data-open="'+p.id+'">'+esc(p.name)+'</button></h3>'
+      +'<p class="pc-spec">'+esc(specLine(p))+'</p>'
+      +'<div class="pc-mid"><span class="stock">'+I('check')+'Вільний</span><div class="rate">'+STARS+'<span class="cnt">0</span></div></div>'
+      +'<div class="pc-foot"><span class="price">'+priceLine(p)+'</span><button class="buy-sq" data-req="'+p.id+'" aria-label="Залишити заявку: '+esc(p.name)+'">'+I('cal')+'</button></div>'
+      +'</div></article>';
+  }
+  function postCard(b){
+    return '<article class="post"><button class="pimg" data-post="'+b.id+'" aria-label="Читати: '+esc(b.title)+'">'+art(byId(b.product))+'</button>'
+      +'<div class="pm"><span>'+I('cal')+b.date+'</span><span>'+I('eye')+b.views+'</span></div>'
+      +'<h3><button class="link" data-post="'+b.id+'">'+esc(b.title)+'</button></h3>'
+      +'<p>'+esc(b.lead.slice(0,110))+'…</p></article>';
+  }
+  function crumbs(list){
+    return '<nav class="crumbs" aria-label="Навігація">'+list.map(function(c,i){
+      var last=i===list.length-1;
+      return (last||!c[1])?'<span>'+esc(c[0])+'</span>':'<button data-go="'+c[1]+'"'+(c[2]?' data-arg="'+c[2]+'"':'')+'>'+esc(c[0])+'</button>';
+    }).join('<span>›</span>')+'</nav>';
+  }
+
+  var views = {
+    home:function(){
+      var feat=['r1','r2','r3','r4','r5','r6'].map(byId);
+      return '<section class="hero"><div><h2>Електросамокати напрокат у Києві</h2>'
+        +'<p>Погодинно, на добу чи на тиждень. Виберіть самокат, залиште заявку, і менеджер передзвонить та узгодить час видачі або доставку.</p>'
+        +'<button class="btn-green" data-cat="all">Дивитися каталог</button></div>'
+        +'<div class="shot">'+art(byId('r3'))+'</div></section>'
+        +'<section class="h1c"><h1>Прокат електросамокатів без складнощів</h1><p>Перевірена техніка, зрозумілі тарифи й доставка по місту.</p></section>'
+        +'<section class="trust">'
+        +'<div class="tc">'+I('check')+'<div><b>Перевірена техніка</b><span>Огляд перед кожною видачею</span></div></div>'
+        +'<div class="tc">'+I('head')+'<div><b>Підтримка щодня</b><span>Менеджер у Telegram до 21:00</span></div></div>'
+        +'<div class="tc">'+I('card')+'<div><b>Зрозуміла ціна</b><span>Тариф без прихованих доплат</span></div></div>'
+        +'<div class="tc">'+I('truck')+'<div><b>Доставка по місту</b><span>Привеземо й заберемо самокат</span></div></div>'
+        +'</section>'
+        +'<div class="stitle"><h2>Самокати в прокат</h2><button class="more" data-cat="all">Усі самокати</button></div>'
+        +'<div class="pgrid">'+feat.map(card).join('')+'</div>'
+        +'<div class="stitle"><h2>Як це працює</h2></div>'
+        +'<div class="trust"><div class="tc"><b style="font-size:26px;color:var(--green)">1</b><div><b>Оберіть самокат</b><span>Подивіться тарифи в каталозі</span></div></div>'
+        +'<div class="tc"><b style="font-size:26px;color:var(--green)">2</b><div><b>Залиште заявку</b><span>Вкажіть дату, термін і телефон</span></div></div>'
+        +'<div class="tc"><b style="font-size:26px;color:var(--green)">3</b><div><b>Ми передзвонимо</b><span>Узгодимо час і спосіб видачі</span></div></div>'
+        +'<div class="tc"><b style="font-size:26px;color:var(--green)">4</b><div><b>Катайтеся</b><span>Поверніть у пункт або викличте кур’єра</span></div></div></div>'
+        +'<div class="stitle"><h2>Корисне в блозі</h2><button class="more" data-go="blog">Усі статті</button></div>'
+        +'<div class="posts">'+POSTS.map(postCard).join('')+'</div>';
+    },
+    cat:function(){
+      var key=S.arg||'all';
+      var q=S.q.toLowerCase();
+      var list=PRODUCTS.filter(function(p){return (key==='all'||p.cat===key)&&(!q||p.name.toLowerCase().indexOf(q)>-1);});
+      if(S.sort==='asc'){list.sort(function(a,b){return a.d-b.d;});}
+      if(S.sort==='desc'){list.sort(function(a,b){return b.d-a.d;});}
+      var title=q?('Пошук: '+S.q):catName(key);
+      var chips=CATS.map(function(c){return '<button class="chip'+(!q&&key===c[0]?' on':'')+'" data-cat="'+c[0]+'">'+esc(c[1])+'</button>';}).join('');
+      var sel=['def|За замовчуванням','asc|Ціна: від дешевих','desc|Ціна: від дорогих'].map(function(o){var a=o.split('|');return '<option value="'+a[0]+'"'+(S.sort===a[0]?' selected':'')+'>'+a[1]+'</option>';}).join('');
+      return crumbs([['Головна','home'],[title,null]])
+        +'<h1 class="pt">'+esc(title)+'</h1>'
+        +'<div class="tool"><div class="chips">'+chips+'</div><label>Сортування: <select class="sortsel" id="sort">'+sel+'</select></label></div>'
+        +(list.length?'<div class="pgrid">'+list.map(card).join('')+'</div>':'<p class="nores">Нічого не знайдено. Спробуйте інший запит або відкрийте весь каталог.</p>');
+    },
+    product:function(){
+      var p=byId(S.arg);
+      var rows=isScooter(p)?[['Потужність',p.kw+' Вт'],['Запас ходу',p.range+' км'],['Максимальна швидкість',p.speed+' км/год (обмежена для прокату)'],['Вага',p.weight+' кг'],['Навантаження','до '+p.load+' кг'],['Складання','Так']]:[['Тип','Додаткова послуга'],['Вартість',priceLine(p)]];
+      var tr=tariffs(p);
+      var panel;
+      if(S.tab==='spec') panel='<table class="spec-t"><tbody>'+rows.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>';}).join('')+'</tbody></table>';
+      else if(S.tab==='rev') panel='<p>Відгуків поки немає.</p>';
+      else panel='<p>'+esc(p.desc)+'</p>'+(isScooter(p)?'<p style="margin-top:10px">Для прокату потрібні документ, що посвідчує особу, і застава. Умови уточнить менеджер під час дзвінка.</p>':'');
+      var tabs=[['desc','Опис'],['spec','Характеристики'],['rev','Відгуки (0)']].map(function(t){return '<button class="'+(S.tab===t[0]?'on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>';}).join('');
+      return crumbs([['Головна','home'],[catName(p.cat),'cat',p.cat],[p.name,null]])
+        +'<div class="pp"><div class="pp-img">'+art(p)+badgeHtml(p)+'</div>'
+        +'<div class="pp-info"><h1 class="pt">'+esc(p.name)+'</h1>'
+        +'<div class="pp-meta"><span class="stock">'+I('check')+'Вільний</span><div class="rate">'+STARS+'<span class="cnt">0 відгуків</span></div></div>'
+        +'<p style="font-size:13px;color:var(--muted)">'+esc(specLine(p))+'</p>'
+        +'<div class="pp-price">'+priceLine(p)+'</div>'
+        +'<table class="spec-t"><tbody>'+tr.map(function(t){return '<tr><td>'+t[0]+'</td><td><b>'+money(t[1])+'</b></td></tr>';}).join('')+'</tbody></table>'
+        +'<div class="pp-buy"><button class="btn-green" data-req="'+p.id+'">'+I('cal')+'Залишити заявку</button></div>'
+        +'<p class="short">'+esc(p.desc)+'</p></div></div>'
+        +'<div class="tabs" role="tablist">'+tabs+'</div><div class="tpanel">'+panel+'</div>';
+    },
+    blog:function(){
+      return crumbs([['Головна','home'],['Блог',null]])+'<h1 class="pt">Блог про прокат</h1><div class="posts">'+POSTS.map(postCard).join('')+'</div>';
+    },
+    post:function(){
+      var b=POSTS.filter(function(x){return x.id===S.arg;})[0];
+      return crumbs([['Головна','home'],['Блог','blog'],[b.title,null]])
+        +'<article class="artp"><h1 class="pt">'+esc(b.title)+'</h1>'
+        +'<div class="pm"><span>'+I('cal')+b.date+'</span><span>'+I('eye')+b.views+'</span><span>'+b.read+'</span></div>'
+        +'<p class="lead">'+esc(b.lead)+'</p>'
+        +b.body.map(function(s){return '<h2>'+esc(s[0])+'</h2><p>'+esc(s[1])+'</p>';}).join('')
+        +'<div class="cta"><button class="btn-green" data-req="'+b.product+'">Залишити заявку: '+esc(byId(b.product).name)+'</button></div></article>';
+    },
+    info:function(){
+      return crumbs([['Головна','home'],['Умови прокату',null]])
+        +'<h1 class="pt">Умови прокату</h1>'
+        +'<div class="cart-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">'
+        +'<div class="box"><div class="box-title">'+I('cal')+'Як орендувати</div><div class="box-body"><p>Залиште заявку на сайті або зателефонуйте. Менеджер уточнить дату, термін і спосіб видачі та підтвердить бронь.</p></div></div>'
+        +'<div class="box"><div class="box-title">'+I('card')+'Застава та документи</div><div class="box-body"><p>Потрібен документ, що посвідчує особу. Розмір застави залежить від моделі, і вона повертається після здачі самоката без пошкоджень.</p></div></div>'
+        +'<div class="box"><div class="box-title">'+I('shield')+'Відповідальність</div><div class="box-body"><p>Орендар відповідає за самокат на час прокату. Рекомендуємо шолом і їзду за правилами. Повні умови будуть у договорі.</p></div></div>'
+        +'</div>';
+    },
+    request:function(){
+      var sel=S.arg||'r3';
+      var opts=PRODUCTS.filter(isScooter).map(function(p){return '<option value="'+p.id+'"'+(p.id===sel?' selected':'')+'>'+esc(p.name)+'</option>';}).join('');
+      var dur=DUR.map(function(d){return '<option value="'+d[0]+'"'+(d[0]==='d1'?' selected':'')+'>'+d[1]+'</option>';}).join('');
+      var d0=new Date();d0.setDate(d0.getDate()+1);var ds=d0.toISOString().slice(0,10);
+      return crumbs([['Головна','home'],['Заявка на прокат',null]])+'<h1 class="pt">Заявка на прокат</h1>'
+        +'<div class="cart-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)"><div class="box"><div class="box-title">'+I('cal')+'Ваш вибір</div><div class="box-body"><div id="rq-art">'+art(byId(sel))+'</div><b id="rq-name">'+esc(byId(sel).name)+'</b><p class="note">Орієнтовна вартість: <b id="rq-sum"></b>. Остаточну суму підтвердить менеджер.</p></div></div>'
+        +'<form class="box" id="rform"><div class="box-title">'+I('check')+'Залишити заявку</div><div class="box-body">'
+        +'<label class="fld" for="r-sc">Самокат<select id="r-sc">'+opts+'</select></label>'
+        +'<label class="fld" for="r-date">Дата початку<input id="r-date" type="date" value="'+ds+'" required></label>'
+        +'<label class="fld" for="r-dur">Термін<select id="r-dur">'+dur+'</select></label>'
+        +'<label class="fld" for="r-del">Отримання<select id="r-del"><option>Самовивіз з пункту</option><option>Доставка по Києву (+200 ₴)</option></select></label>'
+        +'<label class="fld" for="r-name">Ім’я<input id="r-name" required autocomplete="name" placeholder="Олександр"></label>'
+        +'<label class="fld" for="r-phone">Телефон<input id="r-phone" type="tel" required autocomplete="tel" placeholder="+38 (0XX) 000-00-00"></label>'
+        +'<label class="fld" for="r-note">Коментар<textarea id="r-note" rows="2" placeholder="Зручний час для дзвінка, побажання"></textarea></label>'
+        +'<button class="btn-green" type="submit">Надіслати заявку</button>'
+        +'<p class="note">Це демо: заявка нікуди не надсилається.</p></div></form></div>';
+    },
+    done:function(){
+      return '<div class="box" style="margin-top:24px"><div class="box-title">'+I('check')+'Заявку прийнято</div><div class="empty">'
+        +'<h1 class="pt" style="margin:0">Дякуємо, '+esc(S.arg.name)+'</h1>'
+        +'<p>Заявка №'+S.arg.num+' прийнята. Менеджер передзвонить за вказаним номером. У справжньому сайті тут було б повідомлення в SMS або Telegram.</p>'
+        +'<p class="note">Це демо-макет, дані нікуди не передаються. Заявку можна побачити в адмін-панелі.</p>'
+        +'<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn-green" data-cat="all">До каталогу</button><a class="btn-line" href="#admin" data-adm>Подивитися в адмінці</a></div></div></div>';
+    }
+  };
+
+  function updRq(){
+    var s=$('#r-sc');if(!s)return;
+    var p=byId(s.value),k=$('#r-dur').value;
+    $('#rq-art').innerHTML=art(p);$('#rq-name').textContent=p.name;
+    var sum=tariffPrice(p,k)+($('#r-del').selectedIndex===1?200:0);
+    $('#rq-sum').textContent=money(sum);
+  }
+  function render(){
+    $('#app').innerHTML=views[S.view]();
+    if(S.view==='request')updRq();
+  }
+  function go(view,arg){
+    S.view=view;S.arg=arg||null;
+    if(view==='product'){S.tab='desc';}
+    hideMenu();render();window.scrollTo(0,0);
+  }
+  function goCat(key,keepQ){
+    if(!keepQ){S.q='';$('#q').value='';}
+    go('cat',key);
+  }
+  function hideMenu(){
+    var m=$('#catmenu');m.hidden=true;
+    document.querySelector('.catbtn').setAttribute('aria-expanded','false');
+  }
+  function toast(msg){
+    $('#toastText').textContent=msg;
+    $('#toast').hidden=false;
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){$('#toast').hidden=true;},2800);
+  }
+
+  $('#catmenu').innerHTML=CATS.map(function(c){return '<button data-cat="'+c[0]+'">'+esc(c[1])+'</button>';}).join('');
+
+  document.addEventListener('click',function(e){
+    var m=$('#catmenu');
+    if(!m.hidden&&!e.target.closest('#catmenu')&&!e.target.closest('[data-menu]')){hideMenu();}
+    var t=e.target.closest('[data-go],[data-open],[data-post],[data-cat],[data-menu],[data-req],[data-tab],[data-stub]');
+    if(!t) return;
+    var d=t.dataset;
+    if(d.menu!==undefined){
+      var open=m.hidden;m.hidden=!open;
+      t.setAttribute('aria-expanded',String(open));return;
+    }
+    if(d.cat){goCat(d.cat);return;}
+    if(d.go){
+      if(d.go==='cat'){goCat(d.arg||'all');return;}
+      go(d.go);return;
+    }
+    if(d.open){go('product',d.open);return;}
+    if(d.post){go('post',d.post);return;}
+    if(d.req){go('request',d.req);return;}
+    if(d.tab){S.tab=d.tab;render();return;}
+    if(d.stub!==undefined){toast('Демо: '+d.stub.charAt(0).toLowerCase()+d.stub.slice(1));return;}
+  });
+
+  document.addEventListener('change',function(e){
+    if(e.target.id==='sort'){S.sort=e.target.value;render();}
+    if(e.target.id==='r-sc'||e.target.id==='r-dur'||e.target.id==='r-del'){updRq();}
+  });
+
+  document.addEventListener('submit',function(e){
+    var id=e.target.id;
+    if(id==='sform'){
+      e.preventDefault();
+      S.q=$('#q').value.trim();
+      go('cat','all');return;
+    }
+    if(id==='subform'){
+      e.preventDefault();
+      $('#subemail').value='';
+      toast('Демо: підписку не збережено');return;
+    }
+    if(id==='rform'){
+      e.preventDefault();
+      var name=$('#r-name').value.trim();
+      var p=byId($('#r-sc').value),k=$('#r-dur').value;
+      var del=$('#r-del').selectedIndex===1;
+      var sum=tariffPrice(p,k)+(del?200:0);
+      var num=2049+window.__L.length-7;
+      var dl=DUR.filter(function(x){return x[0]===k;})[0][1];
+      window.__L.unshift([num,'new',name,$('#r-phone').value.trim(),del?'Доставка по Києву':'Самовивіз',p.name.replace('Електросамокат ','')+' · '+dl,String(sum),'Щойно']);
+      go('done',{num:num,name:name});
+    }
+  });
+
+  render();
+})();
+</script>
+
+<script>
+(function(){
+  var P = window.__P || [];
+  var adm = document.getElementById('adm');
+  var A = {v:'dash', pid:null, tab:'g', q:'', st:''};
+  var STAT = {
+    new:['Нове','#DBEAFE','#1D4ED8','#2563EB'],
+    work:['В обробці','#FEF3C7','#B45309','#F59E0B'],
+    ship:['Відправлено','#E0F2FE','#0369A1','#1E91CF'],
+    done:['Виконано','#DCFCE7','#15803D','#16A34A'],
+    cancel:['Скасовано','#F1F5F9','#64748B','#94A3B8']
+  };
+  var ORD = window.__L;
+  var MENU = [
+    ['dash','Панель керування'],
+    ['cat','Каталог',[['prod','Самокати'],['cats','Категорії'],['attr','Тарифи']]],
+    ['ord','Заявки'],
+    ['cust','Клієнти',[['cust','Список клієнтів'],['om','Менеджер заявок']]],
+    ['blog','Блог'],
+    ['mk','Маркетинг',[['mk','Купони'],['om','Менеджер заявок']]],
+    ['ext','Розширення',[['ext','Модулі'],['om','Менеджер заявок'],['sms','SMS-Fly Order']]],
+    ['set','Налаштування']
+  ];
+  function $(s){return document.querySelector(s)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function money(n){return Number(n).toLocaleString('uk-UA')+' ₴'}
+  function st(k){var s=STAT[k];return '<span class="a-st" style="background:'+s[1]+';color:'+s[2]+'">'+s[0]+'</span>'}
+  function toast(t){var el=document.getElementById('toast'),tx=document.getElementById('toastText');if(!el||!tx)return;tx.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){el.hidden=true},2200)}
+
+  function menu(){
+    var h='';
+    MENU.forEach(function(m){
+      var on = A.v===m[0] || (m[0]==='cat'&&(A.v==='prod'||A.v==='pedit'||A.v==='cats'||A.v==='attr')) || (m[2]&&A.sec===m[0]);
+      h+='<a data-a="nav" data-v="'+m[0]+'" class="'+(on?'on':'')+'"><b></b>'+m[1]+'</a>';
+      if(m[2]&&on){h+='<div class="a-sub">';m[2].forEach(function(s){h+='<a data-a="nav" data-v="'+s[0]+'" data-sec="'+m[0]+'">'+s[1]+'</a>'});h+='</div>'}
+    });
+    $('#aMenu').innerHTML=h;
+  }
+
+  function dash(){
+    var bars=[40,55,35,70,60,85,95], days=['пн','вт','ср','чт','пт','сб','нд'];
+    var ch=bars.map(function(b,i){return '<div style="height:'+b+'%"><span>'+days[i]+'</span></div>'}).join('');
+    var rows=ORD.slice(0,5).map(function(o){return '<tr class="fa-link" data-a="ord-open"><td>#'+o[0]+'</td><td>'+esc(o[2])+'</td><td>'+st(o[1])+'</td><td>'+o[7]+'</td><td>'+money(o[6])+'</td></tr>'}).join('');
+    return '<div class="a-h"><h1>Панель керування</h1></div>'+
+    '<div class="a-tiles">'+
+    '<div class="a-tile"><small>Заявки</small><strong>63</strong><em>▲ 12% до минулого місяця</em></div>'+
+    '<div class="a-tile"><small>Виручка</small><strong>74 800 ₴</strong><em>▲ 8%</em></div>'+
+    '<div class="a-tile"><small>Клієнти</small><strong>37</strong><em>▲ 5 нових</em></div>'+
+    '<div class="a-tile"><small>Самокати в прокаті</small><strong>4 з 6</strong><em>зараз на маршруті</em></div></div>'+
+    '<div class="a-cols"><div class="a-panel"><h2>Заявки за тиждень</h2><div class="a-chart">'+ch+'</div><div style="height:20px"></div></div>'+
+    '<div class="a-panel"><h2>Остання активність</h2><div style="line-height:2">Нова заявка #'+ORD[0][0]+'<br>Самокат Max 800 повернули<br>Заряд Urban 250 — 18%<br>Новий відгук на модерації</div></div></div>'+
+    '<div class="a-panel"><h2>Останні заявки</h2><div class="a-wrap"><table class="a-tbl"><tr><th>№</th><th>Клієнт</th><th>Статус</th><th>Дата</th><th>Сума</th></tr>'+rows+'</table></div></div>';
+  }
+
+  function dur(p){return p.cat==='acc'?'—':p.h+' ₴/год'}
+  function prodList(){
+    var q=A.q.toLowerCase();
+    var rows=P.filter(function(p){return !q||p.name.toLowerCase().indexOf(q)>-1}).map(function(p,i){
+      var busy=p.cat!=='acc'&&i%3===1;
+      var stt=p.cat==='acc'?'<span class="a-badge" style="background:#F1F5F9;color:#64748B">послуга</span>':(busy?'<span class="a-badge" style="background:#FEF3C7;color:#B45309">в прокаті</span>':'<span class="a-badge" style="background:#DCFCE7;color:#15803D">вільний</span>');
+      return '<tr><td><input type="checkbox"></td><td><div style="width:40px;height:40px;border-radius:10px;background:#F1F5F9;display:grid;place-items:center;color:#4A90E2;font-weight:700">'+(p.cat==='acc'?'◇':'▮')+'</div></td><td><b>'+esc(p.name)+'</b></td><td>'+esc(p.id.toUpperCase())+'</td><td>'+dur(p)+'</td><td>'+money(p.d)+'</td><td>'+stt+'</td><td><a class="a-btn s" data-a="pedit" data-id="'+p.id+'">Змінити</a></td></tr>';
+    }).join('');
+    return '<div class="a-h"><h1>Самокати</h1><a class="a-btn" data-a="pnew">+ Додати самокат</a></div>'+
+    '<div class="a-panel"><div class="a-fl"><input class="a-in" id="aq" placeholder="Назва" value="'+esc(A.q)+'"><select class="a-in"><option>Усі статуси</option><option>Вільні</option><option>В прокаті</option></select><a class="a-btn" data-a="pfilter">Фільтр</a></div>'+
+    '<div class="a-wrap"><table class="a-tbl"><tr><th></th><th>Фото</th><th>Назва</th><th>Код</th><th>За годину</th><th>За добу</th><th>Статус</th><th></th></tr>'+rows+'</table></div></div>';
+  }
+
+  function prodEdit(){
+    var p=P.filter(function(x){return x.id===A.pid})[0]||{name:'',desc:'',id:'',h:'',d:'',cat:'city'};
+    var T=[['g','Загальне'],['d','Тарифи'],['l','Характеристики'],['i','Зображення'],['s','SEO']];
+    var tabs='<div class="a-tabs">'+T.map(function(t){return '<a data-a="ptab" data-t="'+t[0]+'" class="'+(A.tab===t[0]?'on':'')+'">'+t[1]+'</a>'}).join('')+'</div>';
+    var body='';
+    if(A.tab==='g') body='<div class="a-row"><label>Назва</label><input class="a-in" value="'+esc(p.name)+'"></div><div class="a-row"><label>Опис</label><textarea class="a-in">'+esc(p.desc||'')+'</textarea></div><div class="a-row"><label>Meta title</label><input class="a-in" value="'+esc(p.name)+' — прокат у Києві"></div>';
+    else if(A.tab==='d') body='<div class="a-row"><label>Код</label><input class="a-in" value="'+esc((p.id||'').toUpperCase())+'"></div><div class="a-row"><label>Ціна за годину</label><input class="a-in" value="'+esc(p.h)+'"></div><div class="a-row"><label>Ціна за добу</label><input class="a-in" value="'+esc(p.d)+'"></div><div class="a-row"><label>Статус</label><select class="a-in"><option>Увімкнено</option><option>Вимкнено</option></select></div>';
+    else if(A.tab==='l') body='<div class="a-row"><label>Категорія</label><input class="a-in" value="'+esc(({city:'Міські',power:'Потужні',kids:'Дитячі',acc:'Додатково'})[p.cat]||'')+'"></div><div class="a-row"><label>Потужність, Вт</label><input class="a-in" value="'+esc(p.kw||'')+'"></div><div class="a-row"><label>Запас ходу, км</label><input class="a-in" value="'+esc(p.range||'')+'"></div><div class="a-row"><label>Вага, кг</label><input class="a-in" value="'+esc(p.weight||'')+'"></div>';
+    else if(A.tab==='i') body='<div class="a-row"><label>Головне фото</label><div style="width:120px;height:120px;border-radius:16px;background:#F1F5F9;display:grid;place-items:center;color:#8a97a6">Фото</div></div>';
+    else body='<div class="a-row"><label>SEO URL</label><input class="a-in" value="'+esc((p.id||'')+'-prokat')+'"></div>';
+    return '<div class="a-h"><h1>'+(p.name?'Змінити самокат':'Новий самокат')+'</h1><div><a class="a-btn" data-a="psave">Зберегти</a> <a class="a-btn g" data-a="nav" data-v="prod">Скасувати</a></div></div><div class="a-panel">'+tabs+body+'</div>';
+  }
+
+  function ordList(t){
+    var f=A.st;
+    var btns='<a class="a-btn s '+(f?'g':'')+'" data-a="ofilt" data-s="">Усі ('+ORD.length+')</a> '+Object.keys(STAT).map(function(k){return '<a class="a-btn s '+(f===k?'':'g')+'" data-a="ofilt" data-s="'+k+'">'+STAT[k][0]+'</a>'}).join(' ');
+    var cards=ORD.filter(function(o){return !f||o[1]===f}).map(function(o){
+      var opts=Object.keys(STAT).map(function(k){return '<option value="'+k+'"'+(k===o[1]?' selected':'')+'>'+STAT[k][0]+'</option>'}).join('');
+      return '<div class="o-card"><i style="background:'+STAT[o[1]][3]+'"></i><div><span><b>#'+o[0]+'</b><small>'+o[7]+'</small></span><span><b>'+esc(o[2])+'</b><small>'+esc(o[3])+'</small></span><span>'+esc(o[5])+'<small>'+esc(o[4])+'</small></span><b>'+money(o[6])+'</b><select class="a-in" data-a="ostat" data-n="'+o[0]+'">'+opts+'</select></div></div>';
+    }).join('');
+    return '<div class="a-h"><h1>'+(t||'Заявки')+'</h1></div><div class="a-fl">'+btns+'</div>'+cards;
+  }
+
+  function stub(t){return '<div class="a-h"><h1>'+t+'</h1></div><div class="a-panel" style="color:#8a97a6">Розділ у демо не заповнено. У робочому магазині тут буде повний функціонал.</div>'}
+
+  function render(){
+    var v=A.v, h;
+    var names={dash:'Панель керування',prod:'Самокати',pedit:'Самокати',ord:'Заявки',om:'Менеджер заявок',sms:'SMS-Fly Order'};
+    if(v==='dash')h=dash();else if(v==='prod')h=prodList();else if(v==='pedit')h=prodEdit();else if(v==='ord')h=ordList();
+    else if(v==='om')h=ordList('Менеджер заявок');
+    else if(v==='sms')h=stub('SMS-Fly Order');
+    else h=stub(({cats:'Категорії',attr:'Тарифи',cust:'Клієнти',blog:'Блог',mk:'Маркетинг',ext:'Розширення',set:'Налаштування',cat:'Каталог'})[v]||'Розділ');
+    $('#aBody').innerHTML=h;
+    $('#aBc').textContent=(names[v]||'Розділ');
+    menu();
+  }
+  function open(){adm.classList.add('on');document.documentElement.style.overflow='hidden';render()}
+  function close(){adm.classList.remove('on','menu');document.documentElement.style.overflow=''}
+
+  document.addEventListener('click',function(e){
+    var o=e.target.closest('[data-adm]');
+    if(o){e.preventDefault();open();return}
+    var el=e.target.closest('#adm [data-a]');
+    if(!el)return;
+    var a=el.getAttribute('data-a');
+    if(a==='exit')close();
+    else if(a==='burger')adm.classList.toggle('menu');
+    else if(a==='nav'){A.v=el.getAttribute('data-v');if(A.v==='cat')A.v='prod';A.sec=el.getAttribute('data-sec')||(['cust','mk','ext'].indexOf(A.v)>-1?A.v:(A.v==='om'?A.sec:null));adm.classList.remove('menu');render()}
+    else if(a==='pedit'){A.pid=el.getAttribute('data-id');A.tab='g';A.v='pedit';render()}
+    else if(a==='pnew'){A.pid=null;A.tab='g';A.v='pedit';render()}
+    else if(a==='ptab'){A.tab=el.getAttribute('data-t');render()}
+    else if(a==='psave'){toast('Збережено (демо)');A.v='prod';render()}
+    else if(a==='pfilter'){A.q=$('#aq').value;render()}
+    else if(a==='ofilt'){A.st=el.getAttribute('data-s');render()}
+    else if(a==='ord-open'){A.v='ord';render()}
+  });
+  document.addEventListener('change',function(e){
+    var el=e.target.closest('#adm [data-a="ostat"]');
+    if(!el)return;
+    var n=+el.getAttribute('data-n');
+    ORD.forEach(function(o){if(o[0]===n)o[1]=el.value});
+    toast('Статус змінено (демо)');render();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='aq'){A.q=e.target.value;render()}});
+  if(location.hash==='#admin')open();
+})();
+</script>
+</body></html>
