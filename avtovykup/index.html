@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Автовикуп Терміновий викуп авто</title>
+<meta name="theme-color" content="#141414">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F2EE;--card:#FFFFFF;--ink:#141414;--ink2:#2A2A2A;--mut:#64625C;--mut2:#9A978F;--line:#E3E0D8;
+  --ac:#FFC21A;--ac-d:#F0B000;--ac-l:#FFF4D1;--ok:#1E9E57;--dk:#141414;--dk2:#1F1F1F;
+  --r:18px;--f:'Onest',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.55 var(--f);-webkit-font-smoothing:antialiased;padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+@media(min-width:900px){body{padding-bottom:0}}
+[hidden]{display:none!important}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+h1,h2,h3,h4,p{margin:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.w{max-width:1200px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.ic{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.15em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15.5px;text-decoration:none;white-space:nowrap;transition:background .15s,transform .1s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn-ac{background:var(--ac);color:var(--ink)}.btn-ac:hover{background:var(--ac-d)}
+.btn-dk{background:var(--ink);color:#fff}.btn-dk:hover{background:#2c2c2c}
+.btn-ln{border:1.5px solid var(--line);background:var(--card)}.btn-ln:hover{border-color:var(--ink)}
+.btn-gl{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-gl:hover{background:rgba(255,255,255,.15)}
+.btn-sm{height:40px;padding:0 15px;font-size:14px;border-radius:11px}
+.tag-ph{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#B4570E;border:1px dashed #E39A5C;border-radius:6px;padding:1px 6px;vertical-align:middle}
+.ph{position:relative;background:linear-gradient(135deg,#E2DFD7,#EFEDE7);display:grid;place-items:center;overflow:hidden;color:#A29E94}
+.ph svg.car{width:60%;max-width:220px;height:auto;opacity:.7}
+.ph .pl{position:absolute;left:10px;bottom:10px;font-size:11px;font-weight:700;background:rgba(255,255,255,.88);color:var(--mut);padding:3px 8px;border-radius:999px}
+
+.demo-strip{background:var(--ac);color:var(--ink);font-size:12.5px;font-weight:700;text-align:center;padding:6px 12px}
+.hd{position:sticky;top:0;z-index:50;background:rgba(20,20,20,.94);color:#fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.hd .w{display:flex;align-items:center;gap:12px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:17px;white-space:nowrap}
+.logo i{width:40px;height:40px;border-radius:12px;border:1.5px dashed #555;display:grid;place-items:center;font:700 9px var(--f);color:#888;font-style:normal}
+.nav{display:none;gap:2px;margin-left:8px}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:600;font-size:15px;color:#d8d8d8;padding:8px 11px;border-radius:10px}
+.nav a:hover{background:#262626;color:#fff}
+.hd-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+.tel{display:none;font-weight:700;text-decoration:none;white-space:nowrap;font-size:15px}
+.tel small{display:block;font-size:11.5px;color:#9b9b9b;font-weight:600}
+.adm-link{font-size:12.5px;font-weight:700;padding:9px 11px;border-radius:11px;border:1px solid #3a3a3a;text-decoration:none;white-space:nowrap;color:#ddd}
+@media(min-width:1120px){.nav{display:flex}}
+@media(min-width:1300px){.tel{display:block}}
+@media(max-width:600px){.hd .hbtn{display:none}.logo span{display:none}}
+
+/* hero */
+.hero{background:var(--dk);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;bottom:-200px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,26,.22),transparent 65%);pointer-events:none}
+.hero .hw{position:relative;z-index:1;display:grid;gap:28px;padding-top:36px;padding-bottom:44px}
+@media(min-width:980px){.hero .hw{grid-template-columns:1fr 480px;align-items:start;padding-top:60px;padding-bottom:70px;gap:48px}}
+.hero .k{display:inline-flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:#cfcfcf;border:1px solid #333;border-radius:999px;padding:5px 12px}
+.hero .k i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.hero h1{font-weight:900;font-size:clamp(36px,6.4vw,66px);line-height:1;letter-spacing:-.03em;margin:18px 0 16px}
+.hero h1 em{font-style:normal;color:var(--ac)}
+.hero .sub{color:#BDBDBD;font-size:17.5px;max-width:540px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;max-width:560px}
+.facts div{border-left:3px solid var(--ac);padding:2px 0 2px 12px}
+.facts b{display:block;font-size:clamp(22px,3.2vw,30px);font-weight:800;line-height:1.1}
+.facts span{font-size:13px;color:#a9a9a9}
+.trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.trust span{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:#1f1f1f;border:1px solid #2e2e2e}
+.trust .ic{color:var(--ac)}
+
+/* quiz */
+.quiz{background:var(--card);color:var(--ink);border-radius:24px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+@media(min-width:600px){.quiz{padding:26px}}
+.qh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.qh h2{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.qh span{font-size:13px;font-weight:700;color:var(--mut)}
+.prog{height:6px;border-radius:3px;background:#EEECE6;margin:12px 0 18px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--ac);border-radius:3px;transition:width .25s}
+.fgrid{display:grid;gap:10px}
+@media(min-width:440px){.fgrid.two{grid-template-columns:1fr 1fr}.fgrid .full{grid-column:1/-1}}
+.fld{display:grid;gap:5px;font-size:13px;font-weight:700;color:var(--mut)}
+.fld input,.fld select{width:100%;height:50px;border-radius:12px;border:1.5px solid var(--line);background:#FAF9F6;font:600 15.5px var(--f);color:var(--ink);padding:0 13px;appearance:none;-webkit-appearance:none}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);background-position:calc(100% - 20px) 22px,calc(100% - 15px) 22px;background-size:5px 5px;background-repeat:no-repeat;padding-right:36px}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--ink)}
+.opts{display:grid;gap:8px}
+.opts.g2{grid-template-columns:1fr 1fr}
+.opts label{position:relative}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 13px;border-radius:13px;border:1.5px solid var(--line);font-weight:600;font-size:14.5px;cursor:pointer;background:#FAF9F6;line-height:1.3}
+.opts .t{font-style:normal;display:block}
+.opts span small{display:block;font-weight:500;color:var(--mut);font-size:12.5px}
+.opts span::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;border:2px solid #C9C5BB;background:#fff}
+.opts input[type=checkbox]+span::before{border-radius:5px}
+.opts input:checked+span{border-color:var(--ink);background:#fff}
+.opts input:checked+span::before{border-color:var(--ink);background:var(--ink);box-shadow:inset 0 0 0 3px #fff}
+.opts input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
+.ql{font-size:14px;font-weight:800;margin:14px 0 8px}
+.ql:first-child{margin-top:0}
+.qnav{display:flex;gap:8px;margin-top:18px}
+.qnav .btn{flex:1}
+.qnav .back{flex:0 0 auto;width:50px;padding:0}
+.qnote{font-size:12.5px;color:var(--mut2);margin-top:10px;text-align:center}
+.photo{display:flex;align-items:center;gap:12px;border:1.5px dashed #C9C5BB;border-radius:13px;padding:12px;font-size:14px;font-weight:600;color:var(--mut);width:100%;text-align:left;background:#FAF9F6}
+.photo b{width:40px;height:40px;border-radius:11px;background:var(--ac-l);display:grid;place-items:center;color:var(--ink);flex:none}
+.res{text-align:center}
+.res .lbl{font-size:13px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.res .rng{font-size:clamp(30px,6vw,40px);font-weight:900;letter-spacing:-.02em;margin:6px 0 4px}
+.res .car{font-weight:700;color:var(--ink2)}
+.res .why{background:#FAF9F6;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:14px 0;text-align:left;font-size:13.5px;color:var(--mut);display:grid;gap:6px}
+.res .why div{display:flex;justify-content:space-between;gap:10px}
+.res .why b{color:var(--ink)}
+.res .ok{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#EAF7EF;color:#14653A;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600}
+.res .ok .ic{margin-top:3px}
+
+section.s{padding:56px 0}
+@media(min-width:900px){section.s{padding:80px 0}}
+.kick{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#B98800}
+.s h2{font-weight:800;font-size:clamp(28px,4.4vw,44px);line-height:1.08;letter-spacing:-.025em;margin:8px 0 10px}
+.s .lead{color:var(--mut);max-width:660px;font-size:16.5px}
+.grid{display:grid;gap:12px;margin-top:28px}
+@media(min-width:720px){.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.g4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card h3{font-size:17.5px;font-weight:800;margin-bottom:5px}
+.card p{color:var(--mut);font-size:14.5px}
+.num{width:44px;height:44px;border-radius:13px;background:var(--ac);font-weight:900;font-size:19px;display:grid;place-items:center;margin-bottom:14px}
+.step-t{display:inline-block;font-size:12.5px;font-weight:700;color:var(--ok);margin-top:10px}
+.cond{display:flex;gap:14px;align-items:flex-start}
+.cond .q{width:46px;height:46px;flex:none;border-radius:13px;background:var(--ac-l);display:grid;place-items:center}
+
+/* honest */
+.hon{display:grid;gap:16px;margin-top:28px}
+@media(min-width:960px){.hon{grid-template-columns:1fr 1.5fr;align-items:start}}
+.bar{display:grid;gap:10px}
+.bar .row{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;font-size:14px;font-weight:600}
+.bar .tr{height:34px;border-radius:9px;background:#EEECE6;overflow:hidden;position:relative}
+.bar .tr i{position:absolute;inset:0 auto 0 0;border-radius:9px;display:flex;align-items:center;padding-left:10px;font-style:normal;font-size:13px;font-weight:800;white-space:nowrap}
+.tblw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card);-webkit-overflow-scrolling:touch}
+table.cmp{width:100%;border-collapse:collapse;min-width:600px;font-size:14px}
+.cmp th,.cmp td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmp thead th{background:#FAF9F6;font-size:13px;color:var(--mut)}
+.cmp th.us{background:var(--ac);color:var(--ink)}
+.cmp td.us{background:#FFFBEE;font-weight:700}
+.cmp td:first-child{color:var(--mut);font-weight:600;width:150px}
+.cmp tr:last-child td{border-bottom:0}
+
+/* guarantees */
+.gua{background:var(--dk);color:#fff;border-radius:26px;padding:28px 20px}
+@media(min-width:800px){.gua{padding:44px}}
+.gua h2{color:#fff}
+.gua .grid div{background:#1F1F1F;border:1px solid #2E2E2E;border-radius:var(--r);padding:20px}
+.gua .grid b{display:block;font-size:17px;margin:12px 0 4px}
+.gua .grid span{color:#ADADAD;font-size:14.5px}
+.gua .grid .ic{width:28px;height:28px;color:var(--ac)}
+
+/* bought */
+.bought .ph{aspect-ratio:16/10;border-radius:14px;margin:-6px -6px 14px}
+.bought .meta{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--mut);margin-top:6px}
+.bought .pr{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.bought .pr b{font-size:22px;font-weight:800}
+.bought .pr small{color:var(--ok);font-weight:700;font-size:13px}
+
+.rv .st{color:#F5A524;letter-spacing:2px;margin-bottom:10px}
+.rv .ln{height:9px;border-radius:5px;background:#EFEDE7;margin:8px 0}
+.rv .who{display:flex;align-items:center;gap:10px;margin-top:16px}
+.rv .av{width:38px;height:38px;border-radius:50%;border:1.5px dashed #C3BFB5}
+.rv .who small{display:block;color:var(--mut2);font-size:12.5px;font-weight:600}
+
+.faq{display:grid;gap:10px;margin-top:28px;max-width:880px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 18px}
+.faq summary{list-style:none;cursor:pointer;padding:18px 30px 18px 0;font-weight:700;font-size:16px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:4px;top:50%;width:9px;height:9px;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{color:var(--mut);padding:0 0 18px;font-size:15px}
+
+.cont{display:grid;gap:14px;margin-top:28px}
+@media(min-width:900px){.cont{grid-template-columns:1fr 1.3fr}}
+.cont .ph{min-height:300px;border-radius:22px}
+.rowc{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.rowc:last-of-type{border-bottom:0}
+.rowc small{display:block;color:var(--mut2);font-size:12.5px;font-weight:700}
+.final{background:var(--ac);border-radius:26px;padding:30px 22px;display:grid;gap:18px;align-items:center;margin-top:30px}
+@media(min-width:800px){.final{grid-template-columns:1fr auto;padding:40px}}
+.final h2{margin:0}
+.final p{font-weight:600;opacity:.75;margin-top:6px}
+
+.ftr{background:var(--dk);color:#9b9b9b;padding:42px 0 28px;font-size:14px;margin-top:20px}
+.ftr .cols{display:grid;gap:24px}
+@media(min-width:800px){.ftr .cols{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.ftr h4{color:#fff;margin:0 0 10px;font-size:15px}
+.ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ftr a{text-decoration:none}.ftr a:hover{color:#fff}
+.ftr .logo{color:#fff}
+.ftr .copy{margin-top:26px;padding-top:18px;border-top:1px solid #2a2a2a;font-size:12.5px;color:#777;display:grid;gap:6px}
+
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(20,20,20,.96);border-top:1px solid #2a2a2a}
+.mbar .btn{height:46px;padding:0 8px;font-size:14px}
+.mbar .btn-ln{background:#222;border-color:#333;color:#fff}
+@media(min-width:900px){.mbar{display:none}}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2000;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:calc(100vw - 32px);text-align:center}
+@media(min-width:900px){.toast{bottom:28px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/><path d="M6 9.5v5M18 9.5v5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.2M21 4l-3 16-9-6.8M21 4L9 13.2V19l3-3.3"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-crash" viewBox="0 0 24 24"><path d="M3 15l2-5h8l3 4h4v3H3zM7 17.5a1.5 1.5 0 1 0 0 .01M17 17.5a1.5 1.5 0 1 0 0 .01M14 3l1 3 3-1-1 3"/></symbol>
+  <symbol id="i-tow" viewBox="0 0 24 24"><path d="M3 16h11V9H8l-2 3H3zM14 12h4l3 4h-7M5 7l4-4"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></symbol>
+  <symbol id="i-road" viewBox="0 0 24 24"><path d="M8 3L4 21M16 3l4 18M12 4v3M12 10v3M12 16v3"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+  <symbol id="i-run" viewBox="0 0 24 24"><path d="M13 4a1.5 1.5 0 1 0 0 .01M10 21l2-6 3 3v3M7 12l3-4h4l3 3h3M9 15l-3 1"/></symbol>
+  <symbol id="car" viewBox="0 0 260 120"><path d="M20 86 Q18 64 40 60 L78 54 Q100 28 136 26 L170 26 Q198 28 220 56 L238 62 Q248 66 246 86 Z" fill="currentColor"/><path d="M96 54 Q112 36 136 34 H150 V54 Z M160 34 H170 Q190 36 204 54 H160 Z" fill="#fff" opacity=".6"/><circle cx="72" cy="88" r="20" fill="#fff"/><circle cx="72" cy="88" r="12" fill="currentColor"/><circle cx="196" cy="88" r="20" fill="#fff"/><circle cx="196" cy="88" r="12" fill="currentColor"/></symbol>
+</svg>
+
+<div class="demo-strip">Демо-макет · логотип, контакти, відгуки й приклади угод — заглушки, оцінка розраховується демо-формулою</div>
+
+<header class="hd">
+  <div class="w">
+    <a class="logo" href="#top"><i>ЛОГО</i><span>Назва автовикупу</span></a>
+    <nav class="nav" aria-label="Розділи">
+      <a href="#how">Як це працює</a><a href="#any">Які авто</a><a href="#price">Про ціну</a><a href="#guar">Гарантії</a><a href="#faq">Питання</a><a href="#contacts">Контакти</a>
+    </nav>
+    <div class="hd-r">
+      <a class="tel" href="#contacts">+38 (0XX) 000-00-00<small>щодня 08:00–22:00</small></a>
+      <a href="#admin" class="adm-link" data-adm>Адмінка (демо)</a>
+      <a class="btn btn-ac btn-sm hbtn" href="#quiz">Оцінити авто</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="w hw">
+    <div>
+      <span class="k"><i></i><span id="openTxt">Оцінювачі зараз на зв’язку</span></span>
+      <h1>Викупимо ваше авто <em>сьогодні</em></h1>
+      <p class="sub">Коли гроші потрібні швидко. Ціна за 15 хвилин, безкоштовний виїзд оцінювача й оплата одразу при підписанні договору. Без оголошень, дзвінків і пробних поїздок з незнайомцями.</p>
+      <div class="facts">
+        <div><b>15 хв</b><span>попередня ціна</span></div>
+        <div><b>1–3 год</b><span>огляд і договір</span></div>
+        <div><b>0 ₴</b><span>витрат на оформлення</span></div>
+      </div>
+      <div class="trust">
+        <span><svg class="ic" aria-hidden="true"><use href="#i-cash"/></svg>Готівка або на картку</span>
+        <span><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Офіційний договір у сервісному центрі МВС</span>
+        <span><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Ціна фіксується до огляду</span>
+      </div>
+    </div>
+    <div class="quiz" id="quiz" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="s" id="how">
+  <div class="w">
+    <div class="kick">Як це працює</div><h2>Від заявки до грошей за один день</h2>
+    <div class="grid g4">
+      <div class="card"><div class="num">1</div><h3>Заявка</h3><p>Заповніть оцінку на сайті або надішліть фото в Telegram.</p><span class="step-t">2 хвилини</span></div>
+      <div class="card"><div class="num">2</div><h3>Попередня ціна</h3><p>Оцінювач передзвонить і назве ціну з поясненням, з чого вона складається.</p><span class="step-t">до 15 хвилин</span></div>
+      <div class="card"><div class="num">3</div><h3>Огляд</h3><p>Приїдемо, куди зручно, перевіримо авто й документи. Безкоштовно.</p><span class="step-t">в день звернення</span></div>
+      <div class="card"><div class="num">4</div><h3>Договір і гроші</h3><p>Оформлюємо в сервісному центрі МВС, оплата одразу при підписанні.</p><span class="step-t">1–2 години</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="any" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Які авто купуємо</div><h2>У будь-якому стані</h2><p class="lead">Не треба нічого ремонтувати чи мити перед продажем. Ми врахуємо все в ціні й скажемо про це чесно.</p>
+    <div class="grid g3">
+      <div class="card cond"><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-crash"/></svg></span><div><h3>Після ДТП</h3><p>З пошкодженнями кузова, після спрацювання подушок.</p></div></div>
+      <div class="card cond"><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-tow"/></svg></span><div><h3>Не на ходу</h3><p>Заберемо евакуатором за наш рахунок.</p></div></div>
+      <div class="card cond"><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-road"/></svg></span><div><h3>З великим пробігом</h3><p>Старі авто, після таксі, з технічними проблемами.</p></div></div>
+      <div class="card cond"><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-bank"/></svg></span><div><h3>Кредитні й у заставі</h3><p>Розглядаємо індивідуально, підкажемо, як закрити кредит.</p></div></div>
+      <div class="card cond"><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></span><div><h3>Після підтоплення чи пожежі</h3><p>Оцінимо навіть те, що здається безнадійним.</p></div></div>
+      <div class="card cond"><span class="q"><svg class="ic" aria-hidden="true"><use href="#i-run"/></svg></span><div><h3>Терміновий продаж</h3><p>Переїзд, борги, лікування: гроші сьогодні.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="price" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="w">
+    <div class="kick">Чесно про ціну</div><h2>Чому викуп дешевший за ринок і чому це може бути вигідно</h2>
+    <p class="lead">Ми не обіцяємо «дорожче за ринок». Різниця — це оплата за швидкість і за ризики, які ми забираємо на себе: ремонт, підготовку, перепродаж і оформлення.</p>
+    <div class="hon">
+      <div class="card" style="background:#FAF9F6">
+        <h3>Що ви отримуєте на руки</h3><p style="margin-bottom:16px">Приклад для авто з ринковою ціною $10 000 <span class="tag-ph">приклад</span></p>
+        <div class="bar">
+          <div class="row"><span>Ринок</span><div class="tr"><i style="width:100%;background:#D9D5CB">$10 000</i></div></div>
+          <div class="row"><span>Продаж сам</span><div class="tr"><i style="width:91%;background:#E6E2D8">≈ $9 100 через 1–2 міс.</i></div></div>
+          <div class="row"><span>Автовикуп</span><div class="tr"><i style="width:82%;background:var(--ac)">≈ $8 200 сьогодні</i></div></div>
+          <div class="row"><span>Trade-in</span><div class="tr"><i style="width:78%;background:#E6E2D8">≈ $7 800 і купівля нового</i></div></div>
+        </div>
+        <p style="font-size:13px;margin-top:14px">Продаж самостійно: мінус торг, підготовка, оголошення й час. Суми умовні, реальна різниця залежить від моделі, стану й попиту.</p>
+      </div>
+      <div class="tblw"><table class="cmp">
+        <thead><tr><th></th><th>Продаж самостійно</th><th class="us">Автовикуп</th><th>Trade-in у салоні</th></tr></thead>
+        <tbody>
+          <tr><td>Скільки чекати</td><td>від тижнів до місяців</td><td class="us">того ж дня</td><td>день, але треба купити нове авто</td></tr>
+          <tr><td>Ціна</td><td>ринкова мінус торг</td><td class="us">нижча за ринок, але відома одразу</td><td>зазвичай нижча за ринок</td></tr>
+          <tr><td>Підготовка</td><td>мийка, дрібний ремонт, фото</td><td class="us">нічого не треба</td><td>часто вимагають</td></tr>
+          <tr><td>Витрати</td><td>оголошення, діагностики, переоформлення</td><td class="us">усе за наш рахунок</td><td>частково</td></tr>
+          <tr><td>Ризики</td><td>шахраї, пробні поїздки, «перекупи»</td><td class="us">договір і оплата при підписанні</td><td>мінімальні</td></tr>
+        </tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="guar">
+  <div class="w">
+    <div class="gua">
+      <div class="kick" style="color:var(--ac)">Гарантії</div><h2>Те, що записуємо в договір</h2>
+      <div class="grid g4">
+        <div><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><b>Ціна не падає на огляді</b><span>Якщо авто відповідає опису й фото, сума лишається тією, що назвали по телефону.</span></div>
+        <div><svg class="ic" aria-hidden="true"><use href="#i-cash"/></svg><b>Оплата одразу</b><span>Готівкою або на картку в момент підписання, без відстрочок.</span></div>
+        <div><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><b>Офіційне оформлення</b><span>У сервісному центрі МВС. Ви більше не відповідаєте за авто.</span></div>
+        <div><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><b>Виїзд безкоштовно</b><span>Огляд за вашою адресою, евакуатор за наш рахунок.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Нещодавно викупили</div><h2>Приклади угод</h2><p class="lead">Тут будуть ваші справжні угоди з фото. Зараз для прикладу <span class="tag-ph">заглушка</span></p>
+    <div class="grid g4" id="bought"></div>
+  </div>
+</section>
+
+<section class="s" id="reviews" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Відгуки</div><h2>Що кажуть ті, хто вже продав</h2><p class="lead">Тут автоматично показуватимуться справжні відгуки з Google Карт.</p>
+    <div class="grid g3 rv">
+      <div class="card"><div class="st">★★★★★</div><div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:58%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+      <div class="card"><div class="st">★★★★★</div><div class="ln" style="width:88%"></div><div class="ln" style="width:94%"></div><div class="ln" style="width:64%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+      <div class="card"><div class="st">★★★★★</div><div class="ln" style="width:90%"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:82%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="faq" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="w"><div class="kick">Питання</div><h2>Часті питання</h2><div class="faq" id="faqList"></div></div>
+</section>
+
+<section class="s" id="contacts">
+  <div class="w">
+    <div class="kick">Контакти</div><h2>Працюємо щодня</h2>
+    <div class="cont">
+      <div class="card">
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><div><small>Телефон</small><b>+38 (0XX) 000-00-00</b> <span class="tag-ph">заглушка</span></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg><div><small>Telegram / Viber</small><b>@your_telegram</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><div><small>Графік</small><b>Щодня 08:00–22:00</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><small>Місто й область</small><b>Місто роботи</b> <span class="tag-ph">заглушка</span></div></div>
+      </div>
+      <div class="ph"><svg class="ic" style="width:48px;height:48px;opacity:.5" aria-hidden="true"><use href="#i-pin"/></svg><span class="pl">Карта зони виїзду</span></div>
+    </div>
+    <div class="final">
+      <div><h2 style="font-size:clamp(24px,3.6vw,34px)">Дізнайтеся ціну свого авто</h2><p>Дві хвилини на сайті, без зобов’язань продавати.</p></div>
+      <a class="btn btn-dk" href="#quiz">Оцінити авто</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="w">
+    <div class="cols">
+      <div><a class="logo" href="#top"><i>ЛОГО</i>Назва автовикупу</a><p style="margin-top:12px">Терміновий викуп авто в будь-якому стані: після ДТП, не на ходу, кредитні.</p></div>
+      <div><h4>Викуп</h4><ul><li><a href="#" data-stub="Сторінка буде в повному сайті">Авто після ДТП</a></li><li><a href="#" data-stub="Сторінка буде в повному сайті">Авто не на ходу</a></li><li><a href="#" data-stub="Сторінка буде в повному сайті">Кредитні авто</a></li><li><a href="#" data-stub="Сторінка буде в повному сайті">Викуп за маркою</a></li></ul></div>
+      <div><h4>Інформація</h4><ul><li><a href="#how">Як це працює</a></li><li><a href="#price">Про ціну</a></li><li><a href="#faq">Документи для продажу</a></li><li><a href="#" data-stub="Сторінка буде в повному сайті">Політика конфіденційності</a></li></ul></div>
+      <div><h4>Контакти</h4><ul><li>+38 (0XX) 000-00-00</li><li>@your_telegram</li><li>Щодня 08:00–22:00</li></ul></div>
+    </div>
+    <div class="copy"><span>Оцінка на сайті попередня й не є публічною офертою. Остаточна ціна визначається після огляду авто й документів.</span><span>© 2026 Назва автовикупу. Демо-макет, дані нікуди не передаються.</span></div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-ln" href="#contacts"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</a>
+  <button class="btn btn-ln" data-stub="Відкриється Telegram, куди можна одразу надіслати фото авто"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Фото</button>
+  <a class="btn btn-ac" href="#quiz">Оцінити авто</a>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toastText"></span></div>
+
+<script>
+(function(){
+  // демо-формула: базова ринкова ціна нового авто класу, амортизація, пробіг, стан
+  var BR=[['Toyota',1.15],['Volkswagen',1.0],['Skoda',0.95],['Hyundai',0.9],['Kia',0.9],['Renault',0.75],['Nissan',0.9],['Ford',0.9],['Chevrolet',0.75],['Mitsubishi',0.95],['Mazda',1.0],['Honda',1.05],['BMW',1.45],['Mercedes-Benz',1.5],['Audi',1.4],['Lexus',1.6],['Daewoo',0.5],['ВАЗ / Lada',0.45],['Інша марка',0.85]];
+  var COND=[['ok','На ходу, без вкладень','',1],['small','Потрібен дрібний ремонт','',0.88],['dtp','Після ДТП','кузов пошкоджено',0.6],['dead','Не на ходу','мотор, коробка чи електрика',0.5]];
+  var DOCS=[['ua','На обліку в Україні, я власник',1],['proxy','Продаю за довіреністю',0.92],['credit','Кредитне або в заставі',0.85]];
+  var URG=[['today','Сьогодні','гроші потрібні терміново'],['week','Протягом тижня',''],['look','Просто дізнатися ціну','']];
+  var Q={step:0,br:'',model:'',year:'',km:'',cond:'ok',docs:'ua',urg:'today',city:'',name:'',phone:'',via:'Дзвінок'};
+  var STEPS=4;
+  window.__P=[
+    {id:'v1',cat:'city',name:'Toyota Camry 2016',h:'Після ДТП',d:9800,desc:''},
+    {id:'v2',cat:'city',name:'Volkswagen Passat B7 2012',h:'На ходу',d:6900,desc:''},
+    {id:'v3',cat:'city',name:'Renault Megane 2010',h:'Не на ходу',d:2300,desc:''},
+    {id:'v4',cat:'city',name:'Skoda Octavia A7 2015',h:'Кредитне',d:7600,desc:''}
+  ];
+  window.__L=[
+    [1288,'new','Олег','+380 67 000 00 31','Сьогодні · на ходу','Toyota RAV4 2014, 190 тис. км','11000','Сьогодні 13:20'],
+    [1287,'work','Світлана','+380 50 000 00 32','Сьогодні · після ДТП','Hyundai Tucson 2017, 120 тис. км','8400','Сьогодні 12:05'],
+    [1286,'ship','Андрій','+380 93 000 00 33','Протягом тижня · не на ходу','Opel Astra 2008, 260 тис. км','1700','Сьогодні 10:40'],
+    [1285,'done','Максим','+380 63 000 00 34','Сьогодні · на ходу','Skoda Octavia 2015, 210 тис. км','7600','Вчора 17:10'],
+    [1284,'cancel','Ірина','+380 66 000 00 35','Просто ціна','Kia Ceed 2012','5200','Вчора 11:30']
+  ];
+  function $(s){return document.querySelector(s);}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function usd(n){return '$'+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+  function I(n){return '<svg class="ic" aria-hidden="true"><use href="#i-'+n+'"/></svg>';}
+  var tt=null;function toast(m){$('#toastText').textContent=m;$('#toast').hidden=false;clearTimeout(tt);tt=setTimeout(function(){$('#toast').hidden=true;},2600);}
+  function opts(name,list,val,cls){return '<div class="opts'+(cls?' '+cls:'')+'">'+list.map(function(o){return '<label><input type="radio" name="'+name+'" value="'+o[0]+'"'+(val===o[0]?' checked':'')+'><span><em class="t">'+esc(o[1])+(o[2]?'<small>'+esc(o[2])+'</small>':'')+'</em></span></label>';}).join('')+'</div>';}
+
+  function estimate(){
+    var b=BR.filter(function(x){return x[0]===Q.br;})[0],k=b?b[1]:0.85;
+    var y=+Q.year||2012,age=Math.max(0,2026-y);
+    var market=30000*k*Math.pow(0.915,age);
+    var km=+String(Q.km).replace(/\D/g,'')||age*17000;
+    var exp=Math.max(age,1)*17000;var kmf=Math.max(0.75,Math.min(1.08,1-(km-exp)/exp*0.12));
+    market*=kmf;market=Math.max(market,900);
+    var c=COND.filter(function(x){return x[0]===Q.cond;})[0][3];
+    var d=DOCS.filter(function(x){return x[0]===Q.docs;})[0][2];
+    var buy=market*c*d*0.82;
+    var lo=Math.round(buy*0.93/50)*50,hi=Math.round(buy*1.05/50)*50;
+    return {market:Math.round(market/50)*50,lo:lo,hi:hi,c:c,d:d,kmf:kmf};
+  }
+  function years(){var o='<option value="">Рік</option>';for(var y=2025;y>=1995;y--)o+='<option'+(String(y)===String(Q.year)?' selected':'')+'>'+y+'</option>';return o;}
+  function render(){
+    var s=Q.step,h='';
+    if(s<STEPS) h+='<div class="qh"><h2>'+['Оцініть авто за 2 хвилини','Стан авто','Документи й терміновість','Куди надіслати ціну'][s]+'</h2><span>Крок '+(s+1)+' з '+STEPS+'</span></div><div class="prog"><i style="width:'+((s+1)/STEPS*100)+'%"></i></div>';
+    if(s===0){
+      h+='<div class="fgrid two"><label class="fld full" for="q-br">Марка<select id="q-br"><option value="">Оберіть марку</option>'+BR.map(function(b){return '<option'+(b[0]===Q.br?' selected':'')+'>'+b[0]+'</option>';}).join('')+'</select></label>'
+        +'<label class="fld full" for="q-model">Модель<input id="q-model" value="'+esc(Q.model)+'" placeholder="Напр.: Camry, Octavia"></label>'
+        +'<label class="fld" for="q-year">Рік випуску<select id="q-year">'+years()+'</select></label>'
+        +'<label class="fld" for="q-km">Пробіг, тис. км<input id="q-km" inputmode="numeric" value="'+esc(Q.km?Math.round(+Q.km/1000):'')+'" placeholder="Напр.: 180"></label></div>';
+    } else if(s===1){
+      h+=opts('cond',COND,Q.cond)+'<div style="margin-top:10px"><button type="button" class="photo" data-stub="Тут клієнт додасть фото авто з телефона"><b>'+I('cam')+'</b><span>Додати фото <small style="display:block;font-weight:500;color:var(--mut2)">з фото оцінка точніша, але можна й без них</small></span></button></div>';
+    } else if(s===2){
+      h+='<div class="ql">Документи</div>'+opts('docs',DOCS.map(function(d){return [d[0],d[1],''];}),Q.docs)+'<div class="ql">Коли потрібні гроші</div>'+opts('urg',URG,Q.urg);
+    } else if(s===3){
+      h+='<div class="fgrid two"><label class="fld full" for="q-phone">Телефон<input id="q-phone" type="tel" inputmode="tel" autocomplete="tel" value="'+esc(Q.phone)+'" placeholder="+38 (0XX) 000-00-00"></label>'
+        +'<label class="fld" for="q-name">Ім’я<input id="q-name" autocomplete="name" value="'+esc(Q.name)+'" placeholder="Ваше ім’я"></label>'
+        +'<label class="fld" for="q-city">Місто<input id="q-city" value="'+esc(Q.city)+'" placeholder="Де стоїть авто"></label></div>'
+        +'<div class="ql">Як зв’язатися</div>'+opts('via',[['Дзвінок','Дзвінок',''],['Telegram','Telegram',''],['Viber','Viber','']],Q.via,'g2');
+    } else {
+      var e=estimate();
+      h+='<div class="res"><div class="lbl">Попередня оцінка викупу</div><div class="rng">'+usd(e.lo)+' – '+usd(e.hi)+'</div><div class="car">'+esc((Q.br+' '+Q.model).trim())+', '+esc(Q.year)+'</div>'
+        +'<div class="why"><div><span>Орієнтовна ринкова ціна</span><b>≈ '+usd(e.market)+'</b></div><div><span>Стан</span><b>'+(e.c<1?'−'+Math.round((1-e.c)*100)+'%':'без знижки')+'</b></div><div><span>Документи</span><b>'+(e.d<1?'−'+Math.round((1-e.d)*100)+'%':'без знижки')+'</b></div><div><span>Швидкість і наші ризики</span><b>−18%</b></div></div>'
+        +'<div class="ok">'+I('check')+'<span>Заявку №'+Q.num+' прийнято. Оцінювач '+(Q.via==='Дзвінок'?'передзвонить':'напише в '+esc(Q.via))+' протягом 15 хвилин і назве точну ціну. Якщо стан відповідає опису, на огляді вона не зміниться.</span></div>'
+        +'<p class="qnote">Демо-розрахунок для прикладу. На робочому сайті формулу налаштуємо під ваші ціни, а заявка прийде вам у Telegram.</p>'
+        +'<div class="qnav"><a class="btn btn-dk" href="#admin" data-adm>Заявка в адмінці</a><button type="button" class="btn btn-ln" data-restart>Оцінити ще</button></div></div>';
+    }
+    if(s<STEPS) h+='<div class="qnav">'+(s>0?'<button type="button" class="btn btn-ln back" data-back aria-label="Назад">'+I('left')+'</button>':'')+'<button type="button" class="btn btn-ac" data-next>'+(s===STEPS-1?'Отримати оцінку':'Далі')+'</button></div>'
+      +(s===0?'<p class="qnote">Безкоштовно й без зобов’язань продавати</p>':'');
+    $('#quiz').innerHTML=h;
+  }
+  function save(){
+    var v=function(id){var el=$('#'+id);return el?el.value.trim():null;};
+    if(Q.step===0){Q.br=v('q-br');Q.model=v('q-model');Q.year=v('q-year');var k=v('q-km');Q.km=k?String(+k.replace(/\D/g,'')*1000):'';}
+    if(Q.step===3){Q.phone=v('q-phone');Q.name=v('q-name');Q.city=v('q-city');}
+    ['cond','docs','urg','via'].forEach(function(n){var r=document.querySelector('#quiz input[name='+n+']:checked');if(r)Q[n]=r.value;});
+  }
+  function valid(){
+    if(Q.step===0){if(!Q.br){toast('Оберіть марку');$('#q-br').focus();return false;}if(!Q.year){toast('Оберіть рік випуску');$('#q-year').focus();return false;}}
+    if(Q.step===3){if(Q.phone.replace(/\D/g,'').length<10){toast('Вкажіть телефон повністю');$('#q-phone').focus();return false;}}
+    return true;
+  }
+  render();
+  $('#quiz').addEventListener('click',function(e){
+    if(e.target.closest('[data-next]')){save();if(!valid())return;Q.step++;
+      if(Q.step===STEPS){var en=estimate();Q.num=1289+window.__L.length-5;
+        window.__L.unshift([Q.num,'new',Q.name||'Без імені',Q.phone,(URG.filter(function(u){return u[0]===Q.urg;})[0][1])+' · '+COND.filter(function(c){return c[0]===Q.cond;})[0][1].toLowerCase(),(Q.br+' '+Q.model).trim()+' '+Q.year+(Q.km?', '+Math.round(Q.km/1000)+' тис. км':''),String(Math.round((en.lo+en.hi)/2)),'Щойно']);}
+      render();if(window.innerWidth<980)document.getElementById('quiz').scrollIntoView({block:'start'});return;}
+    if(e.target.closest('[data-back]')){save();Q.step--;render();return;}
+    if(e.target.closest('[data-restart]')){Q={step:0,br:'',model:'',year:'',km:'',cond:'ok',docs:'ua',urg:'today',city:'',name:'',phone:'',via:'Дзвінок'};render();return;}
+  });
+  $('#quiz').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();var b=$('#quiz [data-next]');b&&b.click();}});
+
+  var BO=[['Toyota Camry','2016','Після ДТП','за 3 год',9800],['Volkswagen Passat B7','2012','На ходу','за 2 год',6900],['Renault Megane','2010','Не на ходу, евакуатор','за 4 год',2300],['Skoda Octavia A7','2015','Кредитне','за 1 день',7600]];
+  $('#bought').innerHTML=BO.map(function(b){return '<div class="card bought"><div class="ph"><svg class="car" aria-hidden="true"><use href="#car"/></svg><span class="pl">Фото угоди</span></div><h3>'+esc(b[0])+'</h3><div class="meta"><span>'+b[1]+' · '+esc(b[2])+'</span></div><div class="pr"><b>'+usd(b[4])+'</b><small>'+I('clock')+' '+b[3]+'</small></div></div>';}).join('');
+
+  var FAQ=[
+    ['Чому ціна нижча за ринкову?','Ви отримуєте гроші сьогодні й не витрачаєте час на продаж. Ми беремо на себе ремонт, підготовку, оформлення й ризик, що авто продаватиметься довго. Оцінювач завжди пояснює, з чого складається ціна.'],
+    ['Чи зміниться ціна на огляді?','Ні, якщо стан і документи відповідають тому, що ви описали. Якщо на огляді знайдемо щось серйозне, чого не було в описі, покажемо це й пояснимо нову суму. Ви можете відмовитися без жодних витрат.'],
+    ['Які документи потрібні?','Свідоцтво про реєстрацію авто, паспорт та ідентифікаційний код власника. Якщо продаєте не ви, потрібна довіреність, це розглядаємо індивідуально.'],
+    ['Як я отримаю гроші?','Готівкою або переказом на картку в момент підписання договору в сервісному центрі МВС.'],
+    ['Чи купуєте кредитні авто?','Так, розглядаємо індивідуально. Можемо погасити залишок кредиту з суми викупу, а різницю віддати вам.'],
+    ['Скільки часу займає продаж?','Попередня ціна до 15 хвилин, огляд у день звернення, оформлення 1–2 години. Зазвичай усе вкладається в один день.'],
+    ['Я просто хочу дізнатися ціну, це нормально?','Так. Оцінка безкоштовна й ні до чого не зобов’язує.']
+  ];
+  $('#faqList').innerHTML=FAQ.map(function(q,i){return '<details'+(i===0?' open':'')+'><summary>'+esc(q[0])+'</summary><p>'+esc(q[1])+'</p></details>';}).join('');
+  var h=new Date().getHours();if(h<8||h>=22)$('#openTxt').textContent='Приймаємо заявки цілодобово, передзвонимо о 08:00';
+
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#adm'))return;
+    var t=e.target.closest('[data-stub]');
+    if(t){e.preventDefault();toast('Демо: '+t.dataset.stub.charAt(0).toLowerCase()+t.dataset.stub.slice(1));}
+  });
+})();
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+#adm{display:none;position:fixed;inset:0;z-index:1000;background:#EDEDED;font:13px/1.45 'Open Sans',Arial,sans-serif;color:#333;overflow:hidden}
+#adm.on{display:flex}
+#adm *{box-sizing:border-box}
+#adm a{color:inherit;text-decoration:none;cursor:pointer}
+.a-side{width:230px;background:#242D37;color:#c9d1da;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.a-logo{padding:18px 20px;color:#fff;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center}
+.a-logo i{width:26px;height:26px;border-radius:8px;background:#2563EB;display:inline-block}
+.a-user{padding:0 20px 14px;font-size:12px;color:#8a97a6}
+.a-menu a{display:flex;gap:10px;align-items:center;padding:10px 20px;color:#c9d1da;border-left:3px solid transparent}
+.a-menu a:hover{background:#2c3743;color:#fff}
+.a-menu a.on{background:#2c3743;color:#fff;border-left-color:#1E91CF}
+.a-menu b{width:8px;height:8px;border-radius:3px;background:#4A90E2;flex-shrink:0}
+.a-sub{padding:2px 0 6px}.a-sub a{padding:6px 20px 6px 51px;font-size:12.5px;color:#8a97a6}
+.a-stat{margin:14px 16px;padding:12px;border-radius:14px;background:#2c3743;font-size:12px}
+.a-stat div{display:flex;justify-content:space-between;padding:3px 0}
+.a-stat span{display:block;height:5px;border-radius:3px;background:#1b222a;margin-top:2px}
+.a-stat span i{display:block;height:100%;border-radius:3px;background:#1E91CF}
+.a-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.a-top{height:54px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:12px;flex-shrink:0}
+.a-top .burger{display:none;cursor:pointer;font-size:20px}
+.a-top a{color:#2563EB!important;font-weight:600}
+.a-body{flex:1;overflow-y:auto;padding:22px}
+.a-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.a-h h1{margin:0;font-size:22px;font-weight:600}
+.a-bc{font-size:12px;color:#8a97a6}
+.a-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.a-tile{background:#fff;border-radius:20px;padding:18px 20px}
+.a-tile small{color:#8a97a6;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
+.a-tile strong{display:block;font-size:28px;font-weight:700;margin-top:4px}
+.a-tile em{font-style:normal;font-size:12px;color:#16a34a}
+.a-panel{background:#fff;border-radius:20px;padding:20px;margin-bottom:18px}
+.a-panel h2{margin:0 0 12px;font-size:15px;font-weight:600}
+.a-cols{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.a-chart{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px}
+.a-chart div{flex:1;background:#4A90E2;border-radius:8px 8px 0 0;position:relative;min-height:6px}
+.a-chart div span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:#8a97a6}
+.a-tbl{width:100%;border-collapse:collapse}
+.a-tbl th{text-align:left;font-weight:600;color:#6b7785;padding:9px 10px;border-bottom:1px solid #E9ECEF;font-size:12px;white-space:nowrap}
+.a-tbl td{padding:10px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.a-tbl tr:hover td{background:#fafcfe}
+.a-wrap{overflow-x:auto}
+.a-btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:9px 16px;background:#2563EB;color:#fff!important;font:600 13px 'Open Sans',sans-serif;cursor:pointer}
+.a-btn.g{background:#F1F5F9;color:#333!important}
+.a-btn.s{padding:6px 11px;border-radius:10px;font-size:12px}
+.a-in{width:100%;background:#F1F5F9;border:1px solid transparent;border-radius:12px;padding:10px 13px;font:13px 'Open Sans',sans-serif;color:#333}
+.a-in:focus{outline:0;border-color:#1E91CF;background:#fff}
+textarea.a-in{min-height:110px;resize:vertical}
+.a-fl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.a-fl .a-in{width:auto;min-width:150px;flex:1}
+.a-tabs{display:flex;gap:4px;border-bottom:1px solid #E9ECEF;margin-bottom:18px;flex-wrap:wrap}
+.a-tabs a{padding:9px 16px;border-radius:12px 12px 0 0;color:#6b7785}
+.a-tabs a.on{background:#F1F5F9;color:#2563EB;font-weight:600}
+.a-row{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+.a-row label{padding-top:10px;font-weight:600;color:#555}
+.a-st{display:inline-block;border-radius:8px;padding:3px 10px;font-size:12px;font-weight:600}
+.a-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:600}
+.o-card{display:flex;background:#fff;border-radius:16px;margin-bottom:10px;overflow:hidden;align-items:stretch}
+.o-card>i{width:6px;flex-shrink:0}
+.o-card>div{flex:1;padding:12px 16px;display:grid;grid-template-columns:90px 1.4fr 1.6fr 100px 170px;gap:12px;align-items:center}
+.o-card small{color:#8a97a6;display:block}
+@media(max-width:800px){
+.a-side{position:absolute;left:-240px;top:0;bottom:0;z-index:5;transition:left .2s}
+#adm.menu .a-side{left:0}
+.a-top .burger{display:block}
+.a-cols{grid-template-columns:1fr}
+.a-row{grid-template-columns:1fr;gap:4px}.a-row label{padding-top:0}
+.o-card>div{grid-template-columns:1fr 1fr}
+.a-body{padding:14px}
+}
+.fa-link{cursor:pointer}
+</style>
+
+<div id="adm" aria-label="Адмін-панель (демо)">
+<aside class="a-side">
+<div class="a-logo"><i></i>Назва автовикупу</div>
+<div class="a-user">Адміністратор · демо</div>
+<nav class="a-menu" id="aMenu"></nav>
+<div class="a-stat">
+<div><span>Конверсія заявок</span><b>74%</b></div><span><i style="width:74%"></i></span>
+<div><span>Заявки</span><b>52%</b></div><span><i style="width:52%"></i></span>
+<div><span>Клієнти</span><b>31%</b></div><span><i style="width:31%"></i></span>
+</div>
+</aside>
+<div class="a-main">
+<div class="a-top"><span class="burger" data-a="burger">☰</span><span class="a-bc" id="aBc">Панель керування</span><a data-a="exit">← Перейти на сайт</a></div>
+<div class="a-body" id="aBody"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var P = window.__P || [];
+  var adm = document.getElementById('adm');
+  var A = {v:'dash', pid:null, tab:'g', q:'', st:''};
+  var STAT = {
+    new:['Нова','#DBEAFE','#1D4ED8','#2563EB'],
+    work:['Оцінка','#FEF3C7','#B45309','#F59E0B'],
+    ship:['Огляд призначено','#E0F2FE','#0369A1','#1E91CF'],
+    done:['Викуплено','#DCFCE7','#15803D','#16A34A'],
+    cancel:['Відмова','#F1F5F9','#64748B','#94A3B8']
+  };
+  var ORD = window.__L;
+  var MENU = [
+    ['dash','Панель керування'],
+    ['cat','Викуплені авто',[['prod','Авто на складі'],['cats','Марки'],['attr','Формула оцінки']]],
+    ['ord','Заявки на викуп'],
+    ['cust','Клієнти',[['cust','Список клієнтів'],['om','Менеджер заявок']]],
+    ['blog','Блог'],
+    ['mk','Маркетинг',[['mk','Купони'],['om','Менеджер заявок']]],
+    ['ext','Розширення',[['ext','Модулі'],['om','Менеджер заявок'],['sms','SMS-Fly Order']]],
+    ['set','Налаштування']
+  ];
+  function $(s){return document.querySelector(s)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function money(n){return '$'+Number(n).toLocaleString('uk-UA')}
+  function st(k){var s=STAT[k];return '<span class="a-st" style="background:'+s[1]+';color:'+s[2]+'">'+s[0]+'</span>'}
+  function toast(t){var el=document.getElementById('toast'),tx=document.getElementById('toastText');if(!el||!tx)return;tx.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){el.hidden=true},2200)}
+
+  function menu(){
+    var h='';
+    MENU.forEach(function(m){
+      var on = A.v===m[0] || (m[0]==='cat'&&(A.v==='prod'||A.v==='pedit'||A.v==='cats'||A.v==='attr')) || (m[2]&&A.sec===m[0]);
+      h+='<a data-a="nav" data-v="'+m[0]+'" class="'+(on?'on':'')+'"><b></b>'+m[1]+'</a>';
+      if(m[2]&&on){h+='<div class="a-sub">';m[2].forEach(function(s){h+='<a data-a="nav" data-v="'+s[0]+'" data-sec="'+m[0]+'">'+s[1]+'</a>'});h+='</div>'}
+    });
+    $('#aMenu').innerHTML=h;
+  }
+
+  function dash(){
+    var bars=[40,55,35,70,60,85,95], days=['пн','вт','ср','чт','пт','сб','нд'];
+    var ch=bars.map(function(b,i){return '<div style="height:'+b+'%"><span>'+days[i]+'</span></div>'}).join('');
+    var rows=ORD.slice(0,5).map(function(o){return '<tr class="fa-link" data-a="ord-open"><td>#'+o[0]+'</td><td>'+esc(o[2])+'</td><td>'+st(o[1])+'</td><td>'+o[7]+'</td><td>'+money(o[6])+'</td></tr>'}).join('');
+    return '<div class="a-h"><h1>Панель керування</h1></div>'+
+    '<div class="a-tiles">'+
+    '<div class="a-tile"><small>Заявки за тиждень</small><strong>74</strong><em>▲ 22% до минулого</em></div>'+
+    '<div class="a-tile"><small>Викуплено</small><strong>11 авто</strong><em>на $78 300</em></div>'+
+    '<div class="a-tile"><small>Огляди сьогодні</small><strong>4</strong><em>2 оцінювачі на виїзді</em></div>'+
+    '<div class="a-tile"><small>Середній час до дзвінка</small><strong>9 хв</strong><em>ціль: до 15 хв</em></div></div>'+
+    '<div class="a-cols"><div class="a-panel"><h2>Заявки за тиждень</h2><div class="a-chart">'+ch+'</div><div style="height:20px"></div></div>'+
+    '<div class="a-panel"><h2>Остання активність</h2><div style="line-height:2">Нова заявка #'+ORD[0][0]+'<br>Нова заявка з квізу: Toyota RAV4<br>Оцінювач Сергій виїхав на огляд<br>Договір #1285 підписано в ТСЦ</div></div></div>'+
+    '<div class="a-panel"><h2>Останні заявки на викуп</h2><div class="a-wrap"><table class="a-tbl"><tr><th>№</th><th>Клієнт</th><th>Статус</th><th>Дата</th><th>Сума</th></tr>'+rows+'</table></div></div>';
+  }
+
+  function dur(p){return p.h}
+  function prodList(){
+    var q=A.q.toLowerCase();
+    var rows=P.filter(function(p){return !q||p.name.toLowerCase().indexOf(q)>-1}).map(function(p,i){
+      var busy=i%2===1;
+      var stt=p.cat==='acc'?'<span class="a-badge" style="background:#F1F5F9;color:#64748B">послуга</span>':(busy?'<span class="a-badge" style="background:#FEF3C7;color:#B45309">у ремонті</span>':'<span class="a-badge" style="background:#DCFCE7;color:#15803D">на продажі</span>');
+      return '<tr><td><input type="checkbox"></td><td><div style="width:40px;height:40px;border-radius:10px;background:#F1F5F9;display:grid;place-items:center;color:#4A90E2;font-weight:700">'+(p.cat==='acc'?'◇':'▮')+'</div></td><td><b>'+esc(p.name)+'</b></td><td>'+esc(p.id.toUpperCase())+'</td><td>'+dur(p)+'</td><td>'+money(p.d)+'</td><td>'+stt+'</td><td><a class="a-btn s" data-a="pedit" data-id="'+p.id+'">Змінити</a></td></tr>';
+    }).join('');
+    return '<div class="a-h"><h1>Викуплені авто</h1><a class="a-btn" data-a="pnew">+ Додати авто</a></div>'+
+    '<div class="a-panel"><div class="a-fl"><input class="a-in" id="aq" placeholder="Назва" value="'+esc(A.q)+'"><select class="a-in"><option>Усі статуси</option><option>На продажі</option><option>У ремонті</option><option>Продані</option></select><a class="a-btn" data-a="pfilter">Фільтр</a></div>'+
+    '<div class="a-wrap"><table class="a-tbl"><tr><th></th><th>Фото</th><th>Назва</th><th>Код</th><th>Стан при викупі</th><th>Ціна викупу</th><th>Статус</th><th></th></tr>'+rows+'</table></div></div>';
+  }
+
+  function prodEdit(){
+    var p=P.filter(function(x){return x.id===A.pid})[0]||{name:'',desc:'',id:'',h:'',d:'',cat:'city'};
+    var T=[['g','Загальне'],['d','Тарифи'],['l','Характеристики'],['i','Зображення'],['s','SEO']];
+    var tabs='<div class="a-tabs">'+T.map(function(t){return '<a data-a="ptab" data-t="'+t[0]+'" class="'+(A.tab===t[0]?'on':'')+'">'+t[1]+'</a>'}).join('')+'</div>';
+    var body='';
+    if(A.tab==='g') body='<div class="a-row"><label>Назва</label><input class="a-in" value="'+esc(p.name)+'"></div><div class="a-row"><label>Опис</label><textarea class="a-in">'+esc(p.desc||'')+'</textarea></div><div class="a-row"><label>Meta title</label><input class="a-in" value="'+esc(p.name)+' — прокат у Києві"></div>';
+    else if(A.tab==='d') body='<div class="a-row"><label>Код</label><input class="a-in" value="'+esc((p.id||'').toUpperCase())+'"></div><div class="a-row"><label>Стан при викупі</label><input class="a-in" value="'+esc(p.h)+'"></div><div class="a-row"><label>Ціна викупу, $</label><input class="a-in" value="'+esc(p.d)+'"></div><div class="a-row"><label>Статус</label><select class="a-in"><option>Увімкнено</option><option>Вимкнено</option></select></div>';
+    else if(A.tab==='l') body='<div class="a-row"><label>Категорія</label><input class="a-in" value="'+esc(({city:'Міські',power:'Потужні',kids:'Дитячі',acc:'Додатково'})[p.cat]||'')+'"></div><div class="a-row"><label>Потужність, Вт</label><input class="a-in" value="'+esc(p.kw||'')+'"></div><div class="a-row"><label>Запас ходу, км</label><input class="a-in" value="'+esc(p.range||'')+'"></div><div class="a-row"><label>Вага, кг</label><input class="a-in" value="'+esc(p.weight||'')+'"></div>';
+    else if(A.tab==='i') body='<div class="a-row"><label>Головне фото</label><div style="width:120px;height:120px;border-radius:16px;background:#F1F5F9;display:grid;place-items:center;color:#8a97a6">Фото</div></div>';
+    else body='<div class="a-row"><label>SEO URL</label><input class="a-in" value="'+esc((p.id||'')+'-prokat')+'"></div>';
+    return '<div class="a-h"><h1>'+(p.name?'Картка авто':'Нове авто')+'</h1><div><a class="a-btn" data-a="psave">Зберегти</a> <a class="a-btn g" data-a="nav" data-v="prod">Скасувати</a></div></div><div class="a-panel">'+tabs+body+'</div>';
+  }
+
+  function ordList(t){
+    var f=A.st;
+    var btns='<a class="a-btn s '+(f?'g':'')+'" data-a="ofilt" data-s="">Усі ('+ORD.length+')</a> '+Object.keys(STAT).map(function(k){return '<a class="a-btn s '+(f===k?'':'g')+'" data-a="ofilt" data-s="'+k+'">'+STAT[k][0]+'</a>'}).join(' ');
+    var cards=ORD.filter(function(o){return !f||o[1]===f}).map(function(o){
+      var opts=Object.keys(STAT).map(function(k){return '<option value="'+k+'"'+(k===o[1]?' selected':'')+'>'+STAT[k][0]+'</option>'}).join('');
+      return '<div class="o-card"><i style="background:'+STAT[o[1]][3]+'"></i><div><span><b>#'+o[0]+'</b><small>'+o[7]+'</small></span><span><b>'+esc(o[2])+'</b><small>'+esc(o[3])+'</small></span><span>'+esc(o[5])+'<small>'+esc(o[4])+'</small></span><b>'+money(o[6])+'</b><select class="a-in" data-a="ostat" data-n="'+o[0]+'">'+opts+'</select></div></div>';
+    }).join('');
+    return '<div class="a-h"><h1>'+(t||'Заявки')+'</h1></div><div class="a-fl">'+btns+'</div>'+cards;
+  }
+
+  function stub(t){return '<div class="a-h"><h1>'+t+'</h1></div><div class="a-panel" style="color:#8a97a6">Розділ у демо не заповнено. У робочому магазині тут буде повний функціонал.</div>'}
+
+  function render(){
+    var v=A.v, h;
+    var names={dash:'Панель керування',prod:'Викуплені авто',pedit:'Викуплені авто',ord:'Заявки на викуп',om:'Менеджер заявок',sms:'SMS-Fly Order'};
+    if(v==='dash')h=dash();else if(v==='prod')h=prodList();else if(v==='pedit')h=prodEdit();else if(v==='ord')h=ordList();
+    else if(v==='om')h=ordList('Менеджер заявок');
+    else if(v==='sms')h=stub('SMS-Fly Order');
+    else h=stub(({cats:'Марки',attr:'Формула оцінки',cust:'Клієнти',blog:'Блог',mk:'Маркетинг',ext:'Розширення',set:'Налаштування',cat:'Каталог'})[v]||'Розділ');
+    $('#aBody').innerHTML=h;
+    $('#aBc').textContent=(names[v]||'Розділ');
+    menu();
+  }
+  function open(){adm.classList.add('on');document.documentElement.style.overflow='hidden';render()}
+  function close(){adm.classList.remove('on','menu');document.documentElement.style.overflow=''}
+
+  document.addEventListener('click',function(e){
+    var o=e.target.closest('[data-adm]');
+    if(o){e.preventDefault();open();return}
+    var el=e.target.closest('#adm [data-a]');
+    if(!el)return;
+    var a=el.getAttribute('data-a');
+    if(a==='exit')close();
+    else if(a==='burger')adm.classList.toggle('menu');
+    else if(a==='nav'){A.v=el.getAttribute('data-v');if(A.v==='cat')A.v='prod';A.sec=el.getAttribute('data-sec')||(['cust','mk','ext'].indexOf(A.v)>-1?A.v:(A.v==='om'?A.sec:null));adm.classList.remove('menu');render()}
+    else if(a==='pedit'){A.pid=el.getAttribute('data-id');A.tab='g';A.v='pedit';render()}
+    else if(a==='pnew'){A.pid=null;A.tab='g';A.v='pedit';render()}
+    else if(a==='ptab'){A.tab=el.getAttribute('data-t');render()}
+    else if(a==='psave'){toast('Збережено (демо)');A.v='prod';render()}
+    else if(a==='pfilter'){A.q=$('#aq').value;render()}
+    else if(a==='ofilt'){A.st=el.getAttribute('data-s');render()}
+    else if(a==='ord-open'){A.v='ord';render()}
+  });
+  document.addEventListener('change',function(e){
+    var el=e.target.closest('#adm [data-a="ostat"]');
+    if(!el)return;
+    var n=+el.getAttribute('data-n');
+    ORD.forEach(function(o){if(o[0]===n)o[1]=el.value});
+    toast('Статус змінено (демо)');render();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='aq'){A.q=e.target.value;render()}});
+  if(location.hash==='#admin')open();
+})();
+</script>
+
+</body></html>
