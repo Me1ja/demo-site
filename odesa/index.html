@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Прокат електроскутерів Одеса</title>
+<meta name="theme-color" content="#0b0b0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0c;--bg2:#141416;--bg3:#1c1c1f;--line:#2a2a2e;
+  --tx:#f4f4f2;--mut:#a3a3a8;--mut2:#6e6e74;
+  --ac:#C8F135;--ac-d:#b3da22;--ac-tx:#0b0b0c;
+  --warn:#ffb547;
+  --r:18px;
+  --fh:'Unbounded',system-ui,sans-serif;--fb:'Manrope',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 var(--fb);-webkit-font-smoothing:antialiased;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+@media(min-width:900px){body{padding-bottom:0}}
+[hidden]{display:none!important}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:6px}
+.w{max-width:1180px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.ic{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.15em}
+
+/* placeholders */
+.ph{position:relative;border-radius:var(--r);background:
+  repeating-linear-gradient(135deg,#18181b 0 14px,#1d1d21 14px 28px);border:1px dashed #3a3a40;display:grid;place-items:center;color:var(--mut2);font-size:12.5px;font-weight:600;text-align:center;overflow:hidden}
+.ph span{display:inline-flex;align-items:center;gap:6px;background:rgba(11,11,12,.75);padding:6px 11px;border-radius:999px;border:1px solid #333}
+.tag-ph{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--warn);border:1px dashed var(--warn);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+
+/* demo strip */
+.demo-strip{background:var(--ac);color:var(--ac-tx);font-size:12.5px;font-weight:700;text-align:center;padding:6px 12px}
+
+/* header */
+.hd{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd .w{display:flex;align-items:center;gap:14px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--fh);font-weight:700;font-size:13px;letter-spacing:.02em;text-decoration:none}
+.logo i{width:38px;height:38px;border-radius:11px;border:1.5px dashed #4a4a52;display:grid;place-items:center;font-style:normal;font-size:9px;color:var(--mut2)}
+.nav{display:none;gap:4px;margin-left:12px}
+.nav a{white-space:nowrap;text-decoration:none;color:var(--mut);font-weight:600;font-size:14px;padding:8px 12px;border-radius:10px}
+.nav a:hover{color:var(--tx);background:var(--bg3)}
+.hd-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+.tel{display:none;white-space:nowrap;font-weight:700;text-decoration:none;font-size:14px}
+.lang{display:flex;border:1px solid var(--line);border-radius:10px;padding:2px}
+.lang button{font-size:12px;font-weight:700;padding:4px 8px;border-radius:8px;color:var(--mut)}
+.lang .on{background:var(--bg3);color:var(--tx)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 20px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn-ac{background:var(--ac);color:var(--ac-tx)}.btn-ac:hover{background:var(--ac-d)}
+.btn-gh{background:var(--bg3);color:var(--tx);border:1px solid var(--line)}.btn-gh:hover{background:#26262a}
+.btn-sm{height:38px;padding:0 14px;font-size:13.5px;border-radius:11px}
+.adm-link{font-size:12px;font-weight:700;padding:7px 11px;border-radius:10px;border:1px solid var(--line);text-decoration:none;color:var(--mut);white-space:nowrap}
+.adm-link:hover{color:var(--tx)}
+@media(min-width:1060px){.nav{display:flex}}@media(min-width:1260px){.tel{display:block}}
+@media(max-width:560px){.hd .tg-h{display:none}.logo b{display:none}}
+
+/* hero */
+.hero{padding:34px 0 20px}
+.hero .w{display:grid;gap:26px}
+@media(min-width:900px){.hero{padding:56px 0 30px}.hero .w{grid-template-columns:1.05fr 1fr;align-items:center;gap:44px}}
+.rate{display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 8px;font-size:13px;font-weight:600;color:var(--mut)}
+.rate .st{color:var(--ac);letter-spacing:1px}
+.open{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ac);margin-left:4px}
+.open i{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px rgba(200,241,53,.18)}
+.hero h1{font-family:var(--fh);font-weight:800;font-size:clamp(30px,6.4vw,58px);line-height:1.04;letter-spacing:-.02em;margin:16px 0 14px}
+.hero h1 em{font-style:normal;color:var(--ac)}
+.hero p.sub{color:var(--mut);font-size:clamp(15px,2vw,18px);max-width:560px}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--line)}
+.chip .ic{color:var(--ac)}
+.hero .ph{aspect-ratio:5/4}
+.hero .price-badge{position:absolute;left:16px;bottom:16px;background:var(--ac);color:var(--ac-tx);border-radius:14px;padding:10px 14px;font-weight:800;line-height:1.15}
+.hero .price-badge small{display:block;font-weight:700;font-size:11.5px;opacity:.75}
+.hero .price-badge b{font-family:var(--fh);font-size:22px}
+
+/* sections */
+section.s{padding:44px 0}
+@media(min-width:900px){section.s{padding:64px 0}}
+.kick{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ac)}
+.s h2{font-family:var(--fh);font-weight:700;font-size:clamp(24px,4.2vw,38px);line-height:1.12;letter-spacing:-.015em;margin:8px 0 10px}
+.s .lead{color:var(--mut);max-width:640px}
+.grid{display:grid;gap:14px;margin-top:26px}
+@media(min-width:700px){.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.g4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.card p{color:var(--mut);font-size:14px}
+
+/* audiences */
+.aud .ph{aspect-ratio:16/9;margin:-6px -6px 16px;border-radius:14px}
+.aud .pr{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 16px}
+.aud .pr span{font-size:13px;font-weight:700;background:var(--bg3);border-radius:10px;padding:6px 10px}
+.aud .pr b{color:var(--ac)}
+.aud ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--tx)}
+.aud li{display:flex;gap:8px}.aud li .ic{color:var(--ac);margin-top:3px}
+
+/* tariffs */
+.tar{position:relative;display:flex;flex-direction:column}
+.tar.hot{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac) inset}
+.tar .lbl{position:absolute;top:-11px;left:18px;background:var(--ac);color:var(--ac-tx);font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.tar small{color:var(--mut);font-weight:700;font-size:13px}
+.tar .big{font-family:var(--fh);font-size:34px;font-weight:700;margin:6px 0 2px;letter-spacing:-.02em}
+.tar .big span{font-family:var(--fb);font-size:15px;color:var(--mut);font-weight:700;margin-left:4px}
+.tar .per{font-size:13px;color:var(--mut)}
+.tar .save{display:inline-block;margin-top:10px;font-size:12px;font-weight:800;color:var(--ac);background:rgba(200,241,53,.1);border-radius:8px;padding:3px 8px;align-self:flex-start}
+.tar .btn{margin-top:auto}
+.tar .sp{flex:1;min-height:16px}
+.incl{display:grid;gap:14px;margin-top:14px}
+@media(min-width:800px){.incl{grid-template-columns:1.2fr 1fr 1fr}}
+.incl ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px}
+.incl li{display:flex;gap:9px}.incl li .ic{color:var(--ac);margin-top:3px}
+.incl .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:8px 0;font-size:14px}
+.incl .row:last-child{border-bottom:0}
+.incl .row b{white-space:nowrap}
+.dep{font-family:var(--fh);font-size:30px;font-weight:700;color:var(--ac);margin:4px 0}
+
+/* fleet */
+.mdl{display:flex;flex-direction:column;padding:12px}
+.mdl .ph{aspect-ratio:4/3;margin-bottom:14px;border-radius:14px}
+.mdl .badge{position:absolute;top:12px;left:12px;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;background:var(--ac);color:var(--ac-tx);text-transform:uppercase}
+.mdl .badge.alt{background:#fff;color:#000}
+.mdl h3{font-size:17px;margin:0 6px 4px}
+.mdl p{margin:0 6px;font-size:13.5px}
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 6px}
+.spec div{background:var(--bg3);border-radius:10px;padding:7px 10px}
+.spec small{display:block;color:var(--mut2);font-size:11px;font-weight:700}
+.spec b{font-size:14px}
+.mdl .btn{margin:auto 6px 6px}
+.note{margin-top:14px;color:var(--mut);font-size:14px}
+
+/* compare */
+.tblw{overflow-x:auto;margin-top:26px;border:1px solid var(--line);border-radius:var(--r);-webkit-overflow-scrolling:touch}
+table.cmp{width:100%;border-collapse:collapse;min-width:620px;font-size:14px}
+.cmp th,.cmp td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:center}
+.cmp th:first-child,.cmp td:first-child{text-align:left;color:var(--mut);font-weight:600}
+.cmp thead th{background:var(--bg2);font-size:13px}
+.cmp th.us{color:var(--ac-tx);background:var(--ac)}
+.cmp td.us{background:rgba(200,241,53,.06);font-weight:800}
+.cmp tr:last-child td{border-bottom:0}
+.y{color:var(--ac);font-weight:800}.n{color:var(--mut2)}
+
+/* booking */
+.book{display:grid;gap:16px;margin-top:26px}
+@media(min-width:900px){.book{grid-template-columns:1.25fr 1fr;align-items:start}}
+.fgrid{display:grid;gap:12px}
+@media(min-width:560px){.fgrid{grid-template-columns:1fr 1fr}.fgrid .full{grid-column:1/-1}}
+.fld{display:grid;gap:6px;font-size:13px;font-weight:700;color:var(--mut)}
+.fld input,.fld select,.fld textarea{width:100%;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg3);color:var(--tx);font:600 15px var(--fb);padding:0 14px;appearance:none;-webkit-appearance:none}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);background-position:calc(100% - 20px) 21px,calc(100% - 15px) 21px;background-size:5px 5px;background-repeat:no-repeat;padding-right:36px}
+.fld textarea{height:auto;min-height:76px;padding:12px 14px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--ac)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg label{flex:1;min-width:90px;position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:flex;align-items:center;justify-content:center;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg3);font-weight:700;font-size:14px;color:var(--tx);cursor:pointer;padding:0 10px;text-align:center}
+.seg input:checked+span{background:var(--ac);color:var(--ac-tx);border-color:var(--ac)}
+.seg input:focus-visible+span{outline:2px solid var(--ac);outline-offset:2px}
+.chk{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--tx);cursor:pointer;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg3)}
+.chk input{width:18px;height:18px;accent-color:var(--ac)}
+.chk em{margin-left:auto;font-style:normal;color:var(--mut);font-weight:700}
+.sum{position:sticky;top:84px}
+.sum .ph{aspect-ratio:16/10;margin-bottom:14px}
+.sum .ln{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.sum .ln span{color:var(--mut)}
+.sum .tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px}
+.sum .tot b{font-family:var(--fh);font-size:28px;color:var(--ac)}
+.sum .dp{font-size:13px;color:var(--mut);margin-top:6px}
+.formnote{font-size:12.5px;color:var(--mut2);margin-top:10px}
+.ok-box{text-align:center;padding:34px 20px}
+.ok-box .big-ic{width:64px;height:64px;border-radius:50%;background:var(--ac);color:var(--ac-tx);display:grid;place-items:center;margin:0 auto 16px}
+.ok-box .big-ic .ic{width:30px;height:30px;stroke-width:2.6}
+.ok-box h3{font-family:var(--fh);font-size:22px;margin-bottom:8px}
+.ok-box p{color:var(--mut);max-width:440px;margin:0 auto 18px}
+
+/* reviews */
+.rev .stars{color:var(--ac);letter-spacing:2px;margin-bottom:10px}
+.rev .ln{height:9px;border-radius:5px;background:var(--bg3);margin:8px 0}
+.rev .who{display:flex;align-items:center;gap:10px;margin-top:16px}
+.rev .av{width:36px;height:36px;border-radius:50%;border:1.5px dashed #4a4a52}
+.rev .who small{display:block;color:var(--mut2);font-size:12.5px;font-weight:600}
+
+/* steps */
+.step{display:flex;gap:16px;align-items:flex-start}
+.step .n{flex:none;width:44px;height:44px;border-radius:14px;background:var(--ac);color:var(--ac-tx);font-family:var(--fh);font-weight:800;display:grid;place-items:center;font-size:18px}
+
+/* faq */
+.faq{display:grid;gap:10px;margin-top:26px;max-width:860px}
+.faq details{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:0 18px}
+.faq summary{list-style:none;cursor:pointer;padding:17px 30px 17px 0;font-weight:800;font-size:15.5px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:4px;top:50%;width:10px;height:10px;border-right:2px solid var(--ac);border-bottom:2px solid var(--ac);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{color:var(--mut);padding:0 0 17px;font-size:14.5px}
+
+/* social + contacts */
+.soc{display:grid;gap:14px;margin-top:26px}
+@media(min-width:700px){.soc{grid-template-columns:repeat(3,1fr)}}
+.soc a{display:flex;align-items:center;gap:14px;text-decoration:none}
+.soc .sq{width:46px;height:46px;border-radius:13px;background:var(--bg3);display:grid;place-items:center;color:var(--ac);flex:none}
+.soc small{display:block;color:var(--mut2);font-weight:600}
+.cont{display:grid;gap:14px;margin-top:26px}
+@media(min-width:900px){.cont{grid-template-columns:1fr 1.4fr}}
+.cont .ph{min-height:300px}
+.cont .rowc{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cont .rowc:last-child{border-bottom:0}
+.cont .rowc .ic{color:var(--ac);margin-top:3px}
+.cont .rowc small{display:block;color:var(--mut2);font-size:12.5px;font-weight:700}
+.final{background:var(--ac);color:var(--ac-tx);border-radius:24px;padding:30px 22px;display:grid;gap:18px;align-items:center}
+@media(min-width:800px){.final{grid-template-columns:1fr auto;padding:40px}}
+.final h2{color:var(--ac-tx);margin:0}
+.final p{font-weight:600;opacity:.8;margin-top:6px}
+.final .btn-dk{background:var(--bg);color:var(--tx)}
+
+/* footer */
+.ft{border-top:1px solid var(--line);margin-top:40px;padding:36px 0 30px;color:var(--mut);font-size:13.5px}
+.ft .cols{display:grid;gap:24px}
+@media(min-width:800px){.ft .cols{grid-template-columns:1.2fr 1fr 1fr 1fr}}
+.ft h4{color:var(--tx);margin:0 0 10px;font-size:14px}
+.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ft button{color:var(--mut);text-align:left}.ft button:hover{color:var(--tx)}
+.ft .copy{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--mut2)}
+
+/* mobile bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(11,11,12,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.mbar .btn{height:46px;padding:0 8px;font-size:14px}
+@media(min-width:900px){.mbar{display:none}}
+
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2000;background:#fff;color:#111;font-weight:700;font-size:14px;padding:12px 18px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:calc(100vw - 32px);text-align:center}
+@media(min-width:900px){.toast{bottom:28px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path d="M21 4L3 11l6 2.2M21 4l-3 16-9-6.8M21 4L9 13.2V19l3-3.3"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5.5 13.5H11L10 21l8-11h-5.5z"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4M14 10h4M14 13.5h3"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3l7.5-7.5a4 4 0 0 0-2-2z"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3"/></symbol>
+</svg>
+
+<div class="demo-strip">Демо-макет · фото, логотип, контакти й відгуки замінено заглушками</div>
+
+<header class="hd">
+  <div class="w">
+    <a class="logo" href="#top" aria-label="На початок"><i>ЛОГО</i><b>Назва прокату</b></a>
+    <nav class="nav" aria-label="Розділи">
+      <a href="#aud">Для кого</a><a href="#tariffs">Тарифи</a><a href="#fleet">Скутери</a><a href="#reviews">Відгуки</a><a href="#faq">Питання</a><a href="#contacts">Контакти</a>
+    </nav>
+    <div class="hd-r">
+      <a class="tel" href="#contacts">+38 (0XX) 000-00-00</a>
+      <a href="#admin" class="adm-link" data-adm>Адмінка (демо)</a>
+      <div class="lang" role="group" aria-label="Мова"><button class="on" aria-pressed="true">Ук</button><button data-stub="Російська версія буде в повному сайті">Ру</button></div>
+      <button class="btn btn-ac btn-sm tg-h" data-stub="Тут відкриється ваш Telegram"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="w">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="rate"><span class="st">★★★★★</span>Рейтинг Google<span class="tag-ph">заглушка</span></span>
+        <span class="open"><i></i><span id="openTxt">Працюємо сьогодні до 22:00</span></span>
+      </div>
+      <h1>Прокат електро&shy;скутерів в&nbsp;Одесі <em>від 250&nbsp;₴ на&nbsp;добу</em></h1>
+      <p class="sub">Без прав, тільки паспорт. Видача сьогодні, інструктаж 5 хвилин, двомісні скутери до 65 км/год зі знімною батареєю.</p>
+      <div class="cta">
+        <a class="btn btn-ac" href="#book">Забронювати онлайн</a>
+        <a class="btn btn-gh" href="#tariffs">Дивитися тарифи</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-id"/></svg>Без посвідчення водія</span>
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg>Ремонт за наш рахунок</span>
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-swap"/></svg>Заміна на заряджений</span>
+        <span class="chip"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Підтримка 24/7</span>
+      </div>
+    </div>
+    <div class="ph"><span><svg class="ic" aria-hidden="true"><use href="#i-img"/></svg>Головне фото: людина на скутері</span>
+      <div class="price-badge"><small>Місяць оренди</small><b>7 500 ₴</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="aud">
+  <div class="w">
+    <div class="kick">Для кого</div>
+    <h2>Скутер під ваш сценарій</h2>
+    <p class="lead">Одні беруть на годину покататися набережною, інші працюють на доставці щодня. Тариф підбираємо під задачу.</p>
+    <div class="grid g3">
+      <article class="card aud"><div class="ph"><span><svg class="ic" aria-hidden="true"><use href="#i-img"/></svg>Фото: туристи</span></div>
+        <h3>Туристам</h3><p>Аркадія, Фонтан і центр за день, без таксі й прив’язки до шерингу.</p>
+        <div class="pr"><span>година <b>400 ₴</b></span><span>доба <b>700 ₴</b></span></div>
+        <a class="btn btn-gh btn-sm" href="#book" data-pick="d1">Забронювати на добу</a></article>
+      <article class="card aud"><div class="ph"><span><svg class="ic" aria-hidden="true"><use href="#i-img"/></svg>Фото: містяни</span></div>
+        <h3>Містянам</h3><p>На роботу й у справи без заторів. Скутер увесь тиждень ваш.</p>
+        <div class="pr"><span>тиждень <b>від 2 000 ₴</b></span><span>≈ <b>286 ₴</b>/доба</span></div>
+        <a class="btn btn-gh btn-sm" href="#book" data-pick="w1">Забронювати на тиждень</a></article>
+      <article class="card aud"><div class="ph"><span><svg class="ic" aria-hidden="true"><use href="#i-img"/></svg>Фото: кур’єр</span></div>
+        <h3>Кур’єрам</h3><p>Запас ходу до 180 км, багажник під термобокс, заміна при поломці.</p>
+        <div class="pr"><span>місяць <b>7 500 ₴</b></span><span>≈ <b>250 ₴</b>/доба</span></div>
+        <a class="btn btn-gh btn-sm" href="#book" data-pick="m1" data-model="cr">Забронювати на місяць</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="tariffs" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="w">
+    <div class="kick">Тарифи</div>
+    <h2>Чим довше, тим дешевше</h2>
+    <p class="lead">Ціна однакова для будь-якої моделі, крім тижневого тарифу на флагман. Оплата при отриманні.</p>
+    <div class="grid g4" id="tarGrid"></div>
+    <div class="incl">
+      <div class="card"><h3>Вже входить у ціну</h3><ul>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Обслуговування й ремонт за наш рахунок</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Два сервісні пункти в місті</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Безкоштовна заміна на заряджений скутер</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Підтримка в Telegram 24/7</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Інструктаж перед першою поїздкою</li></ul></div>
+      <div class="card"><h3>Додатково</h3>
+        <div class="row"><span>Шолом</span><b>100 ₴</b></div>
+        <div class="row"><span>Шолом на тиждень / місяць</span><b>250 / 600 ₴</b></div>
+        <div class="row"><span>Тримач телефону</span><b>100 ₴</b></div>
+        <div class="row"><span>Доставка скутера до вас</span><b>700 ₴</b></div></div>
+      <div class="card"><h3>Застава</h3><div class="dep">4 000 ₴</div><p>Для будь-якої моделі, повертаємо при здачі. Стан скутера фіксуємо на відео під час видачі, щоб не було суперечок.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="fleet">
+  <div class="w">
+    <div class="kick">Скутери</div>
+    <h2>Парк понад 50 скутерів</h2>
+    <p class="lead">Усі двомісні, до 65 км/год, зі знімною батареєю: заряджаєте вдома від звичайної розетки.</p>
+    <div class="grid g4" id="fleetGrid"></div>
+    <p class="note">Також у парку інші моделі. Наявність на конкретну дату підкаже менеджер.</p>
+  </div>
+</section>
+
+<section class="s" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Порівняння</div>
+    <h2>Чому оренда вигідніша</h2>
+    <div class="tblw"><table class="cmp">
+      <thead><tr><th>Що важливо</th><th class="us">Наша оренда</th><th>Шеринг</th><th>Таксі</th><th>Свій мопед</th></tr></thead>
+      <tbody>
+        <tr><td>Ціна за місяць щоденних поїздок</td><td class="us">7 500 ₴</td><td>залежить від хвилин</td><td>залежить від поїздок</td><td>покупка + ТО</td></tr>
+        <tr><td>Скутер увесь час ваш</td><td class="us y">✓</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
+        <tr><td>Ремонт і обслуговування за чужий рахунок</td><td class="us y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">—</td></tr>
+        <tr><td>Можна з пасажиром</td><td class="us y">✓</td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
+        <tr><td>Без прав і реєстрації</td><td class="us y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n">залежить від моделі</td></tr>
+        <tr><td>Заміна при поломці</td><td class="us y">✓</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+      </tbody></table></div>
+  </div>
+</section>
+
+<section class="s" id="book" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="w">
+    <div class="kick">Бронювання</div>
+    <h2>Забронюйте за хвилину</h2>
+    <p class="lead">Оберіть модель і термін, сума порахується одразу. Менеджер підтвердить бронь у Telegram або дзвінком.</p>
+    <div class="book">
+      <form class="card" id="bform" novalidate>
+        <div class="fgrid">
+          <label class="fld full" for="b-model">Модель<select id="b-model"></select></label>
+          <div class="fld full"><span>Термін</span><div class="seg" id="b-dur"></div></div>
+          <label class="fld" for="b-date">Дата початку<input id="b-date" type="date" required></label>
+          <label class="fld" for="b-qty" id="qtyWrap">Кількість<select id="b-qty"></select></label>
+          <div class="fld full"><span>Отримання</span><div class="seg">
+            <label><input type="radio" name="del" value="0" checked><span>Самовивіз, безкоштовно</span></label>
+            <label><input type="radio" name="del" value="700"><span>Доставка, 700 ₴</span></label></div></div>
+          <label class="chk"><input type="checkbox" id="b-helmet">Шолом<em id="helmetPr">100 ₴</em></label>
+          <label class="chk"><input type="checkbox" id="b-holder">Тримач телефону<em>100 ₴</em></label>
+          <label class="fld" for="b-name">Ім’я<input id="b-name" required autocomplete="name" placeholder="Ваше ім’я"></label>
+          <label class="fld" for="b-phone">Телефон<input id="b-phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="+38 (0XX) 000-00-00"></label>
+          <div class="fld full"><span>Як підтвердити бронь</span><div class="seg">
+            <label><input type="radio" name="via" value="Telegram" checked><span>Telegram</span></label>
+            <label><input type="radio" name="via" value="Viber"><span>Viber</span></label>
+            <label><input type="radio" name="via" value="Дзвінок"><span>Дзвінок</span></label></div></div>
+          <label class="fld full" for="b-note">Коментар<textarea id="b-note" placeholder="Адреса доставки, зручний час, питання"></textarea></label>
+          <button class="btn btn-ac full" type="submit">Надіслати заявку</button>
+        </div>
+        <p class="formnote">Демо: заявка нікуди не надсилається, її видно в адмін-панелі. На робочому сайті вона прийде вам у Telegram.</p>
+      </form>
+      <aside class="card sum" id="sumBox" aria-live="polite">
+        <div class="ph" id="sumPh"><span><svg class="ic" aria-hidden="true"><use href="#i-img"/></svg>Фото моделі</span></div>
+        <h3 id="sumName" style="font-size:18px;margin-bottom:8px"></h3>
+        <div id="sumLines"></div>
+        <div class="tot"><span style="font-weight:800">До сплати</span><b id="sumTot"></b></div>
+        <p class="dp">+ застава 4 000 ₴, повертається при здачі. Оплата при отриманні.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="reviews">
+  <div class="w">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap">
+      <div><div class="kick">Відгуки</div><h2>Що кажуть клієнти</h2><p class="lead">Тут автоматично показуватимуться ваші справжні відгуки з Google Карт.</p></div>
+      <button class="btn btn-gh btn-sm" data-stub="Відкриються всі відгуки на Google Картах">Усі відгуки в Google</button>
+    </div>
+    <div class="grid g3">
+      <div class="card rev"><div class="stars">★★★★★</div><div class="ln" style="width:94%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:60%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+      <div class="card rev"><div class="stars">★★★★★</div><div class="ln" style="width:90%"></div><div class="ln" style="width:72%"></div><div class="ln" style="width:80%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+      <div class="card rev"><div class="stars">★★★★★</div><div class="ln" style="width:88%"></div><div class="ln" style="width:94%"></div><div class="ln" style="width:52%"></div><div class="who"><div class="av"></div><div><b>Відгук з Google</b><small>заглушка</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Як це працює</div>
+    <h2>Три кроки до поїздки</h2>
+    <div class="grid g3">
+      <div class="card step"><div class="n">1</div><div><h3>Бронюєте</h3><p>Онлайн на сайті, у Telegram або дзвінком. На вихідні краще за 1–2 дні.</p></div></div>
+      <div class="card step"><div class="n">2</div><div><h3>Забираєте</h3><p>Паспорт, застава, 5 хвилин інструктажу. Стан скутера фіксуємо на відео.</p></div></div>
+      <div class="card step"><div class="n">3</div><div><h3>Катаєтеся й повертаєте</h3><p>У пункт у робочий час або заберемо з вашої адреси за доплату.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="faq" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="w">
+    <div class="kick">Питання</div>
+    <h2>Часті питання</h2>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<section class="s">
+  <div class="w">
+    <div class="kick">Соцмережі</div>
+    <h2>Акції сезону першими</h2>
+    <div class="soc">
+      <a class="card" href="#" data-stub="Тут буде ваш Instagram"><span class="sq"><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg></span><span><b>Instagram</b><small>@your_instagram</small></span></a>
+      <a class="card" href="#" data-stub="Тут буде ваш TikTok"><span class="sq"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg></span><span><b>TikTok</b><small>@your_tiktok</small></span></a>
+      <a class="card" href="#" data-stub="Тут буде ваш Telegram"><span class="sq"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg></span><span><b>Telegram</b><small>@your_telegram</small></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="contacts" style="padding-top:0">
+  <div class="w">
+    <div class="kick">Контакти</div>
+    <h2>Пункт видачі</h2>
+    <div class="cont">
+      <div class="card">
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><small>Адреса</small><b>Одеса, адреса пункту видачі</b> <span class="tag-ph">заглушка</span></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><div><small>Графік</small><b>Щодня 10:00–22:00</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><div><small>Телефон</small><b>+38 (0XX) 000-00-00</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg><div><small>Telegram</small><b>@your_telegram</b></div></div>
+        <div class="rowc"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><div><small>Як дійти</small><b>Відео маршруту від вулиці до пункту</b> <span class="tag-ph">заглушка</span></div></div>
+      </div>
+      <div class="ph"><span><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Google Карта з пунктом видачі</span></div>
+    </div>
+    <div class="final" style="margin-top:34px">
+      <div><h2 style="font-family:var(--fh);font-size:clamp(22px,3.6vw,32px)">Скутер вільний на сьогодні?</h2><p>Залиште заявку, і менеджер відповість за кілька хвилин.</p></div>
+      <a class="btn btn-dk" href="#book">Забронювати</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="w">
+    <div class="cols">
+      <div><a class="logo" href="#top"><i>ЛОГО</i><b style="color:var(--tx)">Назва прокату</b></a><p style="margin-top:12px">Прокат електроскутерів в Одесі: на годину, добу, тиждень і місяць.</p></div>
+      <div><h4>Оренда</h4><ul><li><button data-stub="Сторінка для кур’єрів буде в повному сайті">Скутер для кур’єрів</button></li><li><button data-stub="Сторінка буде в повному сайті">Оренда на місяць</button></li><li><button data-stub="Сторінка буде в повному сайті">Оренда для туристів</button></li><li><button data-stub="Сторінка буде в повному сайті">Оренда в Аркадії</button></li></ul></div>
+      <div><h4>Інформація</h4><ul><li><button data-stub="Сторінка буде в повному сайті">Умови оренди</button></li><li><button data-stub="Сторінка буде в повному сайті">Застава й документи</button></li><li><button data-stub="Сторінка буде в повному сайті">Договір оренди</button></li><li><button data-stub="Сторінка буде в повному сайті">Політика конфіденційності</button></li></ul></div>
+      <div><h4>Контакти</h4><ul><li>+38 (0XX) 000-00-00</li><li>@your_telegram</li><li>Щодня 10:00–22:00</li></ul></div>
+    </div>
+    <div class="copy"><span>© 2026 Назва прокату. Демо-макет, дані нікуди не передаються.</span><span>Фото й відгуки буде додано з ваших матеріалів.</span></div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-gh" href="#contacts"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Дзвінок</a>
+  <button class="btn btn-gh" data-stub="Тут відкриється ваш Telegram"><svg class="ic" aria-hidden="true"><use href="#i-tg"/></svg>Telegram</button>
+  <a class="btn btn-ac" href="#book">Забронювати</a>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toastText"></span></div>
+
+<script>
+(function(){
+  var M = window.__P = [
+    {id:'cr',cat:'city',name:'Crosser CR',short:'Crosser CR',badge:'Новинка 2026',alt:false,range:'160–180 км',bat:'4,5 кВт·год',h:400,d:700,w:2500,desc:'Флагман для доставки й далеких поїздок: дуги захисту, задній багажник під бокс.'},
+    {id:'a700',cat:'city',name:'Aima A700',short:'A700',badge:'Найпопулярніший',alt:true,range:'100–150 км',bat:'знімна',h:400,d:700,w:2000,desc:'Спортивна посадка, місце для пасажира. Універсальний міський скутер.'},
+    {id:'m3',cat:'city',name:'Aima M3',short:'M3',badge:'',range:'100–150 км',bat:'знімна',h:400,d:700,w:2000,desc:'Легкий і простий у керуванні, LED-світло, USB для зарядки телефону.'},
+    {id:'a715',cat:'city',name:'Aima A715',short:'A715',badge:'',range:'100–150 км',bat:'знімна',h:400,d:700,w:2000,desc:'Ретро-стиль, м’яке сидіння зі спинкою, багажник і бардачок.'}
+  ];
+  var DUR = [['h1','Година',['година','години','годин']],['d1','Доба',['доба','доби','діб']],['w1','Тиждень',['тиждень','тижні','тижнів']],['m1','Місяць',['місяць','місяці','місяців']]];
+  function pl(n,f){var a=n%10,b=n%100;return f[(a===1&&b!==11)?0:(a>=2&&a<=4&&(b<12||b>14))?1:2];}
+  var MONTH = 7500;
+  window.__L = [
+    [1184,'new','Ігор','+380 67 000 00 01','Самовивіз','A700 · 1 доба','700','Сьогодні 12:40'],
+    [1183,'work','Марина','+380 50 000 00 02','Доставка, Аркадія','A715 · 3 години','1900','Сьогодні 11:15'],
+    [1182,'ship','Кур’єр Олег','+380 93 000 00 03','Самовивіз','Crosser CR · Місяць','7500','Сьогодні 09:30'],
+    [1181,'done','Анна','+380 63 000 00 04','Самовивіз','M3 · 1 доба','800','Вчора 19:10'],
+    [1180,'done','Дмитро','+380 66 000 00 05','Доставка, Фонтан','A700 · Тиждень','2700','Вчора 10:20'],
+    [1179,'cancel','Сергій','+380 97 000 00 06','Самовивіз','M3 · 1 година','400','16 жовт.']
+  ];
+  var FAQ = [
+    ['Скільки коштує оренда?','Година 400 ₴, доба 700 ₴, тиждень від 2 000 ₴, місяць 7 500 ₴. Ціна однакова для будь-якої моделі, крім тижня на Crosser CR.'],
+    ['Чи потрібні права?','Ні, посвідчення водія не потрібне. Достатньо паспорта, підходить і закордонний.'],
+    ['Які документи й застава?','Паспорт і застава 4 000 ₴ для будь-якої моделі. Заставу повертаємо при здачі скутера.'],
+    ['Що входить у ціну?','Обслуговування й ремонт, заміна на заряджений скутер, підтримка в Telegram 24/7 та інструктаж перед першою поїздкою.'],
+    ['Де забрати скутер і коли?','У пункті видачі щодня з 10:00 до 22:00. Видача в день звернення, на вихідні краще бронювати за 1–2 дні.'],
+    ['На скільки вистачає заряду?','100–150 км на моделях Aima і 160–180 км на Crosser CR. Батарея знімна, заряджається від звичайної розетки.'],
+    ['Можна їхати з пасажиром?','Так, усі скутери двомісні.'],
+    ['Що робити, якщо скутер зламався?','Напишіть у Telegram. Ремонт за наш рахунок, а якщо треба, замінимо скутер.'],
+    ['Можна доставку до мене?','Так, привеземо скутер у центр, Аркадію чи на Фонтан за 700 ₴. Самовивіз безкоштовний.'],
+    ['Чи є оренда на тиждень і місяць?','Так. Тиждень від 2 000 ₴ (≈286 ₴/доба), місяць 7 500 ₴ (≈250 ₴/доба). Це до 64% дешевше, ніж подобово.'],
+    ['Як оплатити?','Оплата при отриманні скутера в пункті видачі: готівкою або на картку.']
+  ];
+  function $(s){return document.querySelector(s);}
+  function money(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₴';}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function byId(id){return M.filter(function(m){return m.id===id;})[0];}
+  function I(n){return '<svg class="ic" aria-hidden="true"><use href="#i-'+n+'"/></svg>';}
+  var t=null;
+  function toast(msg){$('#toastText').textContent=msg;$('#toast').hidden=false;clearTimeout(t);t=setTimeout(function(){$('#toast').hidden=true;},2600);}
+  window.__toast=toast;
+
+  // tariffs
+  var TAR=[['h1','Година','400','за будь-яку модель','',false,'Покататися'],['d1','Доба','700','за будь-яку модель','',false,'На цілий день'],['w1','Тиждень','2 000','≈ 286 ₴ на добу','до −59%',true,'Найвигідніше для міста'],['m1','Місяць','7 500','≈ 250 ₴ на добу','до −64%',false,'Для кур’єрів']];
+  $('#tarGrid').innerHTML=TAR.map(function(x){
+    return '<div class="card tar'+(x[5]?' hot':'')+'">'+(x[5]?'<span class="lbl">Популярний</span>':'')+'<small>'+x[1]+' · '+x[6]+'</small><div class="big">'+(x[0]==='w1'?'<span style="margin:0 4px 0 0">від</span>':'')+x[2]+'<span>₴</span></div><div class="per">'+x[3]+'</div>'+(x[4]?'<span class="save">'+x[4]+' від ціни за добу</span>':'')+'<div class="sp"></div><a class="btn '+(x[5]?'btn-ac':'btn-gh')+' btn-sm" href="#book" data-pick="'+x[0]+'">Обрати</a></div>';
+  }).join('');
+
+  // fleet
+  $('#fleetGrid').innerHTML=M.map(function(m){
+    return '<article class="card mdl"><div class="ph"><span>'+I('img')+'Фото '+esc(m.name)+'</span>'+(m.badge?'<span class="badge'+(m.alt?' alt':'')+'">'+m.badge+'</span>':'')+'</div>'
+      +'<h3>'+esc(m.name)+'</h3><p style="color:var(--mut)">'+esc(m.desc)+'</p>'
+      +'<div class="spec"><div><small>Запас ходу</small><b>'+m.range+'</b></div><div><small>Швидкість</small><b>до 65 км/год</b></div><div><small>Місць</small><b>2</b></div><div><small>Тиждень</small><b>'+money(m.w)+'</b></div></div>'
+      +'<a class="btn btn-gh btn-sm" href="#book" data-model="'+m.id+'">Забронювати '+esc(m.short)+'</a></article>';
+  }).join('');
+
+  // faq
+  $('#faqList').innerHTML=FAQ.map(function(q,i){return '<details'+(i===0?' open':'')+'><summary>'+esc(q[0])+'</summary><p>'+esc(q[1])+'</p></details>';}).join('');
+
+  // booking
+  var B={m:'a700',k:'d1'};
+  $('#b-model').innerHTML=M.map(function(m){return '<option value="'+m.id+'">'+esc(m.name)+'</option>';}).join('');
+  $('#b-dur').innerHTML=DUR.map(function(d){return '<label><input type="radio" name="dur" value="'+d[0]+'"><span>'+d[1]+'</span></label>';}).join('');
+  var d0=new Date();$('#b-date').value=d0.toISOString().slice(0,10);$('#b-date').min=d0.toISOString().slice(0,10);
+  function unitPrice(m,k){return k==='h1'?m.h:k==='d1'?m.d:k==='w1'?m.w:MONTH;}
+  function helmet(k){return k==='w1'?250:k==='m1'?600:100;}
+  function qtyOpts(){
+    var k=B.k,max=k==='h1'?8:k==='d1'?6:3,unit=DUR.filter(function(d){return d[0]===k;})[0][2];
+    var cur=+$('#b-qty').value||1;
+    $('#b-qty').innerHTML=Array.apply(null,{length:max}).map(function(_,i){var n=i+1;return '<option value="'+n+'"'+(n===Math.min(cur,max)?' selected':'')+'>'+n+' '+pl(n,unit)+'</option>';}).join('');
+  }
+  function calc(){
+    var m=byId(B.m),k=B.k,q=+$('#b-qty').value||1;
+    var base=unitPrice(m,k)*q;
+    var del=+document.querySelector('input[name=del]:checked').value;
+    var hl=$('#b-helmet').checked?helmet(k)*(k==='h1'?1:q):0;
+    var hd=$('#b-holder').checked?100:0;
+    var lab=DUR.filter(function(d){return d[0]===k;})[0];
+    var lines=[[lab[1]+' × '+q,base]];
+    if(hl)lines.push(['Шолом',hl]);if(hd)lines.push(['Тримач телефону',hd]);if(del)lines.push(['Доставка',del]);
+    $('#sumName').textContent=m.name;
+    $('#sumPh').innerHTML='<span>'+I('img')+'Фото '+esc(m.name)+'</span>';
+    $('#sumLines').innerHTML=lines.map(function(l){return '<div class="ln"><span>'+esc(l[0])+'</span><b>'+money(l[1])+'</b></div>';}).join('');
+    var tot=lines.reduce(function(a,l){return a+l[1];},0);
+    $('#sumTot').textContent=money(tot);
+    $('#helmetPr').textContent=money(helmet(k))+(k==='w1'?'/тиж.':k==='m1'?'/міс.':'');
+    return {m:m,k:k,q:q,tot:tot,lab:lab[1],del:del};
+  }
+  function setB(m,k){
+    if(m){B.m=m;$('#b-model').value=m;}
+    if(k){B.k=k;}
+    document.querySelectorAll('input[name=dur]').forEach(function(r){r.checked=r.value===B.k;});
+    qtyOpts();calc();
+  }
+  setB('a700','d1');
+
+  document.addEventListener('change',function(e){
+    var id=e.target.id,n=e.target.name;
+    if(id==='b-model'){B.m=e.target.value;calc();}
+    else if(n==='dur'){B.k=e.target.value;qtyOpts();calc();}
+    else if(id==='b-qty'||n==='del'||id==='b-helmet'||id==='b-holder'){calc();}
+  });
+  document.addEventListener('click',function(e){
+    var p=e.target.closest('[data-pick],[data-model]');
+    if(p){setB(p.dataset.model||null,p.dataset.pick||null);}
+    var s=e.target.closest('[data-stub]');
+    if(s){e.preventDefault();toast('Демо: '+s.dataset.stub.charAt(0).toLowerCase()+s.dataset.stub.slice(1));}
+  });
+  var form=$('#bform');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var nm=$('#b-name'),ph=$('#b-phone');
+    if(!nm.value.trim()){nm.focus();toast('Вкажіть ім’я');return;}
+    if(ph.value.replace(/\D/g,'').length<10){ph.focus();toast('Вкажіть телефон повністю');return;}
+    var r=calc(),num=1185+window.__L.length-6;
+    var via=document.querySelector('input[name=via]:checked').value;
+    window.__L.unshift([num,'new',nm.value.trim(),ph.value.trim(),r.del?'Доставка':'Самовивіз',r.m.short+' · '+r.lab+(r.q>1?' ×'+r.q:''),String(r.tot),'Щойно']);
+    form.innerHTML='<div class="ok-box"><div class="big-ic">'+I('check')+'</div><h3>Заявку №'+num+' прийнято</h3><p>Дякуємо, '+esc(nm.value.trim())+'! Менеджер підтвердить бронь через '+esc(via)+'. На робочому сайті вам прийде повідомлення, а власнику сповіщення в Telegram.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-ac" href="#admin" data-adm>Подивитися в адмінці</a><button class="btn btn-gh" type="button" onclick="location.reload()">Нова заявка</button></div></div>';
+  });
+
+  // open now
+  var h=new Date().getHours();
+  if(h<10||h>=22){$('#openTxt').textContent='Зараз зачинено, відкриємося о 10:00';}
+})();
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+#adm{display:none;position:fixed;inset:0;z-index:1000;background:#EDEDED;font:13px/1.45 'Open Sans',Arial,sans-serif;color:#333;overflow:hidden}
+#adm.on{display:flex}
+#adm *{box-sizing:border-box}
+#adm a{color:inherit;text-decoration:none;cursor:pointer}
+.a-side{width:230px;background:#242D37;color:#c9d1da;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.a-logo{padding:18px 20px;color:#fff;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center}
+.a-logo i{width:26px;height:26px;border-radius:8px;background:#2563EB;display:inline-block}
+.a-user{padding:0 20px 14px;font-size:12px;color:#8a97a6}
+.a-menu a{display:flex;gap:10px;align-items:center;padding:10px 20px;color:#c9d1da;border-left:3px solid transparent}
+.a-menu a:hover{background:#2c3743;color:#fff}
+.a-menu a.on{background:#2c3743;color:#fff;border-left-color:#1E91CF}
+.a-menu b{width:8px;height:8px;border-radius:3px;background:#4A90E2;flex-shrink:0}
+.a-sub{padding:2px 0 6px}.a-sub a{padding:6px 20px 6px 51px;font-size:12.5px;color:#8a97a6}
+.a-stat{margin:14px 16px;padding:12px;border-radius:14px;background:#2c3743;font-size:12px}
+.a-stat div{display:flex;justify-content:space-between;padding:3px 0}
+.a-stat span{display:block;height:5px;border-radius:3px;background:#1b222a;margin-top:2px}
+.a-stat span i{display:block;height:100%;border-radius:3px;background:#1E91CF}
+.a-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.a-top{height:54px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:12px;flex-shrink:0}
+.a-top .burger{display:none;cursor:pointer;font-size:20px}
+.a-top a{color:#2563EB!important;font-weight:600}
+.a-body{flex:1;overflow-y:auto;padding:22px}
+.a-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.a-h h1{margin:0;font-size:22px;font-weight:600}
+.a-bc{font-size:12px;color:#8a97a6}
+.a-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.a-tile{background:#fff;border-radius:20px;padding:18px 20px}
+.a-tile small{color:#8a97a6;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
+.a-tile strong{display:block;font-size:28px;font-weight:700;margin-top:4px}
+.a-tile em{font-style:normal;font-size:12px;color:#16a34a}
+.a-panel{background:#fff;border-radius:20px;padding:20px;margin-bottom:18px}
+.a-panel h2{margin:0 0 12px;font-size:15px;font-weight:600}
+.a-cols{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.a-chart{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px}
+.a-chart div{flex:1;background:#4A90E2;border-radius:8px 8px 0 0;position:relative;min-height:6px}
+.a-chart div span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:#8a97a6}
+.a-tbl{width:100%;border-collapse:collapse}
+.a-tbl th{text-align:left;font-weight:600;color:#6b7785;padding:9px 10px;border-bottom:1px solid #E9ECEF;font-size:12px;white-space:nowrap}
+.a-tbl td{padding:10px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.a-tbl tr:hover td{background:#fafcfe}
+.a-wrap{overflow-x:auto}
+.a-btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:9px 16px;background:#2563EB;color:#fff!important;font:600 13px 'Open Sans',sans-serif;cursor:pointer}
+.a-btn.g{background:#F1F5F9;color:#333!important}
+.a-btn.s{padding:6px 11px;border-radius:10px;font-size:12px}
+.a-in{width:100%;background:#F1F5F9;border:1px solid transparent;border-radius:12px;padding:10px 13px;font:13px 'Open Sans',sans-serif;color:#333}
+.a-in:focus{outline:0;border-color:#1E91CF;background:#fff}
+textarea.a-in{min-height:110px;resize:vertical}
+.a-fl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.a-fl .a-in{width:auto;min-width:150px;flex:1}
+.a-tabs{display:flex;gap:4px;border-bottom:1px solid #E9ECEF;margin-bottom:18px;flex-wrap:wrap}
+.a-tabs a{padding:9px 16px;border-radius:12px 12px 0 0;color:#6b7785}
+.a-tabs a.on{background:#F1F5F9;color:#2563EB;font-weight:600}
+.a-row{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+.a-row label{padding-top:10px;font-weight:600;color:#555}
+.a-st{display:inline-block;border-radius:8px;padding:3px 10px;font-size:12px;font-weight:600}
+.a-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:600}
+.o-card{display:flex;background:#fff;border-radius:16px;margin-bottom:10px;overflow:hidden;align-items:stretch}
+.o-card>i{width:6px;flex-shrink:0}
+.o-card>div{flex:1;padding:12px 16px;display:grid;grid-template-columns:90px 1.4fr 1.6fr 100px 170px;gap:12px;align-items:center}
+.o-card small{color:#8a97a6;display:block}
+@media(max-width:800px){
+.a-side{position:absolute;left:-240px;top:0;bottom:0;z-index:5;transition:left .2s}
+#adm.menu .a-side{left:0}
+.a-top .burger{display:block}
+.a-cols{grid-template-columns:1fr}
+.a-row{grid-template-columns:1fr;gap:4px}.a-row label{padding-top:0}
+.o-card>div{grid-template-columns:1fr 1fr}
+.a-body{padding:14px}
+}
+.fa-link{cursor:pointer}
+</style>
+
+<div id="adm" aria-label="Адмін-панель (демо)">
+<aside class="a-side">
+<div class="a-logo"><i></i>Назва прокату</div>
+<div class="a-user">Адміністратор · демо</div>
+<nav class="a-menu" id="aMenu"></nav>
+<div class="a-stat">
+<div><span>Завантаження</span><b>74%</b></div><span><i style="width:74%"></i></span>
+<div><span>Заявки</span><b>52%</b></div><span><i style="width:52%"></i></span>
+<div><span>Клієнти</span><b>31%</b></div><span><i style="width:31%"></i></span>
+</div>
+</aside>
+<div class="a-main">
+<div class="a-top"><span class="burger" data-a="burger">☰</span><span class="a-bc" id="aBc">Панель керування</span><a data-a="exit">← Перейти на сайт</a></div>
+<div class="a-body" id="aBody"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var P = window.__P || [];
+  var adm = document.getElementById('adm');
+  var A = {v:'dash', pid:null, tab:'g', q:'', st:''};
+  var STAT = {
+    new:['Нове','#DBEAFE','#1D4ED8','#2563EB'],
+    work:['В обробці','#FEF3C7','#B45309','#F59E0B'],
+    ship:['Видано','#E0F2FE','#0369A1','#1E91CF'],
+    done:['Виконано','#DCFCE7','#15803D','#16A34A'],
+    cancel:['Скасовано','#F1F5F9','#64748B','#94A3B8']
+  };
+  var ORD = window.__L;
+  var MENU = [
+    ['dash','Панель керування'],
+    ['cat','Каталог',[['prod','Скутери'],['cats','Категорії'],['attr','Тарифи']]],
+    ['ord','Заявки'],
+    ['cust','Клієнти',[['cust','Список клієнтів'],['om','Менеджер заявок']]],
+    ['blog','Блог'],
+    ['mk','Маркетинг',[['mk','Купони'],['om','Менеджер заявок']]],
+    ['ext','Розширення',[['ext','Модулі'],['om','Менеджер заявок'],['sms','SMS-Fly Order']]],
+    ['set','Налаштування']
+  ];
+  function $(s){return document.querySelector(s)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function money(n){return Number(n).toLocaleString('uk-UA')+' ₴'}
+  function st(k){var s=STAT[k];return '<span class="a-st" style="background:'+s[1]+';color:'+s[2]+'">'+s[0]+'</span>'}
+  function toast(t){var el=document.getElementById('toast'),tx=document.getElementById('toastText');if(!el||!tx)return;tx.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){el.hidden=true},2200)}
+
+  function menu(){
+    var h='';
+    MENU.forEach(function(m){
+      var on = A.v===m[0] || (m[0]==='cat'&&(A.v==='prod'||A.v==='pedit'||A.v==='cats'||A.v==='attr')) || (m[2]&&A.sec===m[0]);
+      h+='<a data-a="nav" data-v="'+m[0]+'" class="'+(on?'on':'')+'"><b></b>'+m[1]+'</a>';
+      if(m[2]&&on){h+='<div class="a-sub">';m[2].forEach(function(s){h+='<a data-a="nav" data-v="'+s[0]+'" data-sec="'+m[0]+'">'+s[1]+'</a>'});h+='</div>'}
+    });
+    $('#aMenu').innerHTML=h;
+  }
+
+  function dash(){
+    var bars=[40,55,35,70,60,85,95], days=['пн','вт','ср','чт','пт','сб','нд'];
+    var ch=bars.map(function(b,i){return '<div style="height:'+b+'%"><span>'+days[i]+'</span></div>'}).join('');
+    var rows=ORD.slice(0,5).map(function(o){return '<tr class="fa-link" data-a="ord-open"><td>#'+o[0]+'</td><td>'+esc(o[2])+'</td><td>'+st(o[1])+'</td><td>'+o[7]+'</td><td>'+money(o[6])+'</td></tr>'}).join('');
+    return '<div class="a-h"><h1>Панель керування</h1></div>'+
+    '<div class="a-tiles">'+
+    '<div class="a-tile"><small>Заявки</small><strong>214</strong><em>▲ 12% до минулого місяця</em></div>'+
+    '<div class="a-tile"><small>Виручка</small><strong>312 600 ₴</strong><em>▲ 8%</em></div>'+
+    '<div class="a-tile"><small>Клієнти</small><strong>146</strong><em>▲ 23 нових, 11 кур’єрів</em></div>'+
+    '<div class="a-tile"><small>Скутери в оренді</small><strong>41 з 52</strong><em>11 вільні в пункті</em></div></div>'+
+    '<div class="a-cols"><div class="a-panel"><h2>Заявки за тиждень</h2><div class="a-chart">'+ch+'</div><div style="height:20px"></div></div>'+
+    '<div class="a-panel"><h2>Остання активність</h2><div style="line-height:2">Нова заявка #'+ORD[0][0]+'<br>Aima A700 повернули, відео стану збережено<br>Кур’єр Олег: оренда закінчується завтра<br>Новий відгук у Google: 5★</div></div></div>'+
+    '<div class="a-panel"><h2>Останні заявки</h2><div class="a-wrap"><table class="a-tbl"><tr><th>№</th><th>Клієнт</th><th>Статус</th><th>Дата</th><th>Сума</th></tr>'+rows+'</table></div></div>';
+  }
+
+  function dur(p){return p.cat==='acc'?'—':p.h+' ₴/год'}
+  function prodList(){
+    var q=A.q.toLowerCase();
+    var rows=P.filter(function(p){return !q||p.name.toLowerCase().indexOf(q)>-1}).map(function(p,i){
+      var busy=p.cat!=='acc'&&i%3===1;
+      var stt=p.cat==='acc'?'<span class="a-badge" style="background:#F1F5F9;color:#64748B">послуга</span>':(busy?'<span class="a-badge" style="background:#FEF3C7;color:#B45309">в прокаті</span>':'<span class="a-badge" style="background:#DCFCE7;color:#15803D">вільний</span>');
+      return '<tr><td><input type="checkbox"></td><td><div style="width:40px;height:40px;border-radius:10px;background:#F1F5F9;display:grid;place-items:center;color:#4A90E2;font-weight:700">'+(p.cat==='acc'?'◇':'▮')+'</div></td><td><b>'+esc(p.name)+'</b></td><td>'+esc(p.id.toUpperCase())+'</td><td>'+dur(p)+'</td><td>'+money(p.d)+'</td><td>'+stt+'</td><td><a class="a-btn s" data-a="pedit" data-id="'+p.id+'">Змінити</a></td></tr>';
+    }).join('');
+    return '<div class="a-h"><h1>Скутери</h1><a class="a-btn" data-a="pnew">+ Додати скутер</a></div>'+
+    '<div class="a-panel"><div class="a-fl"><input class="a-in" id="aq" placeholder="Назва" value="'+esc(A.q)+'"><select class="a-in"><option>Усі статуси</option><option>Вільні</option><option>В прокаті</option></select><a class="a-btn" data-a="pfilter">Фільтр</a></div>'+
+    '<div class="a-wrap"><table class="a-tbl"><tr><th></th><th>Фото</th><th>Назва</th><th>Код</th><th>За годину</th><th>За добу</th><th>Статус</th><th></th></tr>'+rows+'</table></div></div>';
+  }
+
+  function prodEdit(){
+    var p=P.filter(function(x){return x.id===A.pid})[0]||{name:'',desc:'',id:'',h:'',d:'',cat:'city'};
+    var T=[['g','Загальне'],['d','Тарифи'],['l','Характеристики'],['i','Зображення'],['s','SEO']];
+    var tabs='<div class="a-tabs">'+T.map(function(t){return '<a data-a="ptab" data-t="'+t[0]+'" class="'+(A.tab===t[0]?'on':'')+'">'+t[1]+'</a>'}).join('')+'</div>';
+    var body='';
+    if(A.tab==='g') body='<div class="a-row"><label>Назва</label><input class="a-in" value="'+esc(p.name)+'"></div><div class="a-row"><label>Опис</label><textarea class="a-in">'+esc(p.desc||'')+'</textarea></div><div class="a-row"><label>Meta title</label><input class="a-in" value="'+esc(p.name)+' — прокат у Києві"></div>';
+    else if(A.tab==='d') body='<div class="a-row"><label>Код</label><input class="a-in" value="'+esc((p.id||'').toUpperCase())+'"></div><div class="a-row"><label>Ціна за годину</label><input class="a-in" value="'+esc(p.h)+'"></div><div class="a-row"><label>Ціна за добу</label><input class="a-in" value="'+esc(p.d)+'"></div><div class="a-row"><label>Статус</label><select class="a-in"><option>Увімкнено</option><option>Вимкнено</option></select></div>';
+    else if(A.tab==='l') body='<div class="a-row"><label>Категорія</label><input class="a-in" value="'+esc(({city:'Міські',power:'Потужні',kids:'Дитячі',acc:'Додатково'})[p.cat]||'')+'"></div><div class="a-row"><label>Потужність, Вт</label><input class="a-in" value="'+esc(p.kw||'')+'"></div><div class="a-row"><label>Запас ходу, км</label><input class="a-in" value="'+esc(p.range||'')+'"></div><div class="a-row"><label>Вага, кг</label><input class="a-in" value="'+esc(p.weight||'')+'"></div>';
+    else if(A.tab==='i') body='<div class="a-row"><label>Головне фото</label><div style="width:120px;height:120px;border-radius:16px;background:#F1F5F9;display:grid;place-items:center;color:#8a97a6">Фото</div></div>';
+    else body='<div class="a-row"><label>SEO URL</label><input class="a-in" value="'+esc((p.id||'')+'-prokat')+'"></div>';
+    return '<div class="a-h"><h1>'+(p.name?'Змінити скутер':'Новий скутер')+'</h1><div><a class="a-btn" data-a="psave">Зберегти</a> <a class="a-btn g" data-a="nav" data-v="prod">Скасувати</a></div></div><div class="a-panel">'+tabs+body+'</div>';
+  }
+
+  function ordList(t){
+    var f=A.st;
+    var btns='<a class="a-btn s '+(f?'g':'')+'" data-a="ofilt" data-s="">Усі ('+ORD.length+')</a> '+Object.keys(STAT).map(function(k){return '<a class="a-btn s '+(f===k?'':'g')+'" data-a="ofilt" data-s="'+k+'">'+STAT[k][0]+'</a>'}).join(' ');
+    var cards=ORD.filter(function(o){return !f||o[1]===f}).map(function(o){
+      var opts=Object.keys(STAT).map(function(k){return '<option value="'+k+'"'+(k===o[1]?' selected':'')+'>'+STAT[k][0]+'</option>'}).join('');
+      return '<div class="o-card"><i style="background:'+STAT[o[1]][3]+'"></i><div><span><b>#'+o[0]+'</b><small>'+o[7]+'</small></span><span><b>'+esc(o[2])+'</b><small>'+esc(o[3])+'</small></span><span>'+esc(o[5])+'<small>'+esc(o[4])+'</small></span><b>'+money(o[6])+'</b><select class="a-in" data-a="ostat" data-n="'+o[0]+'">'+opts+'</select></div></div>';
+    }).join('');
+    return '<div class="a-h"><h1>'+(t||'Заявки')+'</h1></div><div class="a-fl">'+btns+'</div>'+cards;
+  }
+
+  function stub(t){return '<div class="a-h"><h1>'+t+'</h1></div><div class="a-panel" style="color:#8a97a6">Розділ у демо не заповнено. У робочому магазині тут буде повний функціонал.</div>'}
+
+  function render(){
+    var v=A.v, h;
+    var names={dash:'Панель керування',prod:'Скутери',pedit:'Скутери',ord:'Заявки',om:'Менеджер заявок',sms:'SMS-Fly Order'};
+    if(v==='dash')h=dash();else if(v==='prod')h=prodList();else if(v==='pedit')h=prodEdit();else if(v==='ord')h=ordList();
+    else if(v==='om')h=ordList('Менеджер заявок');
+    else if(v==='sms')h=stub('SMS-Fly Order');
+    else h=stub(({cats:'Категорії',attr:'Тарифи',cust:'Клієнти',blog:'Блог',mk:'Маркетинг',ext:'Розширення',set:'Налаштування',cat:'Каталог'})[v]||'Розділ');
+    $('#aBody').innerHTML=h;
+    $('#aBc').textContent=(names[v]||'Розділ');
+    menu();
+  }
+  function open(){adm.classList.add('on');document.documentElement.style.overflow='hidden';render()}
+  function close(){adm.classList.remove('on','menu');document.documentElement.style.overflow=''}
+
+  document.addEventListener('click',function(e){
+    var o=e.target.closest('[data-adm]');
+    if(o){e.preventDefault();open();return}
+    var el=e.target.closest('#adm [data-a]');
+    if(!el)return;
+    var a=el.getAttribute('data-a');
+    if(a==='exit')close();
+    else if(a==='burger')adm.classList.toggle('menu');
+    else if(a==='nav'){A.v=el.getAttribute('data-v');if(A.v==='cat')A.v='prod';A.sec=el.getAttribute('data-sec')||(['cust','mk','ext'].indexOf(A.v)>-1?A.v:(A.v==='om'?A.sec:null));adm.classList.remove('menu');render()}
+    else if(a==='pedit'){A.pid=el.getAttribute('data-id');A.tab='g';A.v='pedit';render()}
+    else if(a==='pnew'){A.pid=null;A.tab='g';A.v='pedit';render()}
+    else if(a==='ptab'){A.tab=el.getAttribute('data-t');render()}
+    else if(a==='psave'){toast('Збережено (демо)');A.v='prod';render()}
+    else if(a==='pfilter'){A.q=$('#aq').value;render()}
+    else if(a==='ofilt'){A.st=el.getAttribute('data-s');render()}
+    else if(a==='ord-open'){A.v='ord';render()}
+  });
+  document.addEventListener('change',function(e){
+    var el=e.target.closest('#adm [data-a="ostat"]');
+    if(!el)return;
+    var n=+el.getAttribute('data-n');
+    ORD.forEach(function(o){if(o[0]===n)o[1]=el.value});
+    toast('Статус змінено (демо)');render();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='aq'){A.q=e.target.value;render()}});
+  if(location.hash==='#admin')open();
+})();
+</script>
+
+</body></html>
