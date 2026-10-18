@@ -1,0 +1,57 @@
+{{ header }}
+<div id="product-category" class="container ms-page">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}{% set class = 'col-sm-6' %}{% elseif column_left or column_right %}{% set class = 'col-sm-9' %}{% else %}{% set class = 'col-sm-12' %}{% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h1 class="ms-h1">{{ heading_title }}</h1>
+      {% if categories %}
+      <div class="ms-subcats">
+        {% for category in categories %}<a href="{{ category.href }}" class="ms-subcats__i">{{ category.name }}</a>{% endfor %}
+      </div>
+      {% endif %}
+      {% if products %}
+      <div class="ms-toolbar">
+        <div class="ms-toolbar__view hidden-xs">
+          <button type="button" id="list-view" class="btn btn-default" title="{{ button_list }}"><i class="fa fa-th-list"></i></button>
+          <button type="button" id="grid-view" class="btn btn-default" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
+        </div>
+        <a href="{{ compare }}" id="compare-total" class="ms-toolbar__compare">{{ text_compare }}</a>
+        <label class="ms-select"><span class="sr-only">{{ text_sort }}</span>
+          <select id="input-sort" class="form-control" onchange="location = this.value;">
+            {% for sorts in sorts %}<option value="{{ sorts.href }}"{% if sorts.value == '%s-%s'|format(sort, order) %} selected="selected"{% endif %}>{{ sorts.text }}</option>{% endfor %}
+          </select>
+        </label>
+        <label class="ms-select ms-select--sm"><span class="sr-only">{{ text_limit }}</span>
+          <select id="input-limit" class="form-control" onchange="location = this.value;">
+            {% for limits in limits %}<option value="{{ limits.href }}"{% if limits.value == limit %} selected="selected"{% endif %}>{{ limits.text }}</option>{% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="row ms-grid">
+        {% for product in products %}
+        <div class="product-layout product-grid col-lg-3 col-md-4 col-sm-6 col-xs-6">{% include 'melshop/template/product/ms_card.twig' %}</div>
+        {% endfor %}
+      </div>
+      <div class="ms-pager">
+        <div>{{ pagination }}</div>
+        <div class="ms-pager__res">{{ results }}</div>
+      </div>
+      {% endif %}
+      {% if thumb or description %}
+      <div class="ms-catdesc">
+        {% if thumb %}<img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="ms-catdesc__img" />{% endif %}
+        {% if description %}<div class="ms-catdesc__text">{{ description }}</div>{% endif %}
+      </div>
+      {% endif %}
+      {% if not categories and not products %}
+      <div class="ms-empty"><i class="fa fa-search"></i><p>{{ text_empty }}</p><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      {% endif %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

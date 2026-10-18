@@ -1,0 +1,38 @@
+<div id="cart" class="btn-group btn-block">
+  <button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}" class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
+  <ul class="dropdown-menu pull-right ms-minicart">
+    {% if products or vouchers %}
+    <li>
+      <table class="table">
+        {% for product in products %}
+        <tr>
+          <td class="text-center ms-minicart__img">{% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" /></a>{% endif %}</td>
+          <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
+            {% if product.option %}{% for option in product.option %}<br /><small>{{ option.name }}: {{ option.value }}</small>{% endfor %}{% endif %}
+            {% if product.recurring %}<br /><small>{{ text_recurring }} {{ product.recurring }}</small>{% endif %}
+            <div class="ms-minicart__q">{{ product.quantity }} × {{ product.total }}</div></td>
+          <td class="text-center"><button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="ms-minicart__rm"><i class="fa fa-times"></i></button></td>
+        </tr>
+        {% endfor %}
+        {% for voucher in vouchers %}
+        <tr>
+          <td></td>
+          <td class="text-left">{{ voucher.description }}<div class="ms-minicart__q">1 × {{ voucher.amount }}</div></td>
+          <td class="text-center"><button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="ms-minicart__rm"><i class="fa fa-times"></i></button></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </li>
+    <li>
+      <div class="ms-minicart__totals">
+        {% for total in totals %}
+        <div class="ms-minicart__row"><span>{{ total.title }}</span><b>{{ total.text }}</b></div>
+        {% endfor %}
+        <div class="ms-minicart__btns"><a href="{{ cart }}" class="btn btn-default">{{ text_cart }}</a><a href="{{ checkout }}" class="btn btn-primary">{{ text_checkout }}</a></div>
+      </div>
+    </li>
+    {% else %}
+    <li><p class="text-center ms-minicart__empty"><i class="fa fa-shopping-basket"></i><br>{{ text_empty }}</p></li>
+    {% endif %}
+  </ul>
+</div>

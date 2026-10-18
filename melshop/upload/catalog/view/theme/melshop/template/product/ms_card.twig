@@ -1,0 +1,28 @@
+<div class="product-thumb ms-card">
+  <div class="image ms-card__img">
+    <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" loading="lazy" /></a>
+    {% if product.special %}<span class="ms-badge ms-badge--sale">{{ ms_text.text_sale }}</span>{% endif %}
+    <div class="ms-card__acts">
+      <button type="button" title="{{ button_wishlist }}" aria-label="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart-o"></i></button>
+      <button type="button" title="{{ button_compare }}" aria-label="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-balance-scale"></i></button>
+    </div>
+  </div>
+  <div class="caption ms-card__body">
+    <h4 class="ms-card__name"><a href="{{ product.href }}">{{ product.name }}</a></h4>
+    {% if ms_show_desc and product.description %}<p class="ms-card__desc">{{ product.description }}</p>{% endif %}
+    <div class="rating ms-card__rating">
+      {% for i in 1..5 %}<i class="fa {% if product.rating >= i %}fa-star{% else %}fa-star-o{% endif %}"></i>{% endfor %}
+    </div>
+    <div class="ms-card__foot">
+      {% if product.price %}
+      <p class="price ms-card__price">
+        {% if not product.special %}<span class="price-new">{{ product.price }}</span>{% else %}<span class="price-old">{{ product.price }}</span><span class="price-new is-sale">{{ product.special }}</span>{% endif %}
+        {% if product.tax %}<span class="price-tax">{{ text_tax }} {{ product.tax }}</span>{% endif %}
+      </p>
+      {% endif %}
+      <div class="button-group ms-card__buy">
+        <button type="button" class="ms-btn-cart" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum ? product.minimum : 1 }}');" aria-label="{{ button_cart }}"><i class="fa fa-shopping-cart"></i><span>{{ button_cart }}</span></button>
+      </div>
+    </div>
+  </div>
+</div>

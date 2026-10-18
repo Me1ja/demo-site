@@ -1,0 +1,23 @@
+{% if categories %}
+<div class="container">
+  <nav id="menu" class="ms-menu">
+    <ul class="ms-menu__list">
+      {% for category in categories %}
+      <li class="ms-menu__item{% if category.children %} has-children{% endif %}">
+        <a href="{{ category.href }}" class="ms-menu__link">{{ category.name }}{% if category.children %}<i class="fa fa-angle-right"></i>{% endif %}</a>
+        {% if category.children %}
+        <div class="ms-menu__sub">
+          <a href="{{ category.href }}" class="ms-menu__all">{{ text_all }} {{ category.name }}</a>
+          <ul>
+            {% for child in category.children %}
+            <li><a href="{{ child.href }}">{{ child.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+{% endif %}
